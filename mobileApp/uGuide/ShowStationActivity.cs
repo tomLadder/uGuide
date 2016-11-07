@@ -46,7 +46,7 @@ namespace uGuide
             {
                 Station station = await uGuideService.Instance.GetStation(tableId);
                 textName.Text = station.name;
-                textGrade.Text = "Klasse: "  + station.grade;
+                textGrade.Text = "Klasse: " + station.grade;
                 textSubject.Text = station.subject;
                 textDescription.Text = station.description;
             }
@@ -58,7 +58,7 @@ namespace uGuide
 
         private void SetEventHandler()
         {
-            btnBack.Click += BtnBack_Click;   
+            btnBack.Click += BtnBack_Click;
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
@@ -92,12 +92,23 @@ namespace uGuide
 
         private async void ScanCode()
         {
-            string result = await ScanHelper.ScanCode();
-            if (result != null)
+            try
             {
-                FillTable(result);
+                string result = await ScanHelper.ScanCode();
+                if (result != null)
+                {
+                    FillTable(result);
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
+        public override void OnBackPressed()
+        {
+            ScanCode();
+        }
     }
 }

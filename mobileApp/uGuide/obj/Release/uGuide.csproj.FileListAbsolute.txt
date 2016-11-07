@@ -11,6 +11,7 @@ C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\zxin
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\ZXingNetMobile.dll
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\Newtonsoft.Json.xml
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\RestSharp.xml
+C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\uGuide.csprojResolveAssemblyReference.cache
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\uGuide.dll
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\uGuide.pdb
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\android\bin\uGuide.uGuide.apk
@@ -22,7 +23,6 @@ C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\res\
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\R.cs.flag
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\uploadflags.txt
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\uGuide.dll.mdb
-C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\obj\Release\uGuide.csprojResolveAssemblyReference.cache
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\Java.Interop.dll.mdb
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\Microsoft.CSharp.dll.mdb
 C:\Users\Manuel Sammer\Documents\GitHub\uGuide\mobileApp\uGuide\bin\Release\Mono.Android.dll.mdb

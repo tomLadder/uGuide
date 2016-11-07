@@ -72,6 +72,7 @@ namespace uGuide.Services
             }
             else
             {
+                NotifyServer(id);
                 return JsonConvert.DeserializeObject<Station>(restResponse.Content);
             }
         }
@@ -111,6 +112,16 @@ namespace uGuide.Services
                 var d = JsonConvert.DeserializeObject<TokenResponse>(restResponse.Content);
                 return d.token;
             }
+        }
+
+        public async void NotifyServer(string id)
+        {
+            RestRequest request = new RestRequest("/notification/{id}", Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("x-access-token", Database.Instance.CurrentUser.accessToken);
+            request.AddUrlSegment("id", id);
+            //Execute async for perfomance
+            var val = await myRestClient.ExecuteTaskAsync(request);
         }
     }
 }

@@ -19,5 +19,7 @@ namespace uGuide.Services.Interfaces
         Task<bool> Login(User u);
 
         Task<Station> GetStation(string id);
+
+        void NotifyServer(string id);
     }
 }

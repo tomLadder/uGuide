@@ -1,11 +1,11 @@
-uGuide.LoginActivity, uGuide;md5770a61930cd09019212d07f341173f2a.LoginActivity
-uGuide.LoginActivity, uGuide, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5770a61930cd09019212d07f341173f2a.LoginActivity
-uGuide.LoginActivity;md5770a61930cd09019212d07f341173f2a.LoginActivity
-uguide.LoginActivity;md5770a61930cd09019212d07f341173f2a.LoginActivity
-uGuide.ShowStationActivity, uGuide;md5770a61930cd09019212d07f341173f2a.ShowStationActivity
-uGuide.ShowStationActivity, uGuide, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5770a61930cd09019212d07f341173f2a.ShowStationActivity
-uGuide.ShowStationActivity;md5770a61930cd09019212d07f341173f2a.ShowStationActivity
-uguide.ShowStationActivity;md5770a61930cd09019212d07f341173f2a.ShowStationActivity
+uGuide.LoginActivity, uGuide;md5b419e16a60264d4251cc36df8f46bfac.LoginActivity
+uGuide.LoginActivity, uGuide, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;md5b419e16a60264d4251cc36df8f46bfac.LoginActivity
+uGuide.LoginActivity;md5b419e16a60264d4251cc36df8f46bfac.LoginActivity
+uguide.LoginActivity;md5b419e16a60264d4251cc36df8f46bfac.LoginActivity
+uGuide.ShowStationActivity, uGuide;md5b419e16a60264d4251cc36df8f46bfac.ShowStationActivity
+uGuide.ShowStationActivity, uGuide, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null;md5b419e16a60264d4251cc36df8f46bfac.ShowStationActivity
+uGuide.ShowStationActivity;md5b419e16a60264d4251cc36df8f46bfac.ShowStationActivity
+uguide.ShowStationActivity;md5b419e16a60264d4251cc36df8f46bfac.ShowStationActivity
 Android.Support.V4.View.ViewPager/IOnPageChangeListenerImplementor, Xamarin.Android.Support.v4;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
 Android.Support.V4.View.ViewPager+IOnPageChangeListenerImplementor, Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
 Android.Support.V4.View.ViewPager.IOnPageChangeListenerImplementor;mono.android.support.v4.view.ViewPager_OnPageChangeListenerImplementor
