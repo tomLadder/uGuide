@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="uGuide.Pages.StationDetailsPage"
+             Title="StationDetails">
+  <ScrollView>
+    <StackLayout Spacing="5">
+      <StackLayout>
+        <Label x:Name="lblName" Text="Stations name" HorizontalTextAlignment="Center" BackgroundColor="#388E3C"></Label>
+        <Label x:Name="txtName" Text="uGuide" FontSize="Large" HorizontalTextAlignment="Center"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Label x:Name="lblGrade" Text="Klasse" HorizontalTextAlignment="Center" BackgroundColor="#388E3C"></Label>
+        <Label x:Name="txtGrade" Text="5BHIFS" FontSize="Large" HorizontalTextAlignment="Center" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Label x:Name="lblSubject" Text="Unterrichtsgegenstand" HorizontalTextAlignment="Center" BackgroundColor="#388E3C"></Label>
+        <Label x:Name="txtSubject" Text="SYP" FontSize="Large" HorizontalTextAlignment="Center"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Label x:Name="lblDescription" Text="Beschreibung" HorizontalTextAlignment="Center" BackgroundColor="#388E3C"></Label>
+        <Label x:Name="txtDescription" Text="Ein Schulprojekt aus dem Gegenstand SYP. App wird von Guide am TdoT verwendet um der Abteilung eine bessere Übersicht über den Status der Guide zu bekommen. BLA BAL bla bla bla bla " FontSize="Large" HorizontalTextAlignment="Center"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Button Text="Zurück" Clicked="ButtonBackClicked" FontSize="Large"></Button>
+        <Button Text="Führung beenden (-DEV-)" Clicked="ButtonStopTourClicked" FontSize="Large"></Button>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
