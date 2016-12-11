@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Database.cs" />
+    <Compile Include="Data\Models\Answer.cs" />
     <Compile Include="Data\Models\Feedback.cs" />
     <Compile Include="Data\Models\Rating.cs" />
     <Compile Include="Data\Models\Station.cs" />

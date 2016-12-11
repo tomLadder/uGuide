@@ -8,13 +8,15 @@ namespace uGuide.Data.Models
 {
     public class Feedback
     {
+        public Rating FeedbackType { get; set; }
+        public string[] ObjectIds { get; set; }
         public string FeedbackText { get; set; }
-        public Rating Rating { get; set; }
 
-        public Feedback(string feedbackText, Rating rating)
+        public Feedback(Rating feedbackType, string[] objectIds, string feedbackText)
         {
+            FeedbackType = feedbackType;
+            ObjectIds = objectIds;
             FeedbackText = feedbackText;
-            Rating = rating;
         }
     }
 }

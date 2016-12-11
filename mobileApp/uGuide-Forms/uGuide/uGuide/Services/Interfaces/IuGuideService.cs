@@ -5,6 +5,7 @@ using System.Text;
 
 using uGuide.Data;
 using System.Threading.Tasks;
+using uGuide.Data.Models;
 
 namespace uGuide.Services.Interfaces
 {

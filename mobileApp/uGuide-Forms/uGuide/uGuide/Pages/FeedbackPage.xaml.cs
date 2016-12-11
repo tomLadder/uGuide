@@ -12,7 +12,7 @@ namespace uGuide.Pages
 {
     public partial class FeedbackPage : ContentPage
     {
-        private Rating selectedRating = Rating.Nothing;
+        private Rating selectedRating;
         public FeedbackPage()
         {
             InitializeComponent();
@@ -22,9 +22,9 @@ namespace uGuide.Pages
 
         private void ButtonEndTourClicked(object sender, EventArgs e)
         {
-            if (selectedRating != Rating.Nothing) // Instead of Nothing as Enum preselect a Button ? prob way better solution
+            if (!(btnPos.IsEnabled && btnNeg.IsEnabled)) //If both buttons are active (nothing selected) 
             {
-                uGuideService.Instance.SendFeedback(new Feedback(edFeedback.Text, selectedRating));
+                //uGuideService.Instance.SendFeedback(new Feedback(edFeedback.Text, selectedRating));
                 Database.Instance.CurrentVisitor = null;
                 Navigation.PopAsync();
                 Navigation.PopAsync();

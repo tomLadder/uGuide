@@ -23,7 +23,7 @@
     <Label x:Name="lblGender"  Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" Text="Geschlecht:"  HorizontalTextAlignment="Center" FontSize="Large"/>
     <Button x:Name="btnMale" Clicked="MaleButtonClicked" Grid.Row="4" Grid.Column="0" Image="male.png" Margin="25,0,25,0" BackgroundColor="Transparent"/>
     <Button x:Name="btnFemale" Clicked="FemaleButtonClicked" Grid.Row="4" Grid.Column="1" Image="female.png" Margin="25,0,25,0" BackgroundColor="Transparent"/>
-    <Button x:Name="btnStartTour" Clicked="StartTourButtonClicked" Text="Führung starten" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,5,0" FontSize="Large"/>
-    <Button x:Name="btnLogout" Clicked="LogoutButtonClicked" Text="Abmelden" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,5,0" FontSize="Large"/>
+    <Button x:Name="btnStartTour" Clicked="StartTourButtonClicked" Text="Führung starten" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,5,0" FontSize="Large" BackgroundColor="#00BCD4"/>
+    <Button x:Name="btnLogout" Clicked="LogoutButtonClicked" Text="Abmelden" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,5,0" FontSize="Large" BackgroundColor="#00BCD4"/>
   </Grid>
 </ContentPage>

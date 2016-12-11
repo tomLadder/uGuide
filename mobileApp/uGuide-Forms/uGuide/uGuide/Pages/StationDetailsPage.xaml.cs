@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.Content.Res;
 using uGuide.Data;
+using uGuide.Data.Models;
 using uGuide.Helpers;
 using uGuide.Services;
 using Xamarin.Forms;

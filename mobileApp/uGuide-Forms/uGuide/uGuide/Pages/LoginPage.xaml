@@ -8,7 +8,7 @@
       <Image Source="logo.png"/>
       <Entry x:Name="txtUsername" FontSize="Large"/>
       <Entry x:Name="txtPassword" IsPassword="true" FontSize="Large"/>
-      <Button x:Name="btnLogin" Text="Anmelden" Clicked="BtnLogin_OnClicked" FontSize="Large"/>
+      <Button x:Name="btnLogin" Text="Anmelden" Clicked="BtnLogin_OnClicked" FontSize="Large" BackgroundColor="#00BCD4"/>
       <Button x:Name="btnExit" Text="Beenden"  Clicked="BtnExit_OnClicked" FontSize="Large"/>
     </StackLayout>
   </ScrollView>

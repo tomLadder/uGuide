@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using uGuide.Data;
 using Xamarin.Forms;
 
 namespace uGuide.Pages
@@ -17,7 +17,7 @@ namespace uGuide.Pages
             NavigationPage.SetHasBackButton(p, false);
             NavigationPage.SetHasNavigationBar(p, false);
             this.Children.Add(p);
-            this.Children.Add(new StationHistory());
+            Database.Instance.UGuideMainPage = this;
         }
     }
 }

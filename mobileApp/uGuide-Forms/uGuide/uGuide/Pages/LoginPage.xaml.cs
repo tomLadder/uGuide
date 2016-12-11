@@ -38,6 +38,7 @@ namespace uGuide.Pages
                 this.txtPassword.Text = "";
                 this.txtUsername.Text = "";
                 await Navigation.PushAsync(new NewTourPage());
+                Database.Instance.UGuideMainPage.Children.Add(new StationHistory());
                 /*
                  * Service not online !
                 User user = new User(txtUsername.Text, txtPassword.Text);

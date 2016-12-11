@@ -2,8 +2,7 @@
 {
     public enum Rating
     {
-        Positive,
-        Negative,
-        Nothing
+        Positive = 0x1,
+        Negative = 0x2
     }
 }

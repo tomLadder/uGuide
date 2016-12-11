@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using uGuide.Data.Models;
+using uGuide.Pages;
 
 namespace uGuide.Data
 {
@@ -12,6 +13,7 @@ namespace uGuide.Data
         public User CurrentUser { get; set; } 
         public Visitor CurrentVisitor { get; set; }
         public List<Station> HistoryStations { get; set; }
+        public uGuideMainPage UGuideMainPage { get; set; }
 
         private Database() { }
 

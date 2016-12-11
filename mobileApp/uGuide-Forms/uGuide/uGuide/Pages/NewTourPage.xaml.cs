@@ -13,7 +13,7 @@ namespace uGuide.Pages
 {
     public partial class NewTourPage : ContentPage
     {
-        private Gender selectedGender = Gender.Else;
+        private Gender selectedGender;
 
         public NewTourPage()
         {
@@ -41,7 +41,7 @@ namespace uGuide.Pages
             try
             {
                 btnStartTour.IsEnabled = false;
-                if (String.IsNullOrEmpty(txtPLZ.Text) || selectedGender == Gender.Else || txtPLZ.Text.Length != 4)
+                if (String.IsNullOrEmpty(txtPLZ.Text) || (this.btnFemale.IsEnabled && this.btnMale.IsEnabled) || txtPLZ.Text.Length != 4)
                 {
                     await DisplayAlert("Fehler", "Bitte geben sie eine gültige PLZ (4 stellig) ein und wählen sie ein Geschlecht aus!","OK");
                     btnStartTour.IsEnabled = true;
@@ -54,7 +54,6 @@ namespace uGuide.Pages
                     txtPLZ.Text = "";
                     btnFemale.IsEnabled = true;
                     btnMale.IsEnabled = true;
-                    selectedGender = Gender.Else;
                     btnStartTour.IsEnabled = true;
                 }
             }
@@ -67,6 +66,7 @@ namespace uGuide.Pages
         public void LogoutButtonClicked(object sender, EventArgs e)
         {
             Database.Instance.CurrentUser = null;
+            Database.Instance.UGuideMainPage.Children.RemoveAt(1);
             this.Navigation.PopToRootAsync();
         }
         
