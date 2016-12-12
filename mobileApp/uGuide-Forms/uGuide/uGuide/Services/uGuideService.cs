@@ -124,13 +124,62 @@ namespace uGuide.Services
             var val = await myRestClient.Execute(request);
         }
 
+        public async void SendVisitor(Visitor visitor)
+        {
+            RestRequest request = new RestRequest("/visitor", Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("x-access-token", Database.Instance.CurrentUser.AccessToken);
+            request.AddBody(visitor);
+            var restResponse = await myRestClient.Execute(request);
+            if (restResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
+        }
+
         public async void SendFeedback(Feedback feedback)
         {
-            //RestRequest request = new RestRequest("/notification/{id}", Method.POST);
-            //request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            //request.AddHeader("x-access-token", Database.Instance.CurrentUser.AccessToken);
-            //request.AddUrlSegment("id", id);
-            //var val = await myRestClient.Execute(request);
+            RestRequest request = new RestRequest("/feedback", Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("x-access-token", Database.Instance.CurrentUser.AccessToken);
+            request.AddBody(feedback);
+            var restResponse = await myRestClient.Execute(request);
+            if (restResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
+        }
+
+        public async Task<List<Answer>> GetPredefinedAnswers()
+        {
+            RestRequest request = new RestRequest("/answer", Method.GET);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("x-access-token", Database.Instance.CurrentUser.AccessToken);
+            var restResponse = await myRestClient.Execute(request);
+            if (restResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<List<Answer>>(restResponse.Content);
+            }
+        }
+
+        public async Task<bool> IsUserConductingTour(User user)
+        {
+            RestRequest request = new RestRequest("/answer", Method.GET);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("x-access-token", Database.Instance.CurrentUser.AccessToken);
+            var restResponse = await myRestClient.Execute(request);
+            if (restResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception();
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<bool>(restResponse.Content);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@
       </StackLayout>
       <StackLayout>
         <Button Text="Zurück" Clicked="ButtonBackClicked" FontSize="Large" BackgroundColor="#00BCD4"></Button>
-        <Button Text="Führung beenden (-DEV-)" Clicked="ButtonStopTourClicked" FontSize="Large" BackgroundColor="#00BCD4"></Button>
+        <Button Text="Führung abbrechen" Clicked="ButtonStopTourClicked" FontSize="Large" BackgroundColor="#FF0000"></Button>
       </StackLayout>
     </StackLayout>
   </ScrollView>
