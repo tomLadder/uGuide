@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using uGuide.Data;
 using uGuide.Data.Models;
 using uGuide.Helpers;
+using uGuide.Services;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
@@ -49,8 +50,9 @@ namespace uGuide.Pages
                 else
                 {
                     Database.Instance.CurrentVisitor = new Visitor(int.Parse(txtPLZ.Text), selectedGender);
-                    //Call Backend and give new Visitor
-                    ScanHelper.ScanCode(Navigation);
+                    await uGuideService.Instance.SendVisitor();
+                    await ScanHelper.ScanCode(Navigation);
+                    Database.Instance.UGuideMainPage.Children.Add(new StationHistory());
                     txtPLZ.Text = "";
                     btnFemale.IsEnabled = true;
                     btnMale.IsEnabled = true;
@@ -59,16 +61,18 @@ namespace uGuide.Pages
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Fehler", "Konnte keine neue Führung erstellen! Grund: " + ex.Message, "OK");
+                await DisplayAlert("Fehler", "Konnte keine neue Führung erstellen! \nGrund: " + ex.Message, "OK");
                 btnStartTour.IsEnabled = true;
             }
         }
         public void LogoutButtonClicked(object sender, EventArgs e)
         {
             Database.Instance.CurrentUser = null;
-            Database.Instance.UGuideMainPage.Children.RemoveAt(1);
             this.Navigation.PopToRootAsync();
         }
-        
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

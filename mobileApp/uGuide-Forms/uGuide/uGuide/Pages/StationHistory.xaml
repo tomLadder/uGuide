@@ -3,5 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="uGuide.Pages.StationHistory"
              Title="History">
-  <ListView x:Name="HistoryList"/>
+  <StackLayout>
+    <ListView x:Name="DoneList"/>
+    <ListView x:Name="ToDoList"/>
+  </StackLayout>
 </ContentPage>

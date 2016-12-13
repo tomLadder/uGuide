@@ -8,15 +8,20 @@ namespace uGuide.Data.Models
 {
     public class Feedback
     {
-        public Rating FeedbackType { get; set; }
-        public string[] ObjectIds { get; set; }
-        public string FeedbackText { get; set; }
+        public FeedbackType FeedbackType { get; set; }
+        public string[] PredefinedAnswers { get; set; }
+        public string OptionalAnswer { get; set; }
 
-        public Feedback(Rating feedbackType, string[] objectIds, string feedbackText)
+        public Feedback(FeedbackType feedbackType, string[] predefinedAnswers, string optionalAnswer)
         {
             FeedbackType = feedbackType;
-            ObjectIds = objectIds;
-            FeedbackText = feedbackText;
+            PredefinedAnswers = predefinedAnswers;
+            OptionalAnswer = optionalAnswer;
+        }
+
+        public Feedback(FeedbackType feedbackType)
+        {
+            FeedbackType = feedbackType;
         }
     }
 }

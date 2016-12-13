@@ -5,7 +5,7 @@
             Publisher="CN=Manuel Sammer"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="d4e7815a-da11-4222-b40c-76a0649aa9e5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProduct_Id="d4e7815a-da11-4222-b40c-76a0649aa9e5" PhonePublisher_Id="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>uGuide.WinPhone</DisplayName>

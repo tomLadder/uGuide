@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Android.Content.Res;
 using uGuide.Data;
 using uGuide.Data.Models;
 using uGuide.Helpers;
@@ -22,7 +21,7 @@ namespace uGuide.Pages
             this.lblDescription.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
             this.lblName.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
             this.lblGrade.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
-            //FillDetails(stationID);  use when service online
+            FillDetails(stationID);
         }
 
         private async void FillDetails(string stationID)
@@ -31,24 +30,55 @@ namespace uGuide.Pages
             {
                 Station station = await uGuideService.Instance.GetStation(stationID);
                 txtName.Text = station.Name;
-                txtGrade.Text = "Klasse: " + station.Grade;
+                txtGrade.Text = station.Grade.ToString();
                 txtSubject.Text = station.Subject;
                 txtDescription.Text = station.Description;
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Fehler", "Scan war nicht erfolgreich", "OK");
+                await DisplayAlert("Fehler", "Stationsabfrage war nicht erfolgreich! \nGrund: " + ex.Message, "OK");
+                await ScanHelper.ScanCode(Navigation);
             }
         }
 
-        private void ButtonBackClicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
-            ScanHelper.ScanCode(Navigation);
+            return true;
         }
 
-        private void ButtonStopTourClicked(object sender, EventArgs e)
+        private async void BtnStopTour_OnClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new FeedbackPage());
+            try
+            {
+                this.btnBack.IsEnabled = false;
+                this.btnStopTour.IsEnabled = false;
+                bool cancelTour =
+                    await DisplayAlert("Bitte wählen Sie:", "Wollen Sie wirklich die Führung beenden?", "Ja", "Nein");
+                if (cancelTour)
+                {
+                    await uGuideService.Instance.CancelTour();
+                    Database.Instance.UGuideMainPage.Children.RemoveAt(1);
+                    await Navigation.PopToRootAsync();
+                }
+                else
+                {
+                    this.btnBack.IsEnabled = true;
+                    this.btnStopTour.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.btnBack.IsEnabled = true;
+                this.btnStopTour.IsEnabled = true;
+                await DisplayAlert("Fehler:", "Führung konnte nicht beendet werden! \nGrund: " + ex.Message, "OK");
+            }
+        }
+
+        private async void BtnBack_OnClicked(object sender, EventArgs e)
+        {
+            this.btnBack.IsEnabled = false;
+            this.btnStopTour.IsEnabled = false;
+            await ScanHelper.ScanCode(Navigation);
         }
     }
 }

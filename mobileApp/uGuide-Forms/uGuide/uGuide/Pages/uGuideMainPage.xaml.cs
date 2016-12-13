@@ -19,5 +19,9 @@ namespace uGuide.Pages
             this.Children.Add(p);
             Database.Instance.UGuideMainPage = this;
         }
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

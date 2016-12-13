@@ -2,5 +2,6 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="uGuide.Pages.uGuideMainPage"
-             Title="uGuide">
+             Title="uGuide"
+             BarBackgroundColor="#4CAF50">
 </TabbedPage>

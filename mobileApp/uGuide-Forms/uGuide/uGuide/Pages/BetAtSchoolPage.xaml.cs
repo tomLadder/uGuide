@@ -15,5 +15,10 @@ namespace uGuide.Pages
             InitializeComponent();
             Browser.Source = "http://www.matreiosttirol.com/";
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }
