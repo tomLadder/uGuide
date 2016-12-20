@@ -1,37 +1,146 @@
-var Station = require('../Models/Station');
-var express = require('express');
-var qr = require('qr-image');
-var router = express.Router();
-var errorManager = require('../ErrorManager/ErrorManager');
+var Station             = require('../Models/Station');
+var Tdot                = require('../Models/Tdot');
+var Permission          = require('../Misc/Permission');
+var UserType            = require('../Models/UserType');
+var TimeConstant        = require('../Models/TimeConstant');
+var express             = require('express');
+var qr                  = require('qr-image');
+var router              = express.Router();
+var errorManager          = require('../ErrorManager/ErrorManager');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
-  permissionsProperty: 'permission'
+  permissionsProperty: 'permissions'
 });
 
 module.exports = router;
 
 router.route('/station/qr')
-.get(guard.check(['admin', 'guide']), function(req, res, next) {
-  Station.find(function(err, stations) {
-      if (err) {
-        return res.send(err);
-      }
+.get(guard.check(Permission.PERMISSION_STATION_QR_GET), function(req, res, next) {
+  Station.find({User: req.token.sub}, function(err, stations) {
+      if (err) 
+        return next(errorManager.getAppropriateError(err));
 
       var qr_infos = [];
 
       for(var i=0;i<stations.length;i++) {
         var svg = qr.imageSync(String(stations[i]._id), { type: 'png', size: 10 });
 
-        qr_infos.push({name: stations[i].Name, qr: new Buffer(svg).toString('base64')});
+        qr_infos.push({Name: stations[i].Name, QR: new Buffer(svg).toString('base64')});
       }
 
       res.send(qr_infos);
   });
-})
+});
+
+router.route('/station/qr/:_id')
+.get(guard.check(Permission.PERMISSION_STATION_QR_ID_GET), function(req, res, next) {
+  Station.findById(req.params._id, function(err, station) {
+      if (err)
+        return next(errorManager.getAppropriateError(err));
+
+      if(!station) {
+        return next(errorManager.generate404NotFound('Station with _id ' + req.params._id + ' not found'));
+      }
+
+      var svg = qr.imageSync(String(station._id), { type: 'png', size: 10 });
+
+      res.send({Name: station.Name, QR: new Buffer(svg).toString('base64')});
+  });
+});
+
+router.route('/station/current/qr')
+.get(guard.check(Permission.PERMISSION_STATION_CURRENT_QR_GET), function(req, res, next) {
+    Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
+      return next(errorManager.getAppropriateError(err));
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set'));
+    }
+
+    if(req.token.type == UserType.STATION) {
+    Station.find({Tdot: tdot._id, User: req.token.sub}, function(err, stations) {
+        if (err) 
+            return next(errorManager.getAppropriateError(err));
+
+          var stations = stations.map(function(station) {
+            station = station.toObject();
+            var png = qr.imageSync(String(station._id), { type: 'png', size: 10 });
+            station["QR"] = new Buffer(png).toString('base64');
+            return station;
+          });
+
+          res.send(stations);
+      });
+    } else if(UserType.ADMIN) {
+    Station.find({Tdot: tdot._id}, function(err, stations) {
+        if (err) 
+            return next(errorManager.getAppropriateError(err));
+
+          var stations = stations.map(function(station) {
+            station = station.toObject();
+            var png = qr.imageSync(String(station._id), { type: 'png', size: 10 });
+            station["QR"] = new Buffer(png).toString('base64');
+            return station;
+          });
+
+
+          res.send(stations);
+      });      
+    }
+  });
+});
+
+router.route('/station/current/pp')
+.get(guard.check(Permission.PERMISSION_STATION_CURRENT_POSITIONPLAN), function (req, res, next) {
+    Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
+      return next(errorManager.getAppropriateError(err));
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set'));
+    }
+
+    Station.find({Tdot: tdot._id}, 'Name Position', function(err, stations) {
+        if (err) 
+          return next(errorManager.getAppropriateError(err));
+
+        res.send(stations);
+    });
+  });
+});
+
+router.route('/station/current/')
+.get(guard.check(Permission.PERMISSION_STATION_CURRENT_GET), function (req, res, next) {
+    Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
+      return next(errorManager.getAppropriateError(err));
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set'));
+    }
+
+    if(req.token.type == UserType.STATION) {
+      Station.find({User: req.token.sub, Tdot: tdot._id}, function(err, stations) {
+          if (err) 
+            return next(errorManager.getAppropriateError(err));
+
+          res.send(stations);
+      });
+    } else {
+      Station.find({Tdot: tdot._id}, function(err, stations) {
+          if (err)
+            return next(errorManager.getAppropriateError(err));
+
+          res.send(stations);
+      });
+    }
+  });
+});
 
 router.route('/station/:_id')
-.get(guard.check(['admin', 'guide', 'station']), function(req, res, next) {
+.get(guard.check(Permission.PERMISSION_STATION_ID_GET), function(req, res, next) {
   Station.findById(req.params._id, function(err, station) {
     if(err)
       return next(err);
@@ -43,56 +152,78 @@ router.route('/station/:_id')
     res.send(station);
   })
 })
-.put(guard.check(['admin', 'station']), function(req, res, next) {
-  Station.findOneAndUpdate({_id:req.params._id}, req.body, {new: true}, function(err, station) {
-    if (err) {
+.put(guard.check(Permission.PERMISSION_STATION_ID_PUT), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
       return next(errorManager.getAppropriateError(err));
-    } else {
-      res.send(station);
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set'));
     }
+
+    Station.findOneAndUpdate({_id:req.params._id, Tdot: tdot._id}, req.body, {new: true}, function(err, station) {
+      if (err) {
+        return next(errorManager.getAppropriateError(err));
+      } else {
+        res.send(station);
+      }
+    });
   });
 })
-.delete(guard.check(['admin', 'station']), function(req, res, next) {
-  Station.findByIdAndRemove(req.params._id, function(err) {
-    if (err) {
+.delete(guard.check(Permission.PERMISSION_STATION_ID_DELETE), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
       return next(errorManager.getAppropriateError(err));
-    } else {
-      res.status(204).send();
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set'));
     }
-  })
+
+    Station.remove({_id: req.params._id, Tdot: tdot._id}, function(err) {
+      if (err) {
+        return next(errorManager.getAppropriateError(err));
+      } else {
+        res.status(204).send();
+      }
+    });
+  });
 });
 
 router.route('/station')
-.get(guard.check(['guide', 'admin', 'station']), function(req, res, next) {
-  if(req.token.permission == 'station') {
+.get(guard.check(Permission.PERMISSION_STATION_GET), function(req, res, next) {
+  if(req.token.type == UserType.STATION) {
     Station.find({User: req.token.sub}, function(err, stations) {
-        if (err) {
-          return res.send(err);
-        }
+        if (err)
+          return next(errorManager.getAppropriateError(err));
 
         res.send(stations);
     });
   } else {
-    Station.find(req.query, function(err, stations) {
-        if (err) {
-          return res.send(err);
-        }
+    Station.find({}, function(err, stations) {
+        if (err)
+          return next(errorManager.getAppropriateError(err));
 
         res.send(stations);
     });
   }
 })
-.post(guard.check(['station', 'admin']), function(req, res, next) {
-  var station = new Station(req.body);
-  station.User = req.token.sub;
-  station.Tdot = '5819f018eab7edb044967ea7';
-
-  station.save(function(err) {
-    if(err) {
-      console.log(err);
+.post(guard.check(Permission.PERMISSION_STATION_POST), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
       return next(errorManager.getAppropriateError(err));
-    }
 
-    res.send({message: 'Station successfully added'});
+    if(!tdot)
+        return next(errorManager.generate404NotFound('current Tdot not set'));
+
+    var station = new Station(req.body);
+    station.User = req.token.sub;
+    station.Tdot = tdot._id;
+
+    station.save(function(err) {
+      if(err)
+        return next(errorManager.getAppropriateError(err));
+
+      res.send({message: 'Station successfully added'});
+    });
   });
 });

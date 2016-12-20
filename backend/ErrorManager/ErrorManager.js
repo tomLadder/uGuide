@@ -42,5 +42,14 @@ module.exports =
     error.message = {code: error_code, error:message };
 
     return error;
+  },
+  generate500InternalServerError: function(message) {
+    var error_code = 500;
+
+    var error = new Error();
+    error.status = error_code;
+    error.message = {code: error_code, error:message };
+
+    return error;
   }
 }

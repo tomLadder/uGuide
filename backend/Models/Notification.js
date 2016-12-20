@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var NotificationSchema = new mongoose.Schema(
 {
-  User:             { type: Schema.ObjectId, required: true },
+  Visitor:          { type: Schema.ObjectId, required: true },
   Station:          { type: Schema.ObjectId, required: true },
   Time:             { type: Date, required: true }
 });

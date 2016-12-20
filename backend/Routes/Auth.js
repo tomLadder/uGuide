@@ -1,13 +1,15 @@
-var express = require('express');
-var sha256 = require('sha256');
-var User = require('../Models/User');
-var Challenge = require('../Routes/Challenge');
-var errorManager = require('../ErrorManager/ErrorManager');
-var crypto = require('crypto');
-var jwt    = require('njwt');
-var router = express.Router();
-var crypto = require('crypto');
-var key = crypto.randomBytes(64).toString('hex');
+var express             = require('express');
+var sha256              = require('sha256');
+var crypto              = require('crypto');
+var jwt                 = require('njwt');
+var router              = express.Router();
+var crypto              = require('crypto');
+var key                 = crypto.randomBytes(64).toString('hex');
+
+var User                = require('../Models/User');
+var Challenge           = require('../Routes/Challenge');
+var errorManager        = require('../ErrorManager/ErrorManager');
+var PermissionHelper    = require('../Misc/PermissionHelper');
 
 module.exports = router;
 
@@ -28,7 +30,6 @@ router.post('/auth', function(req, res, next) {
       var claims = {
           sub: user._id,
           iss: 'localhost',
-          permission: user.Type
         }
 
         Challenge.challenges[req.body.username].valid = false;
@@ -46,9 +47,18 @@ router.use(function(req, res, next) {
         if(err) {
           return next(errorManager.generate401Unauthorized('Authentication failed. Token wrong.'));
         } else {
-          //req.identity = {"permissions": token.body.permissions };
-          req.token = token.body;
-          next();
+          User.findOne({_id: token.body.sub}, function(err, user) {
+            if(err)
+              return next(errorManager.getAppropriateError(err));
+
+            if(!user)
+              return next(errorManager.generate401Unauthorized('User not found!'));
+
+            req.token = token.body;
+            req.token.type = user.Type;
+            req.token.permissions = PermissionHelper.getPermissions(user.Type);
+            next();
+          });
         }
     });
   } else {

@@ -4,7 +4,7 @@ var errorManager = require('./ErrorManager/ErrorManager');
 var Guard = function (options) {
   var defaults = {
     requestProperty: 'user',
-    permissionProperty: 'permission'
+    permissionProperty: 'permissions'
   }
   this._options = xtend(defaults, options)
 }
@@ -27,13 +27,13 @@ Guard.prototype = {
       var user = req[options.requestProperty]
       if (!user) return next()
 
-      var permission = user[options.permissionProperty]
+      var permissions = user[options.permissionProperty]
 
-      if (!permission) {
-        return next(errorManager.generate401Unauthorized('Could not find permission for user. Bad configuration?'));
+      if (!permissions) {
+        return next(errorManager.generate401Unauthorized('Could not find permissions for user. Bad configuration?'));
       }
 
-      var sufficient = required.indexOf(permission) > -1;
+      var sufficient = required.every(function(elem, idx, arr) { return permissions.indexOf(elem) > -1 });
 
       return next(!sufficient ? errorManager.generate401Unauthorized('Permission denied') : null)
     }
