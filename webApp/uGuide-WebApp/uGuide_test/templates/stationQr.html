@@ -1,0 +1,51 @@
+<!-- Header container BEGIN -->
+<div class="container">
+    <div class="info">
+    <h1>uGuide - TdoT</h1>
+    </div>
+</div>
+
+<div class="container" ng-controller="navBarCtrl">
+    <div class="logout">
+      <a href="#" ng-click="logout()">Logout&nbsp;<i class="fa fa-sign-out"></i></a>
+    </div>
+    <div class="btn-group btn-group-justified navButtonBar" role="group">
+        <div class="btn-group" role="group">
+            <button type="button" id="btnStations" class="btn navButton btn-lg" ng-click="showStationView()">Stations</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" id="btnQr" class="btn navButton btn-lg" ng-click="showQrView()">QR-Codes</button>
+        </div>
+    </div>
+</div>
+<!-- Header container END -->
+
+
+<div ng-controller="stationQrCtrl" data-ng-init="init()">
+    <div class="btn-group btn-group-justified stationBar" role="group">
+        <div class="btn-group" role="group" ng-repeat="s in stations">
+            <button type="button" class="btn btn-default stationButton btn-xs" ng-click="selectStation(s)">{{s.Name}}</button>
+        </div>
+    </div>
+
+<!-- Content container BEGIN -->
+<div class="container" >
+
+    <!-- Alert Line BEGIN -->
+    <div class="alert fade in alert-fixed" ng-show="alert.show" ng-class="'alert-' + (alert.type || 'warning')">
+        <a href="" ng-click="resetAlert()" class="close" aria-label="close">&times;</a>
+        <strong>{{alert.title}}</strong> {{alert.message}}
+    </div>
+    <!-- Alert Line END -->
+
+    
+
+    <div class="container qrSection" ng-hide="!helper.isStationSelected">
+        <div class="qrSectionHeader">
+            <h3>{{selectedStation.Name}}</h3>
+        </div>
+        <img alt="Stations QR Code" class="qrCodeImage" ng-src="data:image/JPEG;base64,{{selectedStation.QR}}">
+    </div>
+</div>
+</div>
+<!-- Content container END -->
