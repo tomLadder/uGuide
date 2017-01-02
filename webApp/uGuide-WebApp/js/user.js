@@ -71,6 +71,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
 	factory.exportMultipleUsers = function(userWrapper) {
 		return $http({
 			method: 'POST',
+			responseType: 'arraybuffer',
 			url: SERVER_IP + '/api/user/export',
 			headers:
 			{

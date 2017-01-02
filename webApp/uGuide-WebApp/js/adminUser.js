@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminUser', [])
 
-.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory, FileSaver, Blob) {
+.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory) {
     $scope.helper = {};
     $scope.selectedUser = {};
     $scope.users = [];
@@ -244,14 +244,8 @@ angular.module('adminUser', [])
     }
 
     $scope.downloadExports = function(encodedData) {
-        // var data = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
-        // FileSaver.saveAs(data, 'saris.txt');
-
-        //var data = new Blob([encodedData], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-        //FileSaver.saveAs(data, 'saris.docx');
-
-        var data = new Blob([encodedData], { type: 'application/octet-binary' });
-        FileSaver.saveAs(data, 'saris.docx');
+        var blob = new Blob([encodedData], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+        saveAs(blob, 'usersExport.docx');
     }
 
 
