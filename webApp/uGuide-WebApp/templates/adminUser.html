@@ -54,7 +54,8 @@
                     <p>Are you sure?</p>
                     </div>
                     <div class="modal-footer">
-                    <button class="redbutton btnMargin" data-dismiss="modal" data-backdrop="false" ng-click="deleteUser()">Delete</button>
+                    <button class="redbutton btnMargin" ng-hide="helper.deleteMode != 0" data-dismiss="modal" data-backdrop="false" ng-click="deleteUser()">Delete single user</button>
+                    <button class="redbutton btnMargin" ng-hide="helper.deleteMode != 1" data-dismiss="modal" data-backdrop="false" ng-click="deleteMultipleUsers()">Delete multiple users</button>
                     </div>
                 </div>
             </div>
@@ -88,10 +89,31 @@
                             </form>
                             <!-- Form END-->
 
+                            <!-- Export container BEGIN-->
+                            <div class="exportSection">
+                                <form name="exportForm" novalidate>
+                                    <button class="greenbutton" ng-disabled="!exportForm.$valid" ng-click="addMultiple()">Add Multiple</button>
+                                    <button class="orangebutton" ng-click="clearExportForm()">Clear</button>
+                                    <div class="form-group">
+                                        <div ng-mouseover="showTypeInfo()" ng-mouseleave="removeTypeInfo()"><label>Type</label><i class="fa fa-fw fa-info-circle" title="1(Admin) - 2(Station) - 3(Guide)"></i></div>
+                                        <select class="form-control" ng-model="exportUsers.Type" required>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>
+                                    <textarea placeholder="Bitte usernames mit Enter trennen..." tabindex="5" ng-model="exportUsersPlain" required></textarea>
+                                </form>
+                            </div>
+                            <!-- Export container END-->
+
                             <!-- Table container BEGIN-->
                             <div class="tableSection">
+                                <button class="greenbutton btnMargin" ng-click="exportMultipleUsers()">Export</button>
+                                <button class="redbutton btnMargin" ng-click="helper.deleteMode=1" data-toggle="modal" data-target="#alertModal">Delete</button>
                                 <table>
                                     <tr>
+                                        <th><input type="checkbox" ng-model="masterCheck" ng-change="smthChecked=masterCheck"></th>
                                         <th>Username</th>
                                         <th>Password</th>
                                         <th>Type</th>
@@ -99,6 +121,7 @@
                                         <th>Delete</th>
                                     </tr>
                                     <tr ng-repeat="u in users">
+                                        <td><input type="checkbox" ng-model="u.Checked" ng-checked="masterCheck"></td>
                                         <td>{{u.Username}}</td>
                                         <td>{{u.Password}}</td>
                                         <td>{{u.Type}}</td>
@@ -108,7 +131,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="button" class="tableBtn btn btn-default" aria-label="Left Align" ng-click="setSelectedUser(u)" data-toggle="modal" data-target="#alertModal">
+                                            <button type="button" class="tableBtn btn btn-default" aria-label="Left Align" ng-click="setSelectedUser(u);helper.deleteMode=0" data-toggle="modal" data-target="#alertModal">
                                                 <span class="fa fa-trash-o" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -116,6 +139,9 @@
                                 </table>
                             </div>
                             <!-- Table container END-->
+
+                            
+
                             </div>
                             </div>
                             <!-- content container END-->

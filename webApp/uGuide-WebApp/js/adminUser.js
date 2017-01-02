@@ -6,6 +6,14 @@ angular.module('adminUser', [])
     $scope.selectedUser = {};
     $scope.users = [];
 
+    $scope.exportUsers = {};
+    $scope.exportUsersPlain = "";
+
+    $scope.selectedUsers = [];
+
+    $scope.masterCheck = false;
+    $scope.smthChecked = false;
+
     $scope.alert = {};
 
     //alertTypes -> warning (yellow), danger (red), success (green)
@@ -136,6 +144,101 @@ angular.module('adminUser', [])
 
     $scope.removeTypeInfo = function() {
         $scope.resetAlert();
+    }
+
+    $scope.clearExportForm = function() {
+        $scope.exportUsersPlain = "";
+    }
+
+    $scope.addMultiple = function() {
+        var tempSplitArray = $scope.exportUsersPlain.split('\n');
+        $scope.exportUsers.Users = tempSplitArray.map(function(x) {
+            var retValue = {};
+            retValue.User = x;
+            return retValue;
+        });
+
+        console.log($scope.exportUsers);
+
+        userFactory.addMultipleUsers($scope.exportUsers).then
+        (
+            function(successResponse) {
+                console.log('multiple users added');
+                $scope.addAlert('success', 'Info', 'Successfully added');
+                $timeout($scope.resetAlert, 2000);
+
+                $scope.loadUsers();
+            },
+            function(errorResponse) {
+                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                $timeout($scope.resetAlert, 2000);
+            }
+        );
+    }
+
+    $scope.querySelectedUsers = function() {
+        var userSelection = $scope.users.filter(function(x) {
+            return x.Checked;
+        });
+
+        $scope.selectedUsers = userSelection.map(function(x) {
+            var retValue = {};
+            retValue.id = x._id;
+            return retValue;
+        });
+    }
+
+    $scope.exportMultipleUsers = function() {
+        $scope.querySelectedUsers();
+
+        if($scope.selectedUsers.length != 0) {
+            userFactory.exportMultipleUsers($scope.selectedUsers).then
+            (
+                function(successResponse) {
+                    console.log('users exported');
+                    $scope.addAlert('success', 'Info', 'Successfully exported');
+                    $timeout($scope.resetAlert, 2000);
+                },
+                function(errorResponse) {
+                    console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                    $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                    $timeout($scope.resetAlert, 2000);
+                }
+            );
+        }
+        else {
+            $scope.addAlert('danger', 'Warning!', 'Please first select some users');
+            $timeout($scope.resetAlert, 2000);
+        }
+    }
+
+    $scope.deleteMultipleUsers = function() {
+        $scope.querySelectedUsers();
+
+        if($scope.selectedUsers.length != 0) {
+            $scope.jQueryInjection();
+
+            userFactory.deleteMultipleUsers($scope.selectedUsers).then
+            (
+                function(successResponse) {
+                    console.log('users deleted');
+                    $scope.addAlert('success', 'Info', 'Successfully deleted');
+                    $timeout($scope.resetAlert, 2000);
+
+                    $scope.loadUsers();
+                },
+                function(errorResponse) {
+                    console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                    $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                    $timeout($scope.resetAlert, 2000);
+                }
+            );
+        }
+        else {
+            $scope.addAlert('danger', 'Warning!', 'Please first select some users');
+            $timeout($scope.resetAlert, 2000);
+        }
     }
 
 

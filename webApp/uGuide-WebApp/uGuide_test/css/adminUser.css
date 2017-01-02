@@ -219,6 +219,23 @@ tr:nth-child(odd) {background: #FFF}
 
 /* Table style END */
 
+/* Export container style BEGIN */
+
+.exportSection {
+    position: relative;
+    /*z-index: 1;*/
+    float: left;
+    max-width: 600px;
+    background-color: #FFF;
+    margin-left: 50px;
+
+    width: auto;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Export container style END */
+
 .contentContainer {
   position: relative;
   /*z-index: 1;*/

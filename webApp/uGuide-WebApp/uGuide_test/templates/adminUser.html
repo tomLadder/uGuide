@@ -116,6 +116,24 @@
                                 </table>
                             </div>
                             <!-- Table container END-->
+
+                            <!-- Export container BEGIN-->
+                            <div class="exportSection">
+                                <form name="exportForm" novalidate>
+                                    <button class="greenbutton" ng-disabled="!exportForm.$valid" ng-click="exportUsers()">Export</button>
+                                    <button class="orangebutton" ng-click="clearExportForm()">Clear</button>
+                                    <div ng-mouseover="showTypeInfo()" ng-mouseleave="removeTypeInfo()"><label>Type</label><i class="fa fa-fw fa-info-circle" title="1(Admin) - 2(Station) - 3(Guide)"></i></div>
+                                        <select class="form-control" ng-model="exportUsers.Type" required>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>
+                                    <textarea placeholder="Bitte usernames mit Enter trennen..." tabindex="5" ng-model="exportUsersPlain" required></textarea>
+                                </form>
+                            </div>
+                            <!-- Export container END-->
+
                             </div>
                             </div>
                             <!-- content container END-->

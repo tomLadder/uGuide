@@ -55,6 +55,45 @@ stationApp.factory('userFactory', function($http, $window, $q) {
 		});
 	}
 
+	factory.addMultipleUsers = function(userWrapper) {
+		return $http({
+			method: 'POST',
+			url: SERVER_IP + '/api/user/multiple',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+			data: JSON.stringify(userWrapper)
+		});
+	}
+
+	factory.exportMultipleUsers = function(userWrapper) {
+		return $http({
+			method: 'POST',
+			url: SERVER_IP + '/api/user/export',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+			data: JSON.stringify(userWrapper)
+		});
+	}
+
+	factory.deleteMultipleUsers = function(userWrapper) {
+		return $http({
+			method: 'DELETE',
+			url: SERVER_IP + '/api/user/multiple',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+			data: JSON.stringify(userWrapper)
+		});
+	}
+
     return factory;
 });
 })();

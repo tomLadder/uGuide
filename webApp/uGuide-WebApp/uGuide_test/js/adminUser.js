@@ -6,6 +6,9 @@ angular.module('adminUser', [])
     $scope.selectedUser = {};
     $scope.users = [];
 
+    $scope.exportUsers = {};
+    $scope.exportUsersPlain = "";
+
     $scope.alert = {};
 
     //alertTypes -> warning (yellow), danger (red), success (green)
@@ -136,6 +139,21 @@ angular.module('adminUser', [])
 
     $scope.removeTypeInfo = function() {
         $scope.resetAlert();
+    }
+
+    $scope.clearExportForm = function() {
+        $scope.exportUsersPlain = "";
+    }
+
+    $scope.exportUsers = function() {
+        var tempSplitArray = $scope.exportUsersPlain.split('\n');
+        $scope.exportUsers.Users = tempSplitArray.map(function(x) {
+            var retValue = {};
+            retValue.User = x;
+            return retValue;
+        });
+
+        console.log($scope.exportUsers);
     }
 
 
