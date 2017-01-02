@@ -1,8 +1,11 @@
 var User            = require('../Models/User');
 var Visitor         = require('../Models/Visitor');
+var UserType        = require('../Models/UserType');
 var Permission      = require('../Misc/Permission');
+var Office          = require('../Misc/Office');
 var errorManager    = require('../ErrorManager/ErrorManager');
 var express         = require('express');
+var mongoose        = require('mongoose');
 var router          = express.Router();
 
 var guard = require('../Guard.js')({
@@ -11,6 +14,58 @@ var guard = require('../Guard.js')({
 });
 
 module.exports = router;
+
+router.route('/user/export')
+.post(guard.check(Permission.PERMISSION_USER_EXPORT_POST), function(req, res, next) {
+    var ids = req.body;
+    var arr = ids.map(function(item) {return item.id});
+
+    User.find({_id: {$in: arr}}, function(err, users) {
+      if(err)
+        return next(errorManager.getAppropriateError(err));   
+      
+      var arr = [];
+      for(var i=0;i<users.length;i++) {
+        arr.push([users[i].Username, users[i].Password]);
+      }
+
+      var docx = Office.generateUserDocument(arr, function(err) {
+        return next(errorManager.generate500InternalServerError("Failed to generate document"));
+      });
+      
+      docx.generate(res);
+    });
+});
+
+router.route('/user/multiple')
+.post(guard.check(Permission.PERMISSION_USER_MULTIPLE_POST), function(req, res, next) {
+  var req = req.body;
+  var users= [];
+
+  console.log(req.Type);
+  for(var i=0;i<req.Users.length;i++) {
+    var user = new User({Username: req.Users[i].User, Type: req.Type, Password: 'HelloWorld'});
+    users.push(user);
+  }
+
+  User.insertMany(users)
+  .then(function (result) {
+      res.send({message: 'Users successfully added'});
+  })
+  .catch(function(err){
+      return next(errorManager.getAppropriateError(err));
+  })
+})
+.delete(guard.check(Permission.PERMISSION_USER_MULTIPLE_DELETE), function(req, res, next) {
+  var ids = req.body;
+
+  ids.forEach(function(item) {
+    User.findByIdAndRemove(item.id, function(err) {});
+    console.log(item.id);
+  });
+
+  res.send();
+});
 
 router.route('/user/tour')
 .get(guard.check(Permission.PERMISSION_USER_TOUR_GET), function(req, res, next) {

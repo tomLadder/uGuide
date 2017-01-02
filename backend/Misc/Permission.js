@@ -19,6 +19,9 @@ exports.PERMISSION_USER_ID_PUT                  = 'perm_user_id_put';
 exports.PERMISSION_USER_ID_DELETE               = 'perm_user_id_put';
 
 exports.PERMISSION_USER_TOUR_GET                = 'perm_user_tour_get';
+exports.PERMISSION_USER_MULTIPLE_POST           = 'perm_user_multiple_post';
+exports.PERMISSION_USER_MULTIPLE_DELETE         = 'perm_user_multiple_delete';
+exports.PERMISSION_USER_EXPORT_POST             = 'perm_user_export_post';
 
 /*       PERMISSIONS_Station        */
 exports.PERMISSION_STATION_GET                  = 'perm_station_get';

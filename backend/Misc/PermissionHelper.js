@@ -22,6 +22,9 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_USER_ID_GET,
             Permission.PERMISSION_USER_ID_PUT,
             Permission.PERMISSION_USER_ID_DELETE,
+            Permission.PERMISSION_USER_MULTIPLE_POST,
+            Permission.PERMISSION_USER_MULTIPLE_DELETE,
+            Permission.PERMISSION_USER_EXPORT_POST,
 
             /* Station */
             Permission.PERMISSION_STATION_QR_GET,
