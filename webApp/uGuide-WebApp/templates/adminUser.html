@@ -71,6 +71,7 @@
                         <div class="contentContainer">
                             <!-- Form BEGIN-->
                             <form class="editForm" name="editForm" novalidate>
+                                <h3>Single User Editing</h3>
                                 <div class="form-group">
                                     <input type="text" placeholder="Username" ng-model="selectedUser.Username" required/>
                                     <input type="password" placeholder="Password" ng-Model="selectedUser.Password" required/>
@@ -89,26 +90,9 @@
                             </form>
                             <!-- Form END-->
 
-                            <!-- Export container BEGIN-->
-                            <div class="exportSection">
-                                <form name="exportForm" novalidate>
-                                    <button class="greenbutton" ng-disabled="!exportForm.$valid" ng-click="addMultiple()">Add Multiple</button>
-                                    <button class="orangebutton" ng-click="clearExportForm()">Clear</button>
-                                    <div class="form-group">
-                                        <div ng-mouseover="showTypeInfo()" ng-mouseleave="removeTypeInfo()"><label>Type</label><i class="fa fa-fw fa-info-circle" title="1(Admin) - 2(Station) - 3(Guide)"></i></div>
-                                        <select class="form-control" ng-model="exportUsers.Type" required>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                        </select>
-                                    </div>
-                                    <textarea placeholder="Bitte usernames mit Enter trennen..." tabindex="5" ng-model="exportUsersPlain" required></textarea>
-                                </form>
-                            </div>
-                            <!-- Export container END-->
-
                             <!-- Table container BEGIN-->
                             <div class="tableSection">
+                                <h3>Multiple User Export/Delete</h3>
                                 <button class="greenbutton btnMargin" ng-click="exportMultipleUsers()">Export</button>
                                 <button class="redbutton btnMargin" ng-click="helper.deleteMode=1" data-toggle="modal" data-target="#alertModal">Delete</button>
                                 <table>
@@ -140,7 +124,24 @@
                             </div>
                             <!-- Table container END-->
 
-                            
+                            <!-- Export container BEGIN-->
+                            <div class="exportSection">
+                                <form name="exportForm" novalidate>
+                                    <h3>Multiple User Editing</h3>
+                                    <div class="form-group">
+                                        <div ng-mouseover="showTypeInfo()" ng-mouseleave="removeTypeInfo()"><label>Type</label><i class="fa fa-fw fa-info-circle" title="1(Admin) - 2(Station) - 3(Guide)"></i></div>
+                                        <select class="form-control" ng-model="exportUsers.Type" required>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>
+                                    <textarea placeholder="Bitte usernames mit enter trennen..." tabindex="5" ng-model="exportUsersPlain" required></textarea>
+                                    <button class="greenbutton" ng-disabled="!exportForm.$valid" ng-click="addMultiple()">Add Multiple</button>
+                                    <button class="orangebutton" ng-click="clearExportForm()">Clear</button>
+                                </form>
+                            </div>
+                            <!-- Export container END-->
 
                             </div>
                             </div>

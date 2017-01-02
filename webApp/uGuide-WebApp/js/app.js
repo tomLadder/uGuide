@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot']);
+  var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot', 'ngFileSaver']);
 
   app.controller('ctrl', function() {
 

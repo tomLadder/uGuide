@@ -158,19 +158,19 @@ body {
   height: 300px;
 }
 
-.editForm h3 {
+/*.editForm h3 {
   display: block;
   font-size: 30px;
   font-weight: 300;
   margin-bottom: 10px;
-}
+}*/
 
-.editForm h4 {
+/*.editForm h4 {
   margin: 5px 0 15px;
   display: block;
   font-size: 13px;
   font-weight: 400;
-}
+}*/
 
 .valid{
     border-color: green;
@@ -193,7 +193,7 @@ table{
 .tableSection{
     position: relative;
     /*z-index: 1;*/
-    float: left;
+    float: right;
     max-width: 600px;
     background-color: #FFF;
     margin-left: 50px;
@@ -202,6 +202,7 @@ table{
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding: 30px;
+    text-align: center;
 
     width: auto;
 
@@ -240,6 +241,7 @@ tr:nth-child(odd) {background: #FFF}
   border-bottom-right-radius: 3px;
   text-align: center;
   margin-left: 100px;
+  margin-top: 30px;
   width: 40%;
 
   overflow: auto;

@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminUser', [])
 
-.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory) {
+.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory, FileSaver, Blob) {
     $scope.helper = {};
     $scope.selectedUser = {};
     $scope.users = [];
@@ -199,6 +199,8 @@ angular.module('adminUser', [])
                     console.log('users exported');
                     $scope.addAlert('success', 'Info', 'Successfully exported');
                     $timeout($scope.resetAlert, 2000);
+
+                    $scope.downloadExports(successResponse.data);
                 },
                 function(errorResponse) {
                     console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
@@ -239,6 +241,17 @@ angular.module('adminUser', [])
             $scope.addAlert('danger', 'Warning!', 'Please first select some users');
             $timeout($scope.resetAlert, 2000);
         }
+    }
+
+    $scope.downloadExports = function(encodedData) {
+        // var data = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
+        // FileSaver.saveAs(data, 'saris.txt');
+
+        //var data = new Blob([encodedData], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        //FileSaver.saveAs(data, 'saris.docx');
+
+        var data = new Blob([encodedData], { type: 'application/octet-binary' });
+        FileSaver.saveAs(data, 'saris.docx');
     }
 
 
