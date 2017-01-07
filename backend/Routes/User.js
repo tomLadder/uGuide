@@ -8,6 +8,9 @@ var express         = require('express');
 var mongoose        = require('mongoose');
 var router          = express.Router();
 
+var fs = require('fs');
+var path = require('path');
+
 var guard = require('../Guard.js')({
   requestProperty: 'token',
   permissionsProperty: 'permissions'
@@ -33,6 +36,17 @@ router.route('/user/export')
         return next(errorManager.generate500InternalServerError("Failed to generate document"));
       });
       
+      // var out = fs.createWriteStream ( '../out.docx' );
+
+      // docx.generate ( out );
+      // out.on ( 'close', function () {
+      //   res.download('../out.docx');
+      // });
+
+      // //res.send();
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+      res.setHeader('Content-disposition', 'attachment; filename=users.docx');
       docx.generate(res);
     });
 });

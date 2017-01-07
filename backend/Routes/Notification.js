@@ -44,6 +44,10 @@ router.route('/notification/:_idstation')
       if(visitor.End == undefined) {
         visitor.End = new Date();
 
+        if(visitor.Start == undefined) {
+          visitor.Start = new Date();
+        }
+
         visitor.save(function(err){
           if(err)
               return next(errorManager.getAppropriateError(err));
@@ -60,7 +64,7 @@ router.route('/notification/:_idstation')
       if(visitor.End != undefined)
         return next(errorManager.generate500InternalServerError("Visitor already finished"));
 
-      Notification.findOne({ Station: req.params._idstation }, function(err, notf) {
+      Notification.findOne({ Station: req.params._idstation, Visitor: visitor._id }, function(err, notf) {
         if(err)
           return next(errorManager.getAppropriateError(err));
 

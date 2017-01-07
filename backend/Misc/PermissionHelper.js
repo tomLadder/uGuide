@@ -45,7 +45,10 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_VISITOR_ID_PUT,
             Permission.PERMISSION_VISITOR_ID_DELETE,
             Permission.PERMISSION_VISITOR_GET,
-            Permission.PERMISSION_VISITOR_POST
+            Permission.PERMISSION_VISITOR_POST,
+
+            /* Statistic */
+            Permission.PERMISSION_STATISTIC_YEAR_GET
         ];
     } else if(userType == UserType.GUIDE) {
         permissions = [

@@ -170,21 +170,21 @@ function GenerateVisitors() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Visitor.remove(function(err,removed) {
-        var objs = 
-        [
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                ZipCode: 9920,
-                Gender: GenderType.MALE,
-                Guide: mongoose.Types.ObjectId('000000000000000000000002'),
-                IsFinished: false,
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001')
-            }
-        ];
+        // var objs = 
+        // [
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //         ZipCode: 9920,
+        //         Gender: GenderType.MALE,
+        //         Guide: mongoose.Types.ObjectId('000000000000000000000002'),
+        //         IsFinished: false,
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001')
+        //     }
+        // ];
 
-        Visitor.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // Visitor.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 

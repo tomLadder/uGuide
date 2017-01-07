@@ -53,9 +53,11 @@ exports.PERMISSION_VISITOR_FEEDBACK_POST        = 'perm_visitor_feedback_post';
 
 exports.PERMISSION_VISITOR_CANCEL_POST          = 'perm_visitor_cancel_post';
 
-exports.PERMISSION_VISITOR_TODO_GET     = 'perm_visitor_todo_get';
-exports.PERMISSION_VISITOR_DONE_GET     = 'perm_visitor_done_get';
+exports.PERMISSION_VISITOR_TODO_GET             = 'perm_visitor_todo_get';
+exports.PERMISSION_VISITOR_DONE_GET             = 'perm_visitor_done_get';
 
 /*      PERMISSION_ANSWER           */
 exports.PERMISSION_ANSWER_GET                   = 'perm_answer_get';
 
+/*      PERMISSION_STATISTIC        */
+exports.PERMISSION_STATISTIC_YEAR_GET           = 'perm_statistic_year_get';
