@@ -10,6 +10,10 @@ exports.PERMISSION_TDOT_CURRENT_GET             = 'perm_tdot_current_get';
 exports.PERMISSION_TDOT_CURRENT_ID_POST         = 'perm_tdot_current_id_post';
 
 exports.PERMISSION_TDOT_POSSIBLE_GET            = 'perm_tdot_possible_get';
+
+exports.PERMISSION_TDOT_LOCK_POST               = 'perm_tdot_lock_post';
+exports.PERMISSION_TDOT_UNLOCK_POST             = 'perm_tdot_unlock_post';
+
 /*       PERMISSIONS_User           */
 exports.PERMISSION_USER_GET                     = 'perm_user_id_get';
 exports.PERMISSION_USER_POST                    = 'perm_user_id_post';

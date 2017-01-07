@@ -30,12 +30,14 @@ function GenerateTdots() {
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000000'), 
                 Year: 2015, 
-                IsCurrent: false 
+                IsCurrent: false,
+                IsLocked: false
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000001'), 
                 Year: 2016, 
-                IsCurrent: true 
+                IsCurrent: true,
+                IsLocked: false
             }
         ];
 

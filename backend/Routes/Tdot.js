@@ -11,6 +11,30 @@ var guard = require('../Guard.js')({
 
 module.exports = router;
 
+router.route('/tdot/lock')
+.post(guard.check(Permission.PERMISSION_TDOT_LOCK_POST), function(req, res, next) {
+  var updates = { $set: { IsLocked: true } };
+  Tdot.update({IsCurrent: true}, updates, function(err) {
+    if(err) {
+      return next(err);
+    }
+
+    res.send();
+  });
+});
+
+router.route('/tdot/unlock')
+.post(guard.check(Permission.PERMISSION_TDOT_UNLOCK_POST), function(req, res, next) {
+  var updates = { $set: { IsLocked: false } };
+  Tdot.update({IsCurrent: true}, updates, function(err) {
+    if(err) {
+      return next(err);
+    }
+
+    res.send();
+  });
+});
+
 router.route('/tdot/current')
 .get(guard.check([Permission.PERMISSION_TDOT_CURRENT_GET]), function(req, res, next) {
   Tdot.findOne({IsCurrent: true}, function(err, tdot) {
@@ -27,7 +51,6 @@ router.route('/tdot/current')
 
 router.route('/tdot/possible')
 .get(guard.check(Permission.PERMISSION_TDOT_POSSIBLE_GET), function(req, res, next) {
-  //Tdot.find({}, "Year", function(err, tdots) {
     var possibleYears = [];
     var year = new Date().getFullYear();
 
@@ -37,7 +60,6 @@ router.route('/tdot/possible')
 
     console.log(possibleYears);
     res.send(possibleYears);
-  //});
 });
 
 router.route('/tdot/current/:_id')

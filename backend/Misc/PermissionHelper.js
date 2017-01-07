@@ -15,6 +15,8 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_TDOT_CURRENT_GET,
             Permission.PERMISSION_TDOT_CURRENT_ID_POST,
             Permission.PERMISSION_TDOT_POSSIBLE_GET,
+            Permission.PERMISSION_TDOT_LOCK_POST,
+            Permission.PERMISSION_TDOT_UNLOCK_POST,
 
             /* User */
             Permission.PERMISSION_USER_GET,

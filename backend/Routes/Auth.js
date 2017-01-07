@@ -8,6 +8,7 @@ var key                 = crypto.randomBytes(64).toString('hex');
 var mongoose            = require('mongoose');
 var UserType                = require('../Models/UserType');
 var User                = require('../Models/User');
+var Tdot                = require('../Models/Tdot');
 var Challenge           = require('../Routes/Challenge');
 var errorManager        = require('../ErrorManager/ErrorManager');
 var PermissionHelper    = require('../Misc/PermissionHelper');
@@ -28,7 +29,13 @@ router.post('/auth', function(req, res, next) {
     if(!user || sha256(user.Password + Challenge.challenges[req.body.username].challenge) != req.body.password) {
       return next(errorManager.generate401Unauthorized('Authentication failed. User not found.'));
     } else {
-      var claims = {
+      //Tdot lock - hacky method - please change
+      Tdot.findOne({IsCurrent: true, IsLocked: true}, function(err, tdot) {
+        if(tdot != undefined && user.Type == UserType.STATION) {
+          return next(errorManager.generate401Unauthorized('System is in LOCK-MODE'));
+        }
+
+        var claims = {
           sub: user._id,
           iss: 'localhost',
         }
@@ -37,6 +44,7 @@ router.post('/auth', function(req, res, next) {
 
         var token = jwt.create(claims,key).compact();
         res.send({token: token, user: { _id: user._id, username: user.Username, type: user.Type } });
+      });
     }
   });
 });
