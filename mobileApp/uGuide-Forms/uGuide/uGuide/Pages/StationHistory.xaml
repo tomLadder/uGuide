@@ -4,7 +4,16 @@
              x:Class="uGuide.Pages.StationHistory"
              Title="History">
   <StackLayout>
-    <ListView x:Name="DoneList"/>
+    <StackLayout Orientation="Horizontal" BackgroundColor="#388E3C">
+      <Image Source="icon_station_todo.png" Margin="5" VerticalOptions="Center"></Image>
+      <Label x:Name="lblTodo" Text="Stationen zu besuchen" VerticalOptions="Center" VerticalTextAlignment="Center" FontSize="Medium" TextColor="White" FontAttributes="Bold"></Label>
+    </StackLayout>
     <ListView x:Name="ToDoList"/>
+    <StackLayout Orientation="Horizontal" BackgroundColor="#388E3C">
+      <Image Source="icon_station_done.png" Margin="5" VerticalOptions="Center"></Image>
+      <Label x:Name="lblDone" Text="Stationen besucht" VerticalOptions="Center" VerticalTextAlignment="Center" FontSize="Medium" TextColor="White" FontAttributes="Bold"></Label>
+    </StackLayout>
+    <ListView x:Name="DoneList"/>
+
   </StackLayout>
 </ContentPage>

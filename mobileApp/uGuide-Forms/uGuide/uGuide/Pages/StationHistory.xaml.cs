@@ -22,18 +22,11 @@ namespace uGuide.Pages
         {
             try
             {
-                if (Database.Instance.CurrentVisitor != null)
-                {
                     await uGuideService.Instance.GetHistory();
                     this.DoneList.ItemsSource = null;
                     this.DoneList.ItemsSource = null;
                     this.DoneList.ItemsSource = Database.Instance.DoneStations;
                     this.ToDoList.ItemsSource = Database.Instance.ToDoStations;
-                }
-                else
-                {
-                   throw new Exception("No Visitor!");
-                }
             }
             catch (Exception ex)
             {
