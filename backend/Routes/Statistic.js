@@ -12,6 +12,20 @@ var guard = require('../Guard.js')({
 
 module.exports = router;
 
+router.route('/statistic/export/:year')
+.get(guard.check(Permission.PERMISSION_STATISTIC_EXPORT_YEAR_GET), function(req, res, next) {
+    Tdot.findOne({Year: Number(req.params.year)}, function(err, tdot) {
+      if(err)
+        return next(err);
+
+      if(!tdot) {
+          return next(errorManager.generate404NotFound('Tdot not found'));
+      }
+
+      res.send('ok');
+    });
+});
+
 router.route('/statistic/:year')
 .get(guard.check([Permission.PERMISSION_STATISTIC_YEAR_GET]), function(req, res, next) {
   Tdot.findOne({Year: Number(req.params.year)}, function(err, tdot) {

@@ -65,3 +65,4 @@ exports.PERMISSION_ANSWER_GET                   = 'perm_answer_get';
 
 /*      PERMISSION_STATISTIC        */
 exports.PERMISSION_STATISTIC_YEAR_GET           = 'perm_statistic_year_get';
+exports.PERMISSION_STATISTIC_EXPORT_YEAR_GET    = 'perm_statistic_export_year_get';

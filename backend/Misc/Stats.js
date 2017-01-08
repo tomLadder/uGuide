@@ -193,20 +193,18 @@ function countFinishedTours(tdotid, resultCallback) {
 }
 
 function getVisitors(tdotid, resultCallback) {
-    Visitor.find({Tdot: tdotid, IsFinished: true}, function(err, visitors) {
+    Visitor.aggregate([
+        {
+            $group: {
+                _id: '$ZipCode',
+                count: {$sum: 1}
+            }
+        }
+    ], function (err, visitors) {
         if(err || visitors == undefined) {
             resultCallback([]);
         }
 
-        var res = new Array();
-        visitors.forEach(function(visitor) {
-            var start = moment(visitor.Start);
-            var end = moment(visitor.End);
-            var time = (moment.duration(end - start) / 1000);
-
-            res.push({ZipCode: visitor.ZipCode, Gender: visitor.Gender, Duration: time});
-        });
-
-        resultCallback(res);
+        resultCallback(visitors);
     });
 }
