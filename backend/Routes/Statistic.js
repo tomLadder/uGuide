@@ -4,6 +4,7 @@ var router              = express.Router();
 var errorManager        = require('../ErrorManager/ErrorManager');
 var Stats               = require('../Misc/Stats');
 var Tdot                = require('../Models/Tdot');
+var Office              = require('../Misc/Office');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
@@ -22,7 +23,21 @@ router.route('/statistic/export/:year')
           return next(errorManager.generate404NotFound('Tdot not found'));
       }
 
-      res.send('ok');
+      Stats.getBasicStats(tdot._id, function (basicStats) {
+          Stats.getFeedbackStats(tdot._id, function(feedbackStats) {
+              Stats.getVisitorStats(tdot._id, function(visitorStats) {
+                var stats = {BasicStats: basicStats, FeedbackStats: feedbackStats, VisitorStats: visitorStats};
+
+                var xlsx = Office.generateStatsDocument(stats, function(err) {
+                  return next(errorManager.generate500InternalServerError("Failed to generate stats document"));
+                });
+
+                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                res.setHeader('Content-disposition', 'attachment; filename=stats.xlsx');
+                xlsx.generate(res);
+              });
+          });
+      });
     });
 });
 

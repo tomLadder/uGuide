@@ -35,15 +35,6 @@ router.route('/user/export')
       var docx = Office.generateUserDocument(arr, function(err) {
         return next(errorManager.generate500InternalServerError("Failed to generate document"));
       });
-      
-      // var out = fs.createWriteStream ( '../out.docx' );
-
-      // docx.generate ( out );
-      // out.on ( 'close', function () {
-      //   res.download('../out.docx');
-      // });
-
-      // //res.send();
 
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
       res.setHeader('Content-disposition', 'attachment; filename=users.docx');
