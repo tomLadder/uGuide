@@ -12,7 +12,7 @@ using ZXing.Net.Mobile.Forms;
 namespace uGuide.Helpers
 {
     static class ScanHelper
-    {
+    {/*
         public static async Task ScanCode(INavigation n)
         {
             try
@@ -65,7 +65,6 @@ namespace uGuide.Helpers
                                     n.RemovePage(n.NavigationStack[2]);
                                 } 
                             }
-                            */
                         }
                         catch (Exception ex)
                         {
@@ -88,5 +87,6 @@ namespace uGuide.Helpers
                 throw;
             }
         }
+    */
     }
 }

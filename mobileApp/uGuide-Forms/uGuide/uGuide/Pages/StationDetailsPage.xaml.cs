@@ -37,7 +37,8 @@ namespace uGuide.Pages
             catch (Exception ex)
             {
                 await DisplayAlert("Fehler", "Stationsabfrage war nicht erfolgreich! \nGrund: " + ex.Message, "OK");
-                await ScanHelper.ScanCode(Navigation);
+                Navigation.InsertPageBefore(new ScanPage(), this);
+                await Navigation.PopAsync();
             }
         }
 
@@ -58,7 +59,8 @@ namespace uGuide.Pages
                 {
                     await uGuideService.Instance.CancelTour();
                     Database.Instance.UGuideMainPage.Children.RemoveAt(1);
-                    await Navigation.PopToRootAsync();
+                    Navigation.InsertPageBefore(new NewTourPage(), this);
+                    await Navigation.PopAsync();
                 }
                 else
                 {
@@ -78,7 +80,8 @@ namespace uGuide.Pages
         {
             this.btnBack.IsEnabled = false;
             this.btnStopTour.IsEnabled = false;
-            await ScanHelper.ScanCode(Navigation);
+            Navigation.InsertPageBefore(new ScanPage(), this);
+            await Navigation.PopAsync();
         }
     }
 }

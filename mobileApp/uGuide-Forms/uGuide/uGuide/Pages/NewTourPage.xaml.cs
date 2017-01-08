@@ -51,7 +51,8 @@ namespace uGuide.Pages
                 {
                     Database.Instance.CurrentVisitor = new Visitor(int.Parse(txtPLZ.Text), selectedGender);
                     await uGuideService.Instance.SendVisitor();
-                    await ScanHelper.ScanCode(Navigation);
+                    Navigation.InsertPageBefore(new ScanPage(), this);
+                    await Navigation.PopAsync(true);
                     Database.Instance.UGuideMainPage.Children.Add(new StationHistory());
                     txtPLZ.Text = "";
                     btnFemale.IsEnabled = true;

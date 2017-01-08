@@ -17,6 +17,8 @@ namespace uGuide.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             this.btnExit.IsEnabled = false;
             this.btnExit.IsVisible = false;
+            this.txtPassword.Text = "guide";
+            this.txtUsername.Text = "guide";
         }
 
 
@@ -51,18 +53,17 @@ namespace uGuide.Pages
                             if (!continueTour)
                             {
                                 await uGuideService.Instance.CancelTour();
-                                await ContineToTour();
+                                await Navigation.PushAsync(new NewTourPage());
                             }
                             else
                             {
                                 Database.Instance.UGuideMainPage.Children.Add(new StationHistory());
-                                await ContineToTour();
-                                await ScanHelper.ScanCode(Navigation);
+                                await Navigation.PushAsync(new ScanPage());
                             }
                         }
                         else
                         {
-                            await ContineToTour();
+                            await Navigation.PushAsync(new NewTourPage());
                         }
                     }
                     else
@@ -82,21 +83,10 @@ namespace uGuide.Pages
             }
         }
 
-        private async Task ContineToTour()
-        {
-            await Navigation.PushAsync(new NewTourPage());
-        }
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
 
-        protected override async void OnAppearing()
-        {
-            if (Database.Instance.CurrentUser != null && Navigation.NavigationStack.Count == 1)
-            {
-                await Navigation.PushAsync(new NewTourPage());
-            }
-        }
     }
 }

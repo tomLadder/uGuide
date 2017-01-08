@@ -42,7 +42,8 @@ namespace uGuide.Pages
                     await uGuideService.Instance.SendFeedback(new Feedback(_selectedFeedbackType, objectIds, edFeedback.Text));
                     Database.Instance.CurrentVisitor = null;
                     Database.Instance.UGuideMainPage.Children.RemoveAt(1);
-                    await Navigation.PopToRootAsync();
+                    Navigation.InsertPageBefore(new NewTourPage(), this);
+                    await Navigation.PopAsync();
                 }
                 else
                 {
