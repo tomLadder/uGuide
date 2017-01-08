@@ -9,6 +9,8 @@ angular.module('adminTdot', [])
 
     $scope.alert = {};
 
+    $scope.isTdotLocked = false;
+
     //alertTypes -> warning (yellow), danger (red), success (green)
     $scope.addAlert = function(alertType, title, msg) {
         $scope.alert.type = alertType;
@@ -108,6 +110,52 @@ angular.module('adminTdot', [])
                 $timeout($scope.resetAlert, 2000);
             }
         );
+    }
+
+    $scope.toggleLockTdot = function() {
+        if($scope.isTdotLocked) {
+            $scope.isTdotLocked = false;
+        }
+        else {
+            $scope.isTdotLocked = true;
+        }   
+    }
+
+    $scope.lockCurrentTdot = function() {
+        tdotFactory.lockTdot().then
+        (
+            function(successResponse) {
+                console.log('TdoT is locked');
+            },
+            function(errorResponse) {
+                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                $timeout($scope.resetAlert, 2000);
+            }
+        );
+    }
+
+    $scope.unlockCurrentTdot = function() {
+        tdotFactory.unlockTdot().then
+        (
+            function(successResponse) {
+                console.log('TdoT is unlocked');
+            },
+            function(errorResponse) {
+                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                $timeout($scope.resetAlert, 2000);
+            }
+        );
+    }
+
+    $scope.showLockInfo = function() {
+        $scope.addAlert('warning', 'Lock Info', 'With checking this box you lock/unlock the current selected TdoT');
+        //$timeout($scope.resetAlert, 3000);
+    }
+
+    $scope.removeLockInfo = function() {
+        $scope.resetAlert();
     }
 });
 })();

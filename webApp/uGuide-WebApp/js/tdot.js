@@ -66,6 +66,42 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 		});
 	}
 
+	factory.getTdotStatistics = function(year) {
+		return $http({
+			method: 'GET',
+			url: SERVER_IP + '/api/statistic/' + year,
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			}
+		});
+	}
+
+	factory.lockTdot = function() {
+		return $http({
+			method: 'POST',
+			url: SERVER_IP + '/api/tdot/lock',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			}
+		});
+	}
+
+	factory.unlockTdot = function() {
+		return $http({
+			method: 'POST',
+			url: SERVER_IP + '/api/tdot/unlock',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			}
+		});
+	}
+
     return factory;
 });
 })();

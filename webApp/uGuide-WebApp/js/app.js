@@ -1,5 +1,5 @@
 (function () {
-  var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot']);
+  var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot', 'adminDashboard', 'chart.js', 'ngMap']);
 
   app.controller('ctrl', function() {
 
@@ -38,6 +38,10 @@
     .when('/tdotMap', {
         templateUrl : 'templates/adminMap.html',
         css: 'css/adminMap.css'
+    })
+    .when('/dashboard', {
+        templateUrl : 'templates/adminDashboard.html',
+        css: 'css/adminDashboard.css'
     })
     .otherwise({
       redirectTo: '/login'
