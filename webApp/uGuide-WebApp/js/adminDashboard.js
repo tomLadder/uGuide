@@ -6,6 +6,7 @@ angular.module('adminDashboard', [])
 
     $scope.tdots = [];
     $scope.tdotStats = {};
+    $scope.tdotStats.BasicStats = {};
 
     //alertTypes -> warning (yellow), danger (red), success (green)
     $scope.addAlert = function(alertType, title, msg) {
@@ -24,14 +25,6 @@ angular.module('adminDashboard', [])
 
         $scope.addAlert('warning', 'Info', 'Please press a Tdot - Button!');
         $timeout($scope.resetAlert, 4000);
-
-        $scope.labels = ['Male', 'Female'];
-
-        $scope.series = ['Male', 'Female'];
-
-        $scope.data = [
-            [65, 28]
-        ];
 
         $scope.addresses = [
             { address: '9500' },
@@ -69,6 +62,8 @@ angular.module('adminDashboard', [])
             function(successResponse) {
                 $scope.tdotStats = successResponse.data;
                 console.log("Tdots stats loaded");
+
+                $scope.initDashboardElements();
             },
             function(errorResponse) {
                 console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
@@ -76,6 +71,25 @@ angular.module('adminDashboard', [])
                 $timeout($scope.resetAlert, 2000);
             }
         );
+    }
+
+    $scope.initDashboardElements = function() {
+        $scope.labelsGender = ['Male', 'Female'];
+
+        $scope.seriesGender = ['Male', 'Female'];
+
+        $scope.dataGender = [
+            [$scope.tdotStats.BasicStats.Male, $scope.tdotStats.BasicStats.Female]
+        ];
+
+
+        $scope.labelsLocation = $scope.tdotStats.VisitorStats.map(function(x) {
+            return String(x._id);
+        });
+
+        $scope.dataLocation = $scope.tdotStats.VisitorStats.map(function(x) {
+            return x.count;
+        })
     }
 
     $scope.setSelectedTdot = function(t) {

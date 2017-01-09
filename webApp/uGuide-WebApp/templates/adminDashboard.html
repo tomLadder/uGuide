@@ -31,7 +31,7 @@
                     <a href="#tdotMap"><i class="fa fa-fw fa fa-map"></i> Lageplan</a>
                 </li>
                 <li class="active">
-                    <a href="#dashboard"><i class="fa fa-fw fa fa-map"></i> Dashboard</a>
+                    <a href="#dashboard"><i class="fa fa-fw fa fa-line-chart"></i> Dashboard</a>
                 </li>
             </ul>
         </div>
@@ -61,21 +61,27 @@
                             <!-- Dashboard Content BEGIN -->
                             <div class="panel panelShadow">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><strong>Visitor Stats</strong></h3>
+                                    <h3 class="panel-title"><strong>Visitor Count</strong></h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-sm-4">
+                                            <div class="card card-large">
+                                                <p>Total {{tdotStats.BasicStats.Total}}</p>
+                                            </div>
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-mars"></i>{{tdotStats.BasicStats.Male}} ({{tdotStats.BasicStats.MalePercent}}%)</p>
+                                            </div>
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-venus"></i>{{tdotStats.BasicStats.Female}} ({{tdotStats.BasicStats.FemalePercent}}%)</p>
+                                            </div>
                                         </div>
                                         <div class="col-sm-8">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="chartBackground">
-                                                <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"</canvas>
+                                            <div class="chartContainer">
+                                                <h3>Gender - Overview</h3>
+                                                <div class="chartBackground">
+                                                    <canvas id="bar" class="chart chart-bar" chart-data="dataGender" chart-labels="labelsGender" chart-series="seriesGender"</canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -97,12 +103,26 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4">
+                                            <div class="chartContainer">
+                                                <h3>Zip Counts</h3>
+                                                <div class="chartBackground">
+                                                    <canvas id="doughnut" class="chart chart-doughnut"
+                                                    chart-data="dataLocation" chart-labels="labelsLocation">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-map-signs"></i>{{tdotStats.VisitorStats.length}}</p>
+                                            </div>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="chartContainer">
-                                                <ng-map center="9500 Villach" zoom="7">
-                                                    <marker ng-repeat="a in addresses" position="{{a.address + ' Austria'}}"></marker>
-                                                </ng-map>
+                                                <h3>Zip Map</h3>
+                                                <div class="chartBackground">
+                                                    <ng-map center="9500 Villach" zoom="6">
+                                                        <marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}"></marker>
+                                                    </ng-map>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -118,14 +138,16 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p>{{tdotStats.BasicStats.AvgTourDuration}} AvgDuration</p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-8">
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p>{{tdotStats.BasicStats.FinishedTours}} Finished</p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-4">
                                         </div>
                                     </div>
                                 </div>

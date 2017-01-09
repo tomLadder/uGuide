@@ -27,6 +27,9 @@ angular.module('adminTdot', [])
         $scope.loadNextTdots();
 
         $scope.loadTdots();
+
+        $scope.getCurrentTdot();
+
         $scope.jQueryInjection();
     }
 
@@ -85,8 +88,8 @@ angular.module('adminTdot', [])
         tdotFactory.getCurrentTdot().then
         (
             function(successResponse) {
-                console.log(successResponse.data._id);
                 $scope.currentTdot = successResponse.data;
+                console.log("Islocked -> " + $scope.currentTdot.IsLocked);
             },
             function(errorResponse) {
                 console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
@@ -113,12 +116,14 @@ angular.module('adminTdot', [])
     }
 
     $scope.toggleLockTdot = function() {
-        if($scope.isTdotLocked) {
-            $scope.isTdotLocked = false;
+        if($scope.currentTdot.IsLocked == false) {
+            $scope.unlockCurrentTdot();
         }
         else {
-            $scope.isTdotLocked = true;
-        }   
+            $scope.lockCurrentTdot();
+        }
+
+        $scope.getCurrentTdot();  
     }
 
     $scope.lockCurrentTdot = function() {

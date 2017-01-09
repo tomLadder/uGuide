@@ -31,7 +31,7 @@
                     <a href="#tdotMap"><i class="fa fa-fw fa fa-map"></i> Lageplan</a>
                 </li>
                 <li>
-                    <a href="#dashboard"><i class="fa fa-fw fa fa-map"></i> Dashboard</a>
+                    <a href="#dashboard"><i class="fa fa-fw fa fa-line-chart"></i> Dashboard</a>
                 </li>
             </ul>
         </div>
@@ -66,7 +66,7 @@
                             </div>
                             <button class="greenbutton" ng-click="addTdot()">Add</button>
                             <div class="checkbox checkbox-danger form-control checkboxContainer" ng-mouseover="showLockInfo()" ng-mouseleave="removeLockInfo()">
-                                <label><input type="checkbox" ng-model="isTdotLocked" ng-click="toggleLockTdot()" ng-change="toggleLockTdot()">Current TdoT is locked</label>
+                                <label><input type="checkbox" ng-model="currentTdot.IsLocked" ng-click="toggleLockTdot()">Current TdoT is locked</label>
                             </div>
                         </div>
                     </div>
