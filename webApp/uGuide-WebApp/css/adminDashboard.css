@@ -115,7 +115,7 @@ body {
     text-align: center;
 
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
 
     align-items: center;
 }
@@ -130,4 +130,42 @@ body {
 
 .card-small {
     font-size: 10px;
+}
+
+.dashboardTable {
+    background: #1c7d44;
+    color: #FFF;
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+.table-fixed thead {
+  width: 97%;
+}
+
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+.mapCustomMarker {
+    color: #FFF;
+    background-color: #1e8d84;
+    padding: 2px;
+
+    border-radius: 5px;
+
+    text-align: center;
+    font-weight: bold;
 }

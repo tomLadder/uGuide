@@ -100,7 +100,7 @@
                                 <button class="redbutton btnMargin" ng-click="helper.deleteMode=1" data-toggle="modal" data-target="#alertModal">Delete</button>
                                 <table>
                                     <tr>
-                                        <th><input type="checkbox" ng-model="masterCheck" ng-change="smthChecked=masterCheck"></th>
+                                        <th><input type="checkbox" ng-model="masterCheck" ng-click="toggleCheckboxes()"></th>
                                         <th>Username</th>
                                         <th>Password</th>
                                         <th>Type</th>
@@ -108,7 +108,7 @@
                                         <th>Delete</th>
                                     </tr>
                                     <tr ng-repeat="u in users">
-                                        <td><input type="checkbox" ng-model="u.Checked" ng-checked="masterCheck"></td>
+                                        <td><input type="checkbox" ng-model="u.Checked"></td>
                                         <td>{{u.Username}}</td>
                                         <td>{{u.Password}}</td>
                                         <td>{{u.Type}}</td>

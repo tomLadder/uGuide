@@ -12,7 +12,6 @@ angular.module('adminUser', [])
     $scope.selectedUsers = [];
 
     $scope.masterCheck = false;
-    $scope.smthChecked = false;
 
     $scope.alert = {};
 
@@ -241,6 +240,20 @@ angular.module('adminUser', [])
             $scope.addAlert('danger', 'Warning!', 'Please first select some users');
             $timeout($scope.resetAlert, 2000);
         }
+    }
+
+    $scope.toggleCheckboxes = function() {
+        var newCheckedValue = true;
+
+        if($scope.masterCheck == false) {
+            newCheckedValue = false;
+        }
+
+        $scope.users.forEach(function(x) {
+            x.Checked = newCheckedValue;
+        });
+
+        console.log($scope.users);
     }
 
     $scope.downloadExports = function(encodedData) {

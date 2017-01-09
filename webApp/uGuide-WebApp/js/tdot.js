@@ -102,6 +102,19 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 		});
 	}
 
+	factory.downloadStatistics = function(year) {
+		return $http({
+			method: 'GET',
+			responseType: 'arraybuffer',
+			url: SERVER_IP + '/api/statistic/export/' + year,
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+		});
+	}
+
     return factory;
 });
 })();

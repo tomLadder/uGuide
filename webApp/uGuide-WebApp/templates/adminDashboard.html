@@ -50,7 +50,7 @@
             <div class="row" id="main" >
                 <div class="col-sm-12 col-md-12 rootContainer" id="content">
                     <div class="contentContainer">
-                        <h1 class="page-header">Dashboard - {{selectedTdot.Year}} <button class="greenbutton" ng-hide="!selectedTdot" ng-click="stopEditing()">Export</button></h1>
+                        <h1 class="page-header">Dashboard - {{selectedTdot.Year}} <button class="greenbutton" ng-hide="!selectedTdot" ng-click="downloadStatisticExport()">Export</button></h1>
                         <div class="btn-group btn-group-justified stationBar" role="group">
                             <div class="btn-group" role="group" ng-repeat="t in tdots">
                                 <button type="button" class="btn btn-default stationButton btn-xs" ng-click="setSelectedTdot(t)">{{t.Year}}</button>
@@ -66,11 +66,11 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <div class="card card-large">
-                                                <p>Total {{tdotStats.BasicStats.Total}}</p>
-                                            </div>
                                             <div class="card card-medium">
                                                 <p><i class="fa fa-fw fa-mars"></i>{{tdotStats.BasicStats.Male}} ({{tdotStats.BasicStats.MalePercent}}%)</p>
+                                            </div>
+                                            <div class="card card-large">
+                                                <p>Total {{tdotStats.BasicStats.Total}}</p>
                                             </div>
                                             <div class="card card-medium">
                                                 <p><i class="fa fa-fw fa-venus"></i>{{tdotStats.BasicStats.Female}} ({{tdotStats.BasicStats.FemalePercent}}%)</p>
@@ -120,7 +120,12 @@
                                                 <h3>Zip Map</h3>
                                                 <div class="chartBackground">
                                                     <ng-map center="9500 Villach" zoom="6">
-                                                        <marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}"></marker>
+                                                        <!--<marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}"></marker>-->
+                                                        <custom-marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}">
+                                                            <div class="mapCustomMarker">
+                                                                {{item._id}} - {{item.count}}x
+                                                            </div>
+                                                        </marker>
                                                     </ng-map>
                                                 </div>
                                             </div>
@@ -162,8 +167,133 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-sm-4">
+                                            <div class="chartContainer">
+                                                <h3>Predefined feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">20x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">200x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">1x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">20x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">200x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">1x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">20x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">200x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">1x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">20x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">200x</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                            <td class="col-xs-2">1x</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-thumbs-o-up"></i>1</p>
+                                            </div>
+                                            <div class="chartContainer">
+                                                <h3>Positive feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-thumbs-o-down"></i>1</p>
+                                            </div>
+                                            <div class="chartContainer">
+                                                <h3>Negative feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

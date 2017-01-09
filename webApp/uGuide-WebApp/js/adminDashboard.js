@@ -74,12 +74,12 @@ angular.module('adminDashboard', [])
     }
 
     $scope.initDashboardElements = function() {
-        $scope.labelsGender = ['Male', 'Female'];
+        $scope.labelsGender = ['Male', 'Total', 'Female'];
 
-        $scope.seriesGender = ['Male', 'Female'];
+        // $scope.seriesGender = ['Male', 'Female'];
 
         $scope.dataGender = [
-            [$scope.tdotStats.BasicStats.Male, $scope.tdotStats.BasicStats.Female]
+            [$scope.tdotStats.BasicStats.Male, $scope.tdotStats.BasicStats.Total, $scope.tdotStats.BasicStats.Female]
         ];
 
 
@@ -98,5 +98,26 @@ angular.module('adminDashboard', [])
 
         $scope.loadTdotStats($scope.selectedTdot.Year);
     }
+
+    $scope.downloadStatisticExport = function() {
+        tdotFactory.downloadStatistics($scope.selectedTdot.Year).then
+        (
+            function(successResponse) {
+                console.log("Tdots stats exported");
+
+                var blob = new Blob([successResponse.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                saveAs(blob, 'uGuide_' + String($scope.selectedTdot.Year) + '_statisticExport.xls');
+            },
+            function(errorResponse) {
+                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+                $timeout($scope.resetAlert, 2000);
+            }
+        );
+
+        
+    }
+
+
 });
 })();
