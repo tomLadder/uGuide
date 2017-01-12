@@ -5,6 +5,7 @@ var errorManager        = require('../ErrorManager/ErrorManager');
 var Stats               = require('../Misc/Stats');
 var Tdot                = require('../Models/Tdot');
 var Office              = require('../Misc/Office');
+var ErrorType           = require('../ErrorManager/ErrorTypes');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
@@ -20,7 +21,7 @@ router.route('/statistic/export/:year')
         return next(err);
 
       if(!tdot) {
-          return next(errorManager.generate404NotFound('Tdot not found'));
+          return next(errorManager.generate404NotFound('Tdot not found', ErrorType.ERROR_TDOT_NOT_FOUND));
       }
 
       Stats.getBasicStats(tdot._id, function (basicStats) {
@@ -29,7 +30,7 @@ router.route('/statistic/export/:year')
                 var stats = {BasicStats: basicStats, FeedbackStats: feedbackStats, VisitorStats: visitorStats};
 
                 var xlsx = Office.generateStatsDocument(stats, function(err) {
-                  return next(errorManager.generate500InternalServerError("Failed to generate stats document"));
+                  return next(errorManager.generate500InternalServerError("Failed to generate stats document", ErrorType.ERROR_DOC_GENERATION_FAILED));
                 });
 
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -48,7 +49,7 @@ router.route('/statistic/:year')
       return next(err);
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('Tdot not found'));
+        return next(errorManager.generate404NotFound('Tdot not found', ErrorType.ERROR_TDOT_NOT_FOUND));
     }
 
     Stats.getBasicStats(tdot._id, function (basicStats) {

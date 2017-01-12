@@ -3,6 +3,7 @@ var Permission     = require('../Misc/Permission');
 var express         = require('express');
 var router          = express.Router();
 var errorManager    = require('../ErrorManager/ErrorManager');
+var ErrorType       = require('../ErrorManager/ErrorTypes');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
@@ -42,7 +43,7 @@ router.route('/tdot/current')
       return next(err);
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     res.send(tdot);
@@ -70,7 +71,7 @@ router.route('/tdot/current/:_id')
       return next(err);
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found'));
+        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found', ErrorType.ERROR_TDOT_NOT_FOUND));
     }
 
     Tdot.update({}, {IsCurrent: false},  { multi: true }, function(err, num) {
@@ -95,7 +96,7 @@ router.route('/tdot/:_id')
       return next(err);
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found'));
+        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found', ErrorType.ERROR_TDOT_NOT_FOUND));
     }
 
     res.send(tdot);

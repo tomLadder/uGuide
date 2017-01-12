@@ -6,7 +6,8 @@ var TimeConstant        = require('../Models/TimeConstant');
 var express             = require('express');
 var qr                  = require('qr-image');
 var router              = express.Router();
-var errorManager          = require('../ErrorManager/ErrorManager');
+var errorManager        = require('../ErrorManager/ErrorManager');
+var ErrorType           = require('../ErrorManager/ErrorTypes');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
@@ -40,7 +41,7 @@ router.route('/station/qr/:_id')
         return next(errorManager.getAppropriateError(err));
 
       if(!station) {
-        return next(errorManager.generate404NotFound('Station with _id ' + req.params._id + ' not found'));
+        return next(errorManager.generate404NotFound('Station with _id ' + req.params._id + ' not found', ErrorType.ERROR_STATION_NOT_FOUND));
       }
 
       var svg = qr.imageSync(String(station._id), { type: 'png', size: 10 });
@@ -56,7 +57,7 @@ router.route('/station/current/qr')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     if(req.token.type == UserType.STATION) {
@@ -99,7 +100,7 @@ router.route('/station/current/pp')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     Station.find({Tdot: tdot._id}, 'Name Position', function(err, stations) {
@@ -118,7 +119,7 @@ router.route('/station/current/')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     if(req.token.type == UserType.STATION) {
@@ -146,7 +147,7 @@ router.route('/station/:_id')
       return next(err);
 
     if(!station) {
-        return next(errorManager.generate404NotFound('Station with _id ' + req.params._id + ' not found'));
+        return next(errorManager.generate404NotFound('Station with _id ' + req.params._id + ' not found', ErrorType.ERROR_STATION_NOT_FOUND));
     }
 
     res.send(station);
@@ -158,7 +159,7 @@ router.route('/station/:_id')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     Station.findOneAndUpdate({_id:req.params._id, Tdot: tdot._id}, req.body, {new: true}, function(err, station) {
@@ -176,7 +177,7 @@ router.route('/station/:_id')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     Station.remove({_id: req.params._id, Tdot: tdot._id}, function(err) {
@@ -213,7 +214,7 @@ router.route('/station')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot)
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
 
     var station = new Station(req.body);
     station.User = req.token.sub;

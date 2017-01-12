@@ -7,6 +7,7 @@ var Permission      = require('../Misc/Permission');
 var express         = require('express');
 var router          = express.Router();
 var errorManager    = require('../ErrorManager/ErrorManager');
+var ErrorType       = require('../ErrorManager/ErrorTypes');
 
 var guard = require('../Guard.js')({
   requestProperty: 'token',
@@ -22,11 +23,11 @@ router.route('/notification/:_idstation')
       return next(errorManager.getAppropriateError(err));
 
     if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found'));
+      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_NO_VISITOR_FOUND));
 
     if(req.params._idstation == TimeConstants.START) {
       if(visitor.End != undefined)
-        return next(errorManager.generate500InternalServerError("Visitor already finished"));
+        return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
       if(visitor.Start == undefined) {
         visitor.Start = new Date();
@@ -38,7 +39,7 @@ router.route('/notification/:_idstation')
           res.send();
         });
       } else {
-        return next(errorManager.generate500InternalServerError("Startpoint already set"));
+        return next(errorManager.generate500InternalServerError("Startpoint already set", ErrorType.ERROR_STARTPOINT_ALREADY_SET));
       }
     } else if (req.params._idstation == TimeConstants.END) {
       if(visitor.End == undefined) {
@@ -55,14 +56,14 @@ router.route('/notification/:_idstation')
           res.send();
         });
       } else {
-        return next(errorManager.generate500InternalServerError("Endpoint already set"));
+        return next(errorManager.generate500InternalServerError("Endpoint already set", ErrorType.ERROR_ENDPOINT_ALREADY_SET));
       }
     } else {
       if(visitor.Start == undefined && visitor.End == undefined)
-        return next(errorManager.generate500InternalServerError("No Startpoint set"));
+        return next(errorManager.generate500InternalServerError("No Startpoint set", ErrorType.ERROR_STARTPOINT_ALREADY_SET));
 
       if(visitor.End != undefined)
-        return next(errorManager.generate500InternalServerError("Visitor already finished"));
+        return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
       Notification.findOne({ Station: req.params._idstation, Visitor: visitor._id }, function(err, notf) {
         if(err)

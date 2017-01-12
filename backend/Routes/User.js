@@ -4,6 +4,7 @@ var UserType        = require('../Models/UserType');
 var Permission      = require('../Misc/Permission');
 var Office          = require('../Misc/Office');
 var errorManager    = require('../ErrorManager/ErrorManager');
+var ErrorType       = require('../ErrorManager/ErrorTypes');
 var express         = require('express');
 var mongoose        = require('mongoose');
 var router          = express.Router();
@@ -33,7 +34,7 @@ router.route('/user/export')
       }
 
       var docx = Office.generateUserDocument(arr, function(err) {
-        return next(errorManager.generate500InternalServerError("Failed to generate document"));
+        return next(errorManager.generate500InternalServerError("Failed to generate document", ErrorType.ERROR_DOC_GENERATION_FAILED));
       });
 
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
@@ -92,7 +93,7 @@ router.route('/user/:_id')
       return next(err);
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('User with _id ' + req.params._id + ' not found'));
+        return next(errorManager.generate404NotFound('User with _id ' + req.params._id + ' not found', ErrorType.ERROR_USER_NOT_FOUND));
     }
 
     res.send(user);

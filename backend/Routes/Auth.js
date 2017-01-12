@@ -12,12 +12,13 @@ var Tdot                = require('../Models/Tdot');
 var Challenge           = require('../Routes/Challenge');
 var errorManager        = require('../ErrorManager/ErrorManager');
 var PermissionHelper    = require('../Misc/PermissionHelper');
+var ErrorType           = require('../ErrorManager/ErrorTypes');
 
 module.exports = router;
 
 router.post('/auth', function(req, res, next) {
   if(!(req.body.username in Challenge.challenges) || (!Challenge.challenges[req.body.username].valid)) {
-    return next(errorManager.generate401Unauthorized('Request a challenge first.'));
+    return next(errorManager.generate401Unauthorized('Request a challenge first.', ErrorType.ERROR_REQUEST_CHALLENGE_FIRST));
   }
 
   User.findOne({
@@ -27,12 +28,12 @@ router.post('/auth', function(req, res, next) {
       throw err;
 
     if(!user || sha256(user.Password + Challenge.challenges[req.body.username].challenge) != req.body.password) {
-      return next(errorManager.generate401Unauthorized('Authentication failed. User not found.'));
+      return next(errorManager.generate401Unauthorized('Authentication failed. User not found.', ErrorType.ERROR_AUTH_FAILED_USER_NOT_FOUND));
     } else {
       //Tdot lock - hacky method - please change
       Tdot.findOne({IsCurrent: true, IsLocked: true}, function(err, tdot) {
         if(tdot != undefined && user.Type == UserType.STATION) {
-          return next(errorManager.generate401Unauthorized('System is in LOCK-MODE'));
+          return next(errorManager.generate401Unauthorized('System is in LOCK-MODE', ErrorType.ERROR_SYSTEM_LOCK_MODE));
         }
 
         var claims = {
@@ -61,14 +62,14 @@ router.use(function(req, res, next) {
     if(token) {
       jwt.verify(token, key, function(err, token) {
           if(err) {
-            return next(errorManager.generate401Unauthorized('Authentication failed. Token wrong.'));
+            return next(errorManager.generate401Unauthorized('Authentication failed. Token wrong.', ErrorType.ERROR_AUTH_FAILED_TOKEN_WRONG));
           } else {
             User.findOne({_id: token.body.sub}, function(err, user) {
               if(err)
                 return next(errorManager.getAppropriateError(err));
 
               if(!user)
-                return next(errorManager.generate401Unauthorized('User not found!'));
+                return next(errorManager.generate401Unauthorized('User not found!', ErrorType.ERROR_AUTH_FAILED_USER_NOT_FOUND));
 
               req.token = token.body;
               req.token.type = user.Type;
@@ -78,7 +79,7 @@ router.use(function(req, res, next) {
           }
       });
     } else {
-      return next(errorManager.generate403Forbidden('No token provided.'));
+      return next(errorManager.generate403Forbidden('No token provided.', ErrorType.ERROR_NO_TOKEN_PROVIDEN));
     }
   }
 });

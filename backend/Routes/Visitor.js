@@ -8,6 +8,7 @@ var express           = require('express');
 var moment            = require('moment');
 var router            = express.Router();
 var errorManager      = require('../ErrorManager/ErrorManager');
+var ErrorType       = require('../ErrorManager/ErrorTypes');
 var ObjectId = (require('mongoose').Types.ObjectId);
 
 var guard = require('../Guard.js')({
@@ -24,10 +25,10 @@ router.route('/visitor/cancel')
       return next(errorManager.getAppropriateError(err));
 
     if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found'));
+      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_USER_NOT_FOUND));
 
     if(visitor.IsFinished == true)
-      return next(errorManager.generate500InternalServerError("Visitor already finished"));
+      return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
     visitor.End = new Date();
     visitor.IsFinished = true;
@@ -48,17 +49,17 @@ Visitor.findOne({Guide: req.token.sub, IsFinished: false}, function(err, visitor
       return next(errorManager.getAppropriateError(err));
 
     if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found'));
+      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_NO_VISITOR_FOUND));
 
     if(visitor.IsFinished == true)
-      return next(errorManager.generate500InternalServerError("Visitor already finished"));
+      return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
     Tdot.findOne({IsCurrent: true}, function(err, tdot) {
       if(err)
         return next(errorManager.getAppropriateError(err));
 
       if(!tdot) {
-          return next(errorManager.generate404NotFound('current Tdot not set'));
+          return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
       }
 
       Station.find({Tdot: tdot._id},
@@ -103,17 +104,17 @@ Visitor.findOne({Guide: req.token.sub, IsFinished: false}, function(err, visitor
       return next(errorManager.getAppropriateError(err));
 
     if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found'));
+      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_NO_VISITOR_FOUND));
 
     if(visitor.End != undefined)
-      return next(errorManager.generate500InternalServerError("Visitor already finished"));
+      return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
     Tdot.findOne({IsCurrent: true}, function(err, tdot) {
       if(err)
         return next(errorManager.getAppropriateError(err));
 
       if(!tdot) {
-          return next(errorManager.generate404NotFound('current Tdot not set'));
+          return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
       }
 
       Station.find({Tdot: tdot._id},
@@ -154,10 +155,10 @@ router.route('/visitor/feedback')
       return next(errorManager.getAppropriateError(err));
 
     if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found'));
+      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_NO_VISITOR_FOUND));
 
     if(visitor.IsFinished == true)
-      return next(errorManager.generate500InternalServerError("Visitor already finished"));
+      return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
 
     var feedback = new Feedback(req.body);
     feedback.save(function(err, fb) {
@@ -184,7 +185,7 @@ router.route('/visitor/:_id')
       return next(err);
 
     if(!visitor) {
-      return next(errorManager.generate404NotFound('Visitor with _id ' + req.params.id + ' not found'));
+      return next(errorManager.generate404NotFound('Visitor with _id ' + req.params.id + ' not found', ErrorType.ERROR_NO_VISITOR_FOUND));
     }
 
     res.send(visitor);
@@ -225,7 +226,7 @@ router.route('/visitor')
       return next(errorManager.getAppropriateError(err));
 
     if(!tdot) {
-        return next(errorManager.generate404NotFound('current Tdot not set'));
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
     Visitor.findOne({Guide: req.token.sub, IsFinished: false}, function(err, visitor) {
@@ -247,7 +248,7 @@ router.route('/visitor')
             res.send({message: 'Visitor successfully added'});
         });
       } else {
-        return next(errorManager.generate500InternalServerError('last visitor not finished'));
+        return next(errorManager.generate500InternalServerError('last visitor not finished', ErrotType.ERROR_VISITOR_NOT_FINISHED));
       }
     });
   });
