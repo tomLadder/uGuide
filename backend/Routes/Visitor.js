@@ -245,7 +245,7 @@ router.route('/visitor')
           if(err)
             return next(errorManager.getAppropriateError(err));
 
-            res.send({message: 'Visitor successfully added'});
+            res.send({_id: visitor._id});
         });
       } else {
         return next(errorManager.generate500InternalServerError('last visitor not finished', ErrotType.ERROR_VISITOR_NOT_FINISHED));
