@@ -171,53 +171,9 @@
                                                 <h3>Predefined feedback</h3>
                                                 <table class="table table-fixed dashboardTable">
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">20x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">200x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">1x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">20x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">200x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">1x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">20x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">200x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">1x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">20x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">200x</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-10">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                            <td class="col-xs-2">1x</td>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.PredefinedFeedbacks">
+                                                            <td class="col-xs-10">{{item.Answer}}</td>
+                                                            <td class="col-xs-2">{{item.Quantity}}x</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -225,35 +181,14 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="card card-medium">
-                                                <p><i class="fa fa-fw fa-thumbs-o-up"></i>1</p>
+                                                <p><i class="fa fa-fw fa-thumbs-o-up"></i>{{tdotStats.FeedbackStats.Positive}}({{tdotStats.FeedbackStats.PositivePercent}}%)</p>
                                             </div>
                                             <div class="chartContainer">
                                                 <h3>Positive feedback</h3>
                                                 <table class="table table-fixed dashboardTable">
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.PositiveFeedbacks">
+                                                            <td class="col-xs-12">{{item}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -261,35 +196,14 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="card card-medium">
-                                                <p><i class="fa fa-fw fa-thumbs-o-down"></i>1</p>
+                                                <p><i class="fa fa-fw fa-thumbs-o-down"></i>{{tdotStats.FeedbackStats.Negative}}({{tdotStats.FeedbackStats.NegativePercent}}%)</p>
                                             </div>
                                             <div class="chartContainer">
                                                 <h3>Negative feedback</h3>
                                                 <table class="table table-fixed dashboardTable">
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-xs-12">sfaslkdfajlsjeine nfieonf asfneifn</td>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.NegativeFeedbacks">
+                                                            <td class="col-xs-12">{{item}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
