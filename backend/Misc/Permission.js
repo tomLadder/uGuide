@@ -43,7 +43,7 @@ exports.PERMISSION_STATION_CURRENT_QR_GET       = 'perm_station_current_qr_get';
 
 /*      PERMISSION_NOTIFICATION     */
 exports.PERMISSION_NOTIFICATION_GET             = 'perm_notification_get';
-exports.PERMISSION_NOTIFICATION_IDSTATION_POST  = 'perm_notification_idstation_post';
+exports.PERMISSION_NOTIFICATION_POST            = 'perm_notification_post';
 
 /*      PERMISSION_VISITOR          */
 exports.PERMISSION_VISITOR_GET                  = 'perm_visitor_get';
@@ -66,3 +66,6 @@ exports.PERMISSION_ANSWER_GET                   = 'perm_answer_get';
 /*      PERMISSION_STATISTIC        */
 exports.PERMISSION_STATISTIC_YEAR_GET           = 'perm_statistic_year_get';
 exports.PERMISSION_STATISTIC_EXPORT_YEAR_GET    = 'perm_statistic_export_year_get';
+
+/*      PERMISSION_OFFLINESUPPORT   */
+exports.PERMISSION_OFFLINEPACKETS_POST          = 'perm_offlinepackets_post';

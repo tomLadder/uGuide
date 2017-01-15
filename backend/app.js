@@ -13,6 +13,7 @@ var Notification            = require('./Routes/Notification');
 var Misc                    = require('./Routes/Misc');
 var Answer                  = require('./Routes/PredefinedAnswer');
 var Statistic               = require('./Routes/Statistic');
+var OfflineSupport          = require('./Routes/OfflineSupport');
 var TestDataInitializer     = require('./Misc/TestDataInitializer');
 var UserType                = require('./Models/UserType');
 var PermissionHelper        = require('./Misc/PermissionHelper');      
@@ -29,7 +30,7 @@ mongoose.connect(connectionString)
   (
     () => {
       console.log('# Sucessfully connected to MongoDB');
-      //TestDataInitializer.GenerateTestData();
+      TestDataInitializer.GenerateTestData();
     }
   )
   .catch((err) => console.error(err));
@@ -53,6 +54,7 @@ app.use('/api', Station);
 app.use('/api', Notification);
 app.use('/api', Answer);
 app.use('/api', Statistic);
+app.use('/api', OfflineSupport);
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);

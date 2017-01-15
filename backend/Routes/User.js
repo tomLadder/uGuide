@@ -92,7 +92,7 @@ router.route('/user/:_id')
     if(err)
       return next(err);
 
-    if(!tdot) {
+    if(!user) {
         return next(errorManager.generate404NotFound('User with _id ' + req.params._id + ' not found', ErrorType.ERROR_USER_NOT_FOUND));
     }
 

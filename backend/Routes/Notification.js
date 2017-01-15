@@ -3,6 +3,8 @@ var Visitor         = require('../Models/Visitor');
 var UserType        = require('../Models/UserType');
 var TimeConstants   = require('../Models/TimeConstant');
 var Station         = require('../Models/Station');
+var Tdot            = require('../Models/Tdot');
+var User            = require('../Models/User');
 var Permission      = require('../Misc/Permission');
 var express         = require('express');
 var router          = express.Router();
@@ -16,72 +18,61 @@ var guard = require('../Guard.js')({
 
 module.exports = router;
 
-router.route('/notification/:_idstation')
-.post(guard.check(Permission.PERMISSION_NOTIFICATION_IDSTATION_POST), function(req, res, next) {
-  Visitor.findOne({Guide: req.token.sub, IsFinished: false}, function(err, visitor) {
-    if(err)
-      return next(errorManager.getAppropriateError(err));
-
-    if(!visitor)
-      return next(errorManager.generate404NotFound('no visitor found', ErrorType.ERROR_NO_VISITOR_FOUND));
-
-    if(req.params._idstation == TimeConstants.START) {
-      if(visitor.End != undefined)
-        return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
-
-      if(visitor.Start == undefined) {
-        visitor.Start = new Date();
-
-        visitor.save(function(err){
-          if(err)
-              return next(errorManager.getAppropriateError(err));
-          
-          res.send();
-        });
-      } else {
-        return next(errorManager.generate500InternalServerError("Startpoint already set", ErrorType.ERROR_STARTPOINT_ALREADY_SET));
+router.route('/notification')
+.post(guard.check(Permission.PERMISSION_NOTIFICATION_POST), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+      if(err) {
+        return next(errorManager.getAppropriateError(err));
       }
-    } else if (req.params._idstation == TimeConstants.END) {
-      if(visitor.End == undefined) {
-        visitor.End = new Date();
 
-        if(visitor.Start == undefined) {
-          visitor.Start = new Date();
+      if(!tdot) {
+          return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
+      }
+
+      User.findOne({_id: req.body.Guide}, function(err, user) {
+        if(err) {
+          return next(errorManager.getAppropriateError(err));
         }
 
-        visitor.save(function(err){
-          if(err)
-              return next(errorManager.getAppropriateError(err));
-          
-          res.send();
+        if(!user) {
+          return next(errorManager.generate404NotFound('user not found', ErrorType.ERROR_USER_NOT_FOUND));
+        }
+
+        Station.findOne({_id: req.body.Station, Tdot: tdot._id}, function(err, station) {
+          if(station) {
+            stationID = station.id;
+          } 
+
+          if(err) {
+            return next(errorManager.getAppropriateError(err));
+          }
+
+          if(!station) {
+            return next(errorManager.generate404NotFound('station not found', ErrorType.ERROR_STATION_NOT_FOUND));
+          }
+
+          Notification.find({Guide: user._id, Tdot: tdot._id}).sort({$natural:-1}).limit(1).exec(function(err, notification) {
+            if(err) {
+              res.send();
+              return;
+            }
+
+            if(notification.length > 0 && (notification[0].Station == station.id)) {
+              res.send('already visiting');
+            } else {
+              var notification = new Notification({Guide: user._id, Tdot: tdot._id, Station: station._id, Time: new Date()});
+
+              notification.save(function(err) {
+                if(err) {
+                  return next(errorManager.getAppropriateError(err));
+                }
+
+                res.send('saved');
+              });         
+            }
+          });
         });
-      } else {
-        return next(errorManager.generate500InternalServerError("Endpoint already set", ErrorType.ERROR_ENDPOINT_ALREADY_SET));
-      }
-    } else {
-      if(visitor.Start == undefined && visitor.End == undefined)
-        return next(errorManager.generate500InternalServerError("No Startpoint set", ErrorType.ERROR_STARTPOINT_ALREADY_SET));
-
-      if(visitor.End != undefined)
-        return next(errorManager.generate500InternalServerError("Visitor already finished", ErrorType.ERROR_VISITATION_ALREADY_FINISHED));
-
-      Notification.findOne({ Station: req.params._idstation, Visitor: visitor._id }, function(err, notf) {
-        if(err)
-          return next(errorManager.getAppropriateError(err));
-
-        if(!notf) {
-          var notification = new Notification({Visitor: visitor._id, Station: req.params._idstation, Time: new Date()});
-          notification.save(function(err, next) {
-            if(err)
-              return next(errorManager.getAppropriateError(err));
-
-            res.send({message: 'notification successfully added'});
-          });   
-        } else {
-          res.send('ok');
-        }  
       });
-    }
   });
 });
 

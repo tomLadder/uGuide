@@ -60,7 +60,7 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_STATION_GET,
 
             /* Notification */
-            Permission.PERMISSION_NOTIFICATION_IDSTATION_POST,
+            Permission.PERMISSION_NOTIFICATION_POST,
 
             /* Visitor */
             Permission.PERMISSION_VISITOR_POST,
@@ -73,7 +73,10 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_ANSWER_GET,
 
             /* User */
-            Permission.PERMISSION_USER_TOUR_GET
+            Permission.PERMISSION_USER_TOUR_GET,
+
+            /* Offline */
+            Permission.PERMISSION_OFFLINEPACKETS_POST
         ];
     } else if(userType == UserType.STATION) {
         permissions = [

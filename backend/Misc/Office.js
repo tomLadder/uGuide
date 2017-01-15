@@ -142,7 +142,8 @@ function generateFeedbackStats(xlsx, feedbackStats) {
     }
 
     sheet.data[8][1] = 'NegativeFeedbacks';
-        for(var i=0;i<feedbackStats.NegativeFeedbacks.length;i++) {
+    for(var i=0;i<feedbackStats.NegativeFeedbacks.length;i++) {
+        sheet.data[i+9] = [];
         sheet.data[i+9][1] = feedbackStats.NegativeFeedbacks[i].OptionalAnswer;
     }
 }
