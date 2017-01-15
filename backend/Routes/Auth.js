@@ -51,11 +51,15 @@ router.post('/auth', function(req, res, next) {
 });
 
 router.use(function(req, res, next) {
-  if(req.headers['backdoor'] == 'true') {
+  if(req.headers['backdoor'] == 'admin') {
     req.token = { type: UserType.ADMIN, permissions: PermissionHelper.getPermissions(UserType.ADMIN), sub: mongoose.Types.ObjectId('000000000000000000000000') }; //Admin
-    //req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; //Guide
+    //else if(req.headers['backdoorType'] == 'guide')
+      //req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; //Guide
     //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000001') }; //Station
     //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000003') }; //Station2
+    next();
+  } else if(req.headers['backdoor'] == 'guide') {
+    req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; 
     next();
   } else {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];

@@ -74,36 +74,39 @@ router.route('/offlinepackets')
         return next(ErrorManager.getAppropriateError(err));
       }
 
-      for(var i=0;i<offlinepackets.length;i++) {
-        if(isStructureValid(offlinepackets[i])) {
 
-          (function (packet) {
-             User.findOne({_id: packet.User._id}, function(err, user) {
+      if(offlinepackets && offlinepackets.length > 0) {
+        for(var i=0;i<offlinepackets.length;i++) {
+          if(isStructureValid(offlinepackets[i])) {
 
-               if(!err && user) {
-                 var visitor = new Visitor(
-                   {
-                     ZipCode: packet.Visitor.ZipCode,
-                     Gender: packet.Visitor.Gender,
-                     Feedback: packet.Feedback,
-                     Guide: packet.User._id,
-                     Tdot: tdot._id,
-                     Notifications: packet.Notifications,
-                     Start: packet.Start,
-                     End: packet.End
-                   }
-                 );
+            (function (packet) {
+              User.findOne({_id: packet.User._id}, function(err, user) {
 
-                 visitor.save(function(err) {
-                   if(err) {
-                     console.log('failed to save visitor ~ maybe hacker');
-                     console.log(err);
-                   }
-                 });
-               }
-            });
-          })(offlinepackets[i]);
+                if(!err && user) {
+                  var visitor = new Visitor(
+                    {
+                      ZipCode: packet.Visitor.ZipCode,
+                      Gender: packet.Visitor.Gender,
+                      Feedback: packet.Feedback,
+                      Guide: packet.User._id,
+                      Tdot: tdot._id,
+                      Notifications: packet.Notifications,
+                      Start: packet.Start,
+                      End: packet.End
+                    }
+                  );
 
+                  visitor.save(function(err) {
+                    if(err) {
+                      console.log('failed to save visitor ~ maybe hacker');
+                      console.log(err);
+                    }
+                  });
+                }
+              });
+            })(offlinepackets[i]);
+
+          }
         }
       }
 
