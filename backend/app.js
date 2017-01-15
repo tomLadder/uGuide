@@ -30,7 +30,7 @@ mongoose.connect(connectionString)
   (
     () => {
       console.log('# Sucessfully connected to MongoDB');
-      TestDataInitializer.GenerateTestData();
+      //TestDataInitializer.GenerateTestData();
     }
   )
   .catch((err) => console.error(err));

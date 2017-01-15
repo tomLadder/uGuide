@@ -212,7 +212,7 @@ router.route('/visitor/:_id')
 
 router.route('/visitor')
 .get(guard.check(Permission.PERMISSION_VISITOR_GET), function(req, res, next) {
-  Visitor.find(req.query, function(err, visitors) {
+  Visitor.find({}, function(err, visitors) {
       if (err) {
         return res.send(err);
       }
