@@ -20,6 +20,8 @@ module.exports = router;
 
 router.route('/notification')
 .post(guard.check(Permission.PERMISSION_NOTIFICATION_POST), function(req, res, next) {
+  console.log('notification received!!');
+
   Tdot.findOne({IsCurrent: true}, function(err, tdot) {
       if(err) {
         return next(errorManager.getAppropriateError(err));

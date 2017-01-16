@@ -11,7 +11,7 @@ var UserType            = require('../Models/UserType');
 
 exports.GenerateTestData = function() {
     GenerateTdots();
-    GenerateUsers();
+    //GenerateUsers();
     GenerateStations();
     GenerateVisitors();
     GeneratePredefinedAnswer();
@@ -98,64 +98,54 @@ function GenerateStations() {
         var objs = 
         [
             {   
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Name: 'U1_Station_2015', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Position:'142' 
-            },
-            {   
                 _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Name: 'U1_Station_2016_1', 
+                Name: 'Programmierwerkstatt', 
                 Grade:1, 
                 Subject:'POS',
-                Description:'blablabla', 
+                Description:'Beschreibung der Programmierwerkstatt', 
                 User: mongoose.Types.ObjectId('000000000000000000000001'), 
                 Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
                 Position:'141' 
             },
             {  
                 _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Name: 'U1_Station_2016_2', 
+                Name: 'Diplomarbeiten', 
                 Grade:5, 
-                Subject:'SYP',
-                Description:'blablabla', 
+                Subject:'Other',
+                Description:'Beschreibung der Diplomarbeiten', 
                 User: mongoose.Types.ObjectId('000000000000000000000001'), 
                 Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
+                Position:'142' 
             }  ,  
             {   
                 _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Name: 'U2_Station_2015', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
+                Name: 'Wirtschaftsstand', 
+                Grade:3, 
+                Subject:'BWN',
+                Description:'Beschreibung des Wirtschaftsstandes', 
                 User: mongoose.Types.ObjectId('000000000000000000000003'), 
                 Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
                 Position:'142' 
             },
             {   
                 _id: mongoose.Types.ObjectId('000000000000000000000004'), 
-                Name: 'U2_Station_2016_1', 
+                Name: 'BSD - Projekte', 
                 Grade:1, 
                 Subject:'POS',
-                Description:'blablabla', 
+                Description:'Projekte werden von den Erstellern vorgestellt.', 
                 User: mongoose.Types.ObjectId('000000000000000000000003'), 
                 Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
+                Position:'112' 
             },
             {  
                 _id: mongoose.Types.ObjectId('000000000000000000000005'), 
-                Name: 'U2_Station_2016_2', 
+                Name: 'Info-Stand', 
                 Grade:5, 
                 Subject:'SYP',
-                Description:'blablabla', 
+                Description:'Allgemeine Informationen über die Abteilung. (Jobaussichten, Gehalt etc.)', 
                 User: mongoose.Types.ObjectId('000000000000000000000003'), 
                 Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
+                Position:'100' 
             }   
         ];
 
@@ -201,31 +191,19 @@ function GeneratePredefinedAnswer() {
         [
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Answer: 'Alles ok :)'
+                Answer: 'Programmierwerkstatt hat mir sehr gut gefallen'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Answer: 'Warum gibt es diesen Tdot?'
+                Answer: 'Schüler waren demotiviert.'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Answer: 'Freue mich schon auf die Kohle'
+                Answer: 'Zu wenige Mädlz'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Answer: 'Programmieren ist geil'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000004'), 
-                Answer: 'Gutes Essen!'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000005'), 
-                Answer: 'Programmierwerkstatt war top!'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000006'), 
-                Answer: 'Thomas Leiter ist top!'
+                Answer: 'Interessante Projekte!'
             }
         ];
 

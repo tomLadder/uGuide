@@ -56,7 +56,7 @@ var offlinepacketSchema = {
         },
         "OptionalAnswer": {"type":"string"}
       },
-      "required":["FeedbackType", "PredefinedAnswers", "OptionalAnswer"]
+      "required":["FeedbackType", "PredefinedAnswers"]
     },
     "Start": {"type":"integer"},
     "End": {"type":"integer"}
@@ -68,7 +68,10 @@ module.exports = router;
 
 router.route('/offlinepackets')
 .post(guard.check(Permission.PERMISSION_OFFLINEPACKETS_POST), function(req, res, next) {
+  console.log('offlinepackets received');
+
   var offlinepackets = req.body;
+  console.log(offlinepackets);
     Tdot.findOne({IsCurrent: true}, function(err, tdot) {
       if(err) {
         return next(ErrorManager.getAppropriateError(err));
@@ -115,6 +118,7 @@ router.route('/offlinepackets')
 });
 
 function isStructureValid(offlinepacket) {
+  console.log(validate(offlinepacket, offlinepacketSchema));
   return validate(offlinepacket, offlinepacketSchema).errors.length == 0;
 }
 

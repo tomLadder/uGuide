@@ -5,6 +5,7 @@ var Permission      = require('../Misc/Permission');
 var Office          = require('../Misc/Office');
 var errorManager    = require('../ErrorManager/ErrorManager');
 var ErrorType       = require('../ErrorManager/ErrorTypes');
+var randomstring    = require("randomstring");
 var express         = require('express');
 var mongoose        = require('mongoose');
 var router          = express.Router();
@@ -50,7 +51,7 @@ router.route('/user/multiple')
 
   console.log(req.Type);
   for(var i=0;i<req.Users.length;i++) {
-    var user = new User({Username: req.Users[i].User, Type: req.Type, Password: 'HelloWorld'});
+    var user = new User({Username: req.Users[i].User, Type: req.Type, Password: randomstring.generate(5) });
     users.push(user);
   }
 
