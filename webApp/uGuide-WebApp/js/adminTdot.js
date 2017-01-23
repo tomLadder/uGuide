@@ -1,7 +1,7 @@
 (function () {
-angular.module('adminTdot', [])
+angular.module('adminTdot', ['canvasLib'])
 
-.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, tdotFactory) {
+.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, tdotFactory, canvasLibFactory) {
     $scope.tdots = [];
     $scope.currentTdot = {};
     $scope.newTdot = {};
@@ -162,5 +162,130 @@ angular.module('adminTdot', [])
     $scope.removeLockInfo = function() {
         $scope.resetAlert();
     }
+
+    //MAP - Editor
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    
+    $scope.currentPoint = undefined;
+    $scope.data = [
+
+    ];
+
+    $scope.mapSrc = "test";
+
+    $scope.removePoint = function(point) {
+        for (var i = 0; i < $scope.data.length; i++) {
+            if ($scope.data[i].id === point.id) {
+                $scope.data.splice(i, 1);
+            }
+        }
+
+        context.clearRect(0, 0, 600, 400);
+        redraw();
+
+        $scope.addAlert('success', "Info", "Point removed");
+        $timeout($scope.resetAlert, 2500);
+    }
+
+
+    $scope.canvasClicked = function(event) {
+        if($scope.currentPoint != undefined) {
+            $scope.currentPoint.isCurrent = false;
+            $scope.currentPoint = undefined;
+
+            redraw();
+        } else {
+            point = getPoint(event.offsetX, event.offsetY);
+            if(point != undefined) {
+                $scope.currentPoint = point;
+                $scope.currentPoint.isCurrent = true;
+            }
+        }
+    }
+
+    $scope.onMove = function(event) {
+        if($scope.currentPoint != undefined) {
+            $scope.currentPoint.x = event.offsetX;
+            $scope.currentPoint.y = event.offsetY;
+
+            redraw();
+        } else {
+            resetHoverPoints();
+
+            point = getPoint(event.offsetX, event.offsetY);      
+            if(point != undefined) {
+                point.isHover = true;
+            }   
+
+            redraw(); 
+        }
+    }
+
+    $scope.addPoint = function() {
+        if($scope.data.some(function(data, index, array) {
+            return data.tag == $scope.tag;
+        }) == true) {
+            $scope.addAlert('danger', "Error", "Tag already defined");
+            $timeout($scope.resetAlert, 2500);
+        } else {
+            var p = {
+                id: $scope.tag,
+                tag: $scope.tag,
+                x: 10,
+                y: 10,
+                amount: 10,
+                isCurrent: true,
+                isHover: false
+            };
+
+            $scope.data.push(p);
+            $scope.currentPoint = p;
+
+            redraw();
+        }
+    }
+
+    function resetHoverPoints() {
+        for (var i = 0; i < $scope.data.length; i++) {
+            $scope.data[i].isHover = false;
+        }
+    }
+
+    function getPoint(x, y) {
+        for (var i = 0; i < $scope.data.length; i++) {
+            if(isPointInCircle(x, y, $scope.data[i].x, $scope.data[i].y, $scope.data[i].amount)) {
+                return $scope.data[i];
+            }
+        }
+    }
+
+    function isPointInCircle(x, y, xCircle, yCircle, radius) {
+        return Math.sqrt((x-xCircle)*(x-xCircle) + (y-yCircle)*(y-yCircle)) < radius;
+    }
+
+    function redraw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < $scope.data.length; i++) {
+            if($scope.data[i].isCurrent) {
+                canvasLibFactory.drawDot(context, $scope.data[i], "#FF0000");
+                canvasLibFactory.drawToolTip(context, $scope.data[i]);
+            } else if($scope.data[i].isHover) {
+                canvasLibFactory.drawDot(context, $scope.data[i], "#FFC107");
+                canvasLibFactory.drawToolTip(context, $scope.data[i]);
+            } else {
+                canvasLibFactory.drawDot(context, $scope.data[i], "#ccddff");
+            }
+        }
+     }
+
+    // setup
+    canvas.width = 800;
+    canvas.height = 600;
+    context.globalAlpha = 1.0;
+    context.font = "25px serif";
+    context.beginPath();
+    redraw();    
 });
 })();

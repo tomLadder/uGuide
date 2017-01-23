@@ -69,6 +69,37 @@
                                 <label><input type="checkbox" ng-model="currentTdot.IsLocked" ng-click="toggleLockTdot()">Current TdoT is locked</label>
                             </div>
                         </div>
+
+                        <div class="containerEditor contentContainer">
+                            <div class="form-group spinner">
+                                <label>Map-Editor</label></br>
+
+                                <div id="inputDivTag">
+                                    <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="button" ng-click="addPoint()">Add</button>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="tag" placeholder="Tag" ng-minlength="1" ng-maxlength="10">
+                                    </div>
+                                </div>
+
+                                <canvas id="canvas"
+                                    ng-click="canvasClicked($event)" ng-mousemove="onMove($event)">
+                                </canvas>
+
+                                <div>
+                                    <ul>
+                                        <li ng-repeat="point in data">
+                                            [{{point.x}}, {{point.y}}, {{point.tag}}] <button class="btn btn-danger" type="button" ng-click="removePoint(point)">Remove</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <label class="custom-file">
+                                <input type="file" id="file" class="custom-file-input" ng-model="mapSrc">
+                                <span class="custom-file-control"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

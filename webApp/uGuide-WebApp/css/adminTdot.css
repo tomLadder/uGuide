@@ -51,6 +51,19 @@ body {
   clear: both;
 }
 
+.containerEditor {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top:15px;
+}
+.containerEditor:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .greenbutton {
   outline: 0;
   background: #1c7d44;
@@ -75,4 +88,15 @@ body {
 
 .checkboxContainer {
   text-align: center; 
+}
+
+#canvas {
+  border: 1px gray solid;  
+  background: url('../graphics/Lageplan.png'); 
+  background-size: cover; 
+  margin: 0 auto;
+}
+
+#inputDivTag {
+  margin: 10px;
 }
