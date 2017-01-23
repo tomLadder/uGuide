@@ -71,7 +71,6 @@ router.route('/offlinepackets')
   console.log('offlinepackets received');
 
   var offlinepackets = req.body;
-  console.log(offlinepackets);
     Tdot.findOne({IsCurrent: true}, function(err, tdot) {
       if(err) {
         return next(ErrorManager.getAppropriateError(err));
@@ -118,7 +117,6 @@ router.route('/offlinepackets')
 });
 
 function isStructureValid(offlinepacket) {
-  console.log(validate(offlinepacket, offlinepacketSchema));
   return validate(offlinepacket, offlinepacketSchema).errors.length == 0;
 }
 

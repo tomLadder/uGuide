@@ -3,8 +3,10 @@ var Tdot                = require('../Models/Tdot');
 var Permission          = require('../Misc/Permission');
 var UserType            = require('../Models/UserType');
 var TimeConstant        = require('../Models/TimeConstant');
+var Notification        = require('../Models/Notification');
 var express             = require('express');
 var qr                  = require('qr-image');
+var moment              = require('moment');
 var router              = express.Router();
 var errorManager        = require('../ErrorManager/ErrorManager');
 var ErrorType           = require('../ErrorManager/ErrorTypes');
@@ -14,7 +16,64 @@ var guard = require('../Guard.js')({
   permissionsProperty: 'permissions'
 });
 
+var limit = 1;
+
 module.exports = router;
+
+router.route('/station/busy')
+.get(guard.check(Permission.PERMISSION_STATION_BUSY_GET), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+    if(err)
+      return next(errorManager.getAppropriateError(err));
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
+    }
+
+    var cutoff = moment(new Date()).subtract(20, 'minutes').toDate();
+
+    Notification.aggregate( [
+        {
+          $match: {
+            Time: {$gte: cutoff},
+            Tdot: tdot._id
+          }
+        },
+        {
+          $sort: { Guide: 1, Time: -1 }
+        },
+        { 
+          $group: {
+            "_id": "$Guide",
+            "Station": { "$first": "$Station" },
+            "Time": { "$first": "$Time" }
+          }
+        }, 
+        {
+          $group: {
+            "_id": "$Station",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $match: {
+            count: { $gte: limit }
+          }
+        }, 
+        {
+          $project: {
+            "_id":1
+          }
+        }
+    ], function(err, notifications) {
+      if(err) {
+        return next(errorManager.getAppropriateError(err));
+      }
+
+      res.send(notifications);
+    });
+  });
+});
 
 router.route('/station/qr')
 .get(guard.check(Permission.PERMISSION_STATION_QR_GET), function(req, res, next) {

@@ -38,6 +38,7 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_STATION_ID_DELETE,
             Permission.PERMISSION_STATION_GET,
             Permission.PERMISSION_STATION_CURRENT_QR_GET,
+            Permission.PERMISSION_STATION_BUSY_GET,
 
             /* Notification */
             Permission.PERMISSION_NOTIFICATION_GET,
@@ -58,16 +59,13 @@ exports.getPermissions = function(userType) {
             /* Station */
             Permission.PERMISSION_STATION_ID_GET,
             Permission.PERMISSION_STATION_GET,
+            Permission.PERMISSION_STATION_BUSY_GET,
 
             /* Notification */
             Permission.PERMISSION_NOTIFICATION_POST,
 
             /* Visitor */
             Permission.PERMISSION_VISITOR_POST,
-            Permission.PERMISSION_VISITOR_FEEDBACK_POST,
-            Permission.PERMISSION_VISITOR_CANCEL_POST,
-            Permission.PERMISSION_VISITOR_TODO_GET,
-            Permission.PERMISSION_VISITOR_DONE_GET,
 
             /* Answer */
             Permission.PERMISSION_ANSWER_GET,

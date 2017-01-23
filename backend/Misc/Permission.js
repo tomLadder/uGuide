@@ -41,6 +41,8 @@ exports.PERMISSION_STATION_CURRENT_POSITIONPLAN = 'perm_station_current_pp';
 exports.PERMISSION_STATION_CURRENT_GET          = 'perm_station_current_get';
 exports.PERMISSION_STATION_CURRENT_QR_GET       = 'perm_station_current_qr_get';
 
+exports.PERMISSION_STATION_BUSY_GET             = 'perm_station_busy_get';
+
 /*      PERMISSION_NOTIFICATION     */
 exports.PERMISSION_NOTIFICATION_GET             = 'perm_notification_get';
 exports.PERMISSION_NOTIFICATION_POST            = 'perm_notification_post';
@@ -52,13 +54,6 @@ exports.PERMISSION_VISITOR_POST                 = 'perm_visitor_post';
 exports.PERMISSION_VISITOR_ID_GET               = 'perm_visitor_id_get';
 exports.PERMISSION_VISITOR_ID_PUT               = 'perm_visitor_id_put';
 exports.PERMISSION_VISITOR_ID_DELETE            = 'perm_visitor_id_delete';
-
-exports.PERMISSION_VISITOR_FEEDBACK_POST        = 'perm_visitor_feedback_post';
-
-exports.PERMISSION_VISITOR_CANCEL_POST          = 'perm_visitor_cancel_post';
-
-exports.PERMISSION_VISITOR_TODO_GET             = 'perm_visitor_todo_get';
-exports.PERMISSION_VISITOR_DONE_GET             = 'perm_visitor_done_get';
 
 /*      PERMISSION_ANSWER           */
 exports.PERMISSION_ANSWER_GET                   = 'perm_answer_get';
