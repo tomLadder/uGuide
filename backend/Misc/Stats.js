@@ -1,10 +1,11 @@
-var User            = require('../Models/User');
-var UserType        = require('../Models/UserType');
-var GenderType      = require('../Models/GenderType');
-var Visitor         = require('../Models/Visitor');
-var Fb        = require('../Models/Feedback');
-var FeedbackType    = require('../Models/FeedbackType');
-var moment            = require('moment');
+var User                = require('../Models/User');
+var UserType            = require('../Models/UserType');
+var GenderType          = require('../Models/GenderType');
+var Visitor             = require('../Models/Visitor');
+var Fb                  = require('../Models/Feedback');
+var FeedbackType        = require('../Models/FeedbackType');
+var PredefinedAnswer    = require('../Models/PredefinedAnswer');
+var moment              = require('moment');
 
 exports.getBasicStats = function(tdotid, resultCallback) {
     countVisitorMale(tdotid, function(male) {
@@ -162,34 +163,33 @@ function getNegativeOptionalFeedbacks(tdotid, resultCallback) {
 }
 
 function getPredefinedFeedbacks(tdotid, resultCallback) {
-    // resultCallback(
-    //     [
-    //         {Answer: 'alles war top', Quantity: 22},
-    //         {Answer: 'thomas leiter ist top', Quantity: 25}
-    //     ]);
-
-    Visitor.find({Tdot: tdotid}, "Feedback", function(err, visitors) {
+    Visitor.aggregate([
+        {
+            $match: {
+                Tdot: tdotid
+            }
+        },
+        {
+            $project: {
+                answers:"$Feedback.PredefinedAnswers"
+            }
+        },
+        {
+            $unwind:"$answers"
+        },
+        {
+            $group: {
+                "_id":"$answers",
+                Quantity: { $sum: 1 }
+            }
+        }
+    ], function(err, visitors) {
         if(err || visitors == undefined) {
             resultCallback([]);
             return;
         }
 
-        var answers = new Array();
-
-        visitors.forEach(function(visitor) {
-            if(visitor.Feedback != undefined) {
-                for(var i=0;i<visitor.Feedback.PredefinedAnswers.length;i++) {
-                    var answer = answers.find(function(answer) {
-                        return answer.Answer = visitor.Feedback.PredefinedAnswers[i];
-                    });
-
-                    if(answer == undefined)
-                        answers.push({Answer: visitor.Feedback.PredefinedAnswers[i], Quantity: 1337});
-                }
-            }
-        });
-
-        resultCallback(answers);
+        resultCallback(visitors);
     });
 }
 
