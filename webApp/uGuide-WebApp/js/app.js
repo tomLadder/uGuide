@@ -2,7 +2,7 @@
   var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot', 'adminDashboard', 'chart.js', 'ngMap']);
 
   app.constant('ApiConstant', {
-      'url': 'http://84.200.7.248:8000/api'
+      'url': 'http://127.0.0.1:8000/api'
   });
 
   app.controller('ctrl', function() {

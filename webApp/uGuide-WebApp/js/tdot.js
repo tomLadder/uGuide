@@ -101,6 +101,31 @@ stationApp.factory('tdotFactory', function($http, $window, $q, ApiConstant) {
 		});
 	}
 
+	factory.getMap = function(id) {
+		return $http({
+			method: 'GET',
+			url: ApiConstant.url + '/tdot/map/' + id,
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			}
+		});
+	}
+
+	factory.saveMap = function(id, mapData) {
+		return $http({
+			method: 'PUT',
+			url: ApiConstant.url + '/tdot/map/' + id,
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+			data: JSON.stringify(mapData)	
+		});
+	}
+
 	factory.downloadStatistics = function(year) {
 		return $http({
 			method: 'GET',

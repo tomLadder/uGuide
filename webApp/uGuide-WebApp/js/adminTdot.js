@@ -83,7 +83,6 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
     }
 
     $scope.setCurrentTdot = function(t) {
-        console.log(t._id);
         tdotFactory.setCurrentTdot(t._id).then
         (
             function(successResponse) {
@@ -102,7 +101,19 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         (
             function(successResponse) {
                 $scope.currentTdot = successResponse.data;
-                console.log("Islocked -> " + $scope.currentTdot.IsLocked);
+
+                tdotFactory.getMap($scope.currentTdot._id).then
+                (
+                    function(successResponse) {
+                        parseMapFromServer(successResponse.data);
+                    },
+                    function(errorResponse) {
+                        console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                        $scope.addAlert('danger', errorResponse.data.code, "Failed to get map");
+                        $timeout($scope.resetAlert, 2000);
+                    }              
+                );
+
             },
             function(errorResponse) {
                 console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
@@ -169,11 +180,27 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
 
     $scope.showLockInfo = function() {
         $scope.addAlert('warning', 'Lock Info', 'With checking this box you lock/unlock the current selected TdoT');
-        //$timeout($scope.resetAlert, 3000);
     }
 
     $scope.removeLockInfo = function() {
         $scope.resetAlert();
+    }
+
+    $scope.saveMap = function() {
+        var points = convertToServerPoints();
+        var mapdata = { Map: $scope.base64Image, Points: points };
+
+        tdotFactory.saveMap($scope.currentTdot._id, mapdata).then
+        (
+            function(successResponse) {
+                $scope.addAlert('success', successResponse.status, "Map saved");
+                $timeout($scope.resetAlert, 2000);               
+            },
+            function(errorResponse) {
+                $scope.addAlert('danger', errorResponse.data.code, "Could not save map");
+                $timeout($scope.resetAlert, 2000);
+            }
+        );
     }
 
     //MAP - Editor
@@ -182,14 +209,11 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
     
     $scope.currentPoint = undefined;
     $scope.data = [
-
     ];
-
-    $scope.mapSrc = "test";
 
     $scope.removePoint = function(point) {
         for (var i = 0; i < $scope.data.length; i++) {
-            if ($scope.data[i].id === point.id) {
+            if ($scope.data[i].tag === point.tag) {
                 $scope.data.splice(i, 1);
             }
         }
@@ -243,7 +267,6 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
             $timeout($scope.resetAlert, 2500);
         } else {
             var p = {
-                id: $scope.tag,
                 tag: $scope.tag,
                 x: 10,
                 y: 10,
@@ -271,6 +294,25 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
                 return $scope.data[i];
             }
         }
+    }
+
+    function convertToServerPoints() {
+        var points = $scope.data.map(function(point) {
+            return { Tag: point.tag, X: point.x, Y: point.y };
+        });
+
+        return points;
+    }
+
+    function parseMapFromServer(mapData) {
+        $scope.base64Image = mapData.Map;
+        
+        var points = mapData.Points.map(function(point) {
+            return { tag: point.Tag, x: point.X, y: point.Y, amount: 10, isCurrent: false, isHover: false };
+        });
+
+        $scope.data = points;
+        redraw();
     }
 
     function isPointInCircle(x, y, xCircle, yCircle, radius) {
