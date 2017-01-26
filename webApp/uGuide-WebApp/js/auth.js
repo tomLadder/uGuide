@@ -32,12 +32,12 @@ authApp.factory('authFactory', function(authChallenge, authToken, sha256, $http,
 	}
 });
 
-authApp.factory('authChallenge', function($http) {
+authApp.factory('authChallenge', function($http, ApiConstant) {
   return {
     getChallenge: function(username) {
       return $http({
         method: 'POST',
-        url: 'http://84.200.7.248:8000/api/challenge',
+        url: ApiConstant.url + '/challenge',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data: 'username=' + username
       });
@@ -45,12 +45,12 @@ authApp.factory('authChallenge', function($http) {
   }
 });
 
-authApp.factory('authToken', function($http) {
+authApp.factory('authToken', function($http, ApiConstant) {
   return {
     getToken: function(username, hashedPassword) {
       return $http({
         method: 'POST',
-        url: 'http://84.200.7.248:8000/api/auth',
+        url: ApiConstant.url + '/auth',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         data: 'username=' + username + '&password=' + hashedPassword
       });

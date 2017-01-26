@@ -1,14 +1,13 @@
 (function () {
 var stationApp = angular.module('user', [])
 
-stationApp.factory('userFactory', function($http, $window, $q) {
+stationApp.factory('userFactory', function($http, $window, $q, ApiConstant) {
     var factory = {};
-	var SERVER_IP = 'http://84.200.7.248:8000';
 
     factory.addUser = function(username, type, password) {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/user',
+			url: ApiConstant.url + '/user',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -21,7 +20,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
     factory.updateUser = function(_id, username, type, password) {
 		return $http({
 			method: 'PUT',
-			url: SERVER_IP + '/api/user/' + _id,
+			url: ApiConstant.url + '/user/' + _id,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -34,7 +33,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
     factory.deleteUser = function(_id) {
 		return $http({
 			method: 'DELETE',
-			url: SERVER_IP + '/api/user/' + _id,
+			url: ApiConstant.url + '/user/' + _id,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
     factory.getUsers = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/user',
+			url: ApiConstant.url + '/user',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -58,7 +57,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
 	factory.addMultipleUsers = function(userWrapper) {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/user/multiple',
+			url: ApiConstant.url + '/user/multiple',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -72,7 +71,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
 		return $http({
 			method: 'POST',
 			responseType: 'arraybuffer',
-			url: SERVER_IP + '/api/user/export',
+			url: ApiConstant.url + '/user/export',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -85,7 +84,7 @@ stationApp.factory('userFactory', function($http, $window, $q) {
 	factory.deleteMultipleUsers = function(userWrapper) {
 		return $http({
 			method: 'DELETE',
-			url: SERVER_IP + '/api/user/multiple',
+			url: ApiConstant.url + '/user/multiple',
 			headers:
 			{
 				'Content-Type': 'application/json',

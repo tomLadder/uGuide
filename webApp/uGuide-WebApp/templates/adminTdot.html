@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
 
-                                <canvas id="canvas"
+                                <canvas id="canvas" back-img="{{base64Image}}"
                                     ng-click="canvasClicked($event)" ng-mousemove="onMove($event)">
                                 </canvas>
 
@@ -96,7 +96,13 @@
                                 </div>
                             </div>
                             <label class="custom-file">
-                                <input type="file" id="file" class="custom-file-input" ng-model="mapSrc">
+                                <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+                                        accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                                    Select a Map</button>
+                                <br><br>
+                                Map:
+                                <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                                </div>  
                                 <span class="custom-file-control"></span>
                             </label>
                         </div>

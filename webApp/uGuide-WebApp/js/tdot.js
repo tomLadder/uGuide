@@ -1,14 +1,13 @@
 (function () {
 var stationApp = angular.module('tdot', [])
 
-stationApp.factory('tdotFactory', function($http, $window, $q) {
+stationApp.factory('tdotFactory', function($http, $window, $q, ApiConstant) {
     var factory = {};
-	var SERVER_IP = 'http://84.200.7.248:8000';
 
     factory.addTdot = function(year) {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/tdot',
+			url: ApiConstant.url + '/tdot',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -21,7 +20,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
     factory.getTdots = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/tdot',
+			url: ApiConstant.url + '/tdot',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -33,7 +32,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
     factory.getCurrentTdot = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/tdot/current',
+			url: ApiConstant.url + '/tdot/current',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -45,7 +44,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
     factory.setCurrentTdot = function(_id) {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/tdot/current/' + _id,
+			url: ApiConstant.url + '/tdot/current/' + _id,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -57,7 +56,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 	factory.getNextTdots = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/tdot/possible',
+			url: ApiConstant.url + '/tdot/possible',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 	factory.getTdotStatistics = function(year) {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/statistic/' + year,
+			url: ApiConstant.url + '/statistic/' + year,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -81,7 +80,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 	factory.lockTdot = function() {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/tdot/lock',
+			url: ApiConstant.url + '/tdot/lock',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -93,7 +92,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 	factory.unlockTdot = function() {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/tdot/unlock',
+			url: ApiConstant.url + '/tdot/unlock',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -106,7 +105,7 @@ stationApp.factory('tdotFactory', function($http, $window, $q) {
 		return $http({
 			method: 'GET',
 			responseType: 'arraybuffer',
-			url: SERVER_IP + '/api/statistic/export/' + year,
+			url: ApiConstant.url + '/statistic/export/' + year,
 			headers:
 			{
 				'Content-Type': 'application/json',

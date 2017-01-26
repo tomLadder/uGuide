@@ -92,11 +92,35 @@ body {
 
 #canvas {
   border: 1px gray solid;  
-  background: url('../graphics/Lageplan.png'); 
-  background-size: cover; 
+  background-position: center;
+  background-size: 100% 100%; 
   margin: 0 auto;
 }
 
 #inputDivTag {
   margin: 10px;
+}
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
 }

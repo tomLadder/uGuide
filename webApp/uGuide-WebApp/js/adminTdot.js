@@ -1,13 +1,26 @@
 (function () {
-angular.module('adminTdot', ['canvasLib'])
+var app = angular.module('adminTdot', ['canvasLib', 'ngFileUpload']);
 
-.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, tdotFactory, canvasLibFactory) {
+app.directive('backImg', function() {
+    return function(scope, element, attrs) {
+
+        attrs.$observe('backImg',  function(value) {
+            element.css({
+                'background-image': 'url(' + value +')',
+                'background-size' : 'cover'
+            });
+        });
+    };
+});
+
+app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, tdotFactory, canvasLibFactory) {
     $scope.tdots = [];
     $scope.currentTdot = {};
     $scope.newTdot = {};
     $scope.nextTdots = [];
 
     $scope.alert = {};
+    $scope.base64Image = "";
 
     $scope.isTdotLocked = false;
 
@@ -286,6 +299,16 @@ angular.module('adminTdot', ['canvasLib'])
     context.globalAlpha = 1.0;
     context.font = "25px serif";
     context.beginPath();
-    redraw();    
+    redraw();  
+
+    $scope.uploadFiles = function(file, errFiles) {
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            Upload.base64DataUrl(file).then(function(url) {
+                $scope.base64Image = url;
+            });
+        }   
+    }  
 });
 })();

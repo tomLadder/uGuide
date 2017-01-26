@@ -29,7 +29,6 @@ angular.module('stationEdit', [])
   }
 
   $scope.jQueryInjection = function() {
-    //JQuery injection möööö
     $('modalId').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();

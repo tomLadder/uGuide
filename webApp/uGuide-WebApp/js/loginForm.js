@@ -8,7 +8,6 @@ angular.module('loginForm', [])
   $rootScope.session = {};
 
   $scope.init = function() {
-    //JQuery injection möööö
     $('modalId').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
@@ -22,12 +21,12 @@ angular.module('loginForm', [])
     $scope.alert.message = msg;
   }
 
-  //löscht alle alerts wieder
   $scope.resetAlert = function() {
     $scope.alert = {};
   }
 
   $scope.login = function() {
+
     $scope.resetAlert();
 
     authFactory.authenticationProcess($scope.user.username, $scope.user.password).then
@@ -47,10 +46,6 @@ angular.module('loginForm', [])
       }
     );
   };
-
-  // $scope.login = function() {
-  //   $location.path('/tdotManagement');
-  // };
 });
 
 })();

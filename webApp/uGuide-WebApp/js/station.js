@@ -1,14 +1,13 @@
 (function () {
 var stationApp = angular.module('station', [])
 
-stationApp.factory('stationFactory', function($http, $window, $q) {
+stationApp.factory('stationFactory', function($http, $window, $q, ApiConstant) {
 	var factory = {};
-	var SERVER_IP = 'http://84.200.7.248:8000';
 
 	factory.addStation = function(name, grade, subject, description, position) {
 		return $http({
 			method: 'POST',
-			url: SERVER_IP + '/api/station',
+			url: ApiConstant.url + '/station',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -21,7 +20,7 @@ stationApp.factory('stationFactory', function($http, $window, $q) {
 	factory.updateStation = function(_id, name, grade, subject, description, position) {
 		return $http({
 			method: 'PUT',
-			url: SERVER_IP + '/api/station/' + _id,
+			url: ApiConstant.url + '/station/' + _id,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -34,7 +33,7 @@ stationApp.factory('stationFactory', function($http, $window, $q) {
 	factory.deleteStation = function(_id) {
 		return $http({
 			method: 'DELETE',
-			url: SERVER_IP + '/api/station/' + _id,
+			url: ApiConstant.url + '/station/' + _id,
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ stationApp.factory('stationFactory', function($http, $window, $q) {
 	factory.getStations = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/station/current',
+			url: ApiConstant.url + '/station/current',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -58,7 +57,7 @@ stationApp.factory('stationFactory', function($http, $window, $q) {
 	factory.getStationsWithQR = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/station/current/qr',
+			url: ApiConstant.url + '/station/current/qr',
 			headers:
 			{
 				'Content-Type': 'application/json',
@@ -70,7 +69,7 @@ stationApp.factory('stationFactory', function($http, $window, $q) {
 	factory.getStationsWithPosition = function() {
 		return $http({
 			method: 'GET',
-			url: SERVER_IP + '/api/station/current/pp',
+			url: ApiConstant.url + '/station/current/pp',
 			headers:
 			{
 				'Content-Type': 'application/json',
