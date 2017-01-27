@@ -124,3 +124,34 @@ form .progress {
     background: orange;
     width: 0;
 }
+
+/* Table style BEGIN */
+table{
+    margin: auto;
+    border: 2px solid black;
+}
+.tableSection{
+    position: relative;
+    /*z-index: 1;*/
+    padding: 30px;
+    text-align: center;
+
+    width: 100%;
+}
+th {
+    background-color: #1c7d44!important;
+    color: white!important;
+}
+th, td, td > input {
+    text-align: center!important;
+    padding: 8px!important;
+}
+tr:nth-child(even) {background: #c0f2d5}
+tr:nth-child(odd) {background: #FFF}
+
+.tableBtn{
+    background-color: transparent!important;
+    border: none!important;
+}
+
+/* Table style END */

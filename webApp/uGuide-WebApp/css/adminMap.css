@@ -57,3 +57,7 @@ tr:nth-child(odd) {background: #FFF}
 }
 
 /* Table style END */
+
+.positionList {
+    background: black;
+}
