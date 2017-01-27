@@ -40,18 +40,8 @@ angular.module('stationEdit', [])
   }
 
   $scope.clearForm = function() {
-    // $scope.setSelectedStation({});
-    // $scope.helper.formMode = 'Add';
-
-    alert($scope.selectedPosition);
-
-    var tempPositionId = 0;
-    $scope.mapTags.forEach(function(x) {
-      if(x.Tag == $scope.selectedPosition)
-        tempPositionId = x._id;
-    });
-
-    alert(tempPositionId);
+    $scope.setSelectedStation({});
+    $scope.helper.formMode = 'Add';
   }
 
   $scope.loadPositions = function() {
@@ -133,7 +123,7 @@ angular.module('stationEdit', [])
     var position = {};
     $scope.mapTags.forEach(function(x) {
       if(x.Tag == $scope.selectedPosition) {
-        position._id = x._id;
+        position.id = x._id;
         position.X = x.X;
         position.Y = x.Y;
         position.Tag = x.Tag;

@@ -130,7 +130,7 @@ table{
     margin: auto;
     border: 2px solid black;
 }
-.tableSection{
+.tableSectionPosition{
     position: relative;
     /*z-index: 1;*/
     padding: 30px;
