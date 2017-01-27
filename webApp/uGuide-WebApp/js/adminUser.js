@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminUser', [])
 
-.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory) {
+.controller('adminUserCtrl', function ($rootScope, $scope, $timeout, userFactory, ViewConstant) {
     $scope.helper = {};
     $scope.selectedUser = {};
     $scope.users = [];
@@ -50,12 +50,12 @@ angular.module('adminUser', [])
         (
         function(successResponse) {
             $scope.users = successResponse.data;
-            console.log("users loaded");
+            console.log('INFO -- Users loaded');
         },
         function(errorResponse) {
-            console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-            $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-            $timeout($scope.resetAlert, 2000);
+            console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+            $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the users');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
         );
     }
@@ -82,13 +82,13 @@ angular.module('adminUser', [])
         userFactory.deleteUser($scope.selectedUser._id).then
         (
             function(successResponse) {
-                console.log("successfully deleted");
+                console.log('INFO -- Successfully deleted a user');
                 $scope.loadUsers();
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while deleting a user');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
 
@@ -100,17 +100,17 @@ angular.module('adminUser', [])
         userFactory.addUser($scope.selectedUser.Username, $scope.selectedUser.Type, $scope.selectedUser.Password).then
         (
             function(successResponse) {
-                console.log("successfully added");
+                console.log('INFO -- Successfully added a user');
                 $scope.loadUsers();
                 $scope.setSelectedUser({});
 
-                $scope.addAlert('success', 'Info', 'Successfully added');
-                $timeout($scope.resetAlert, 1500);
+                $scope.addAlert('success', 'INFO', 'Successfully added');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while adding a user');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
         }
@@ -118,19 +118,19 @@ angular.module('adminUser', [])
         userFactory.updateUser($scope.selectedUser._id, $scope.selectedUser.Username, $scope.selectedUser.Type, $scope.selectedUser.Password).then
         (
             function(successResponse) {
-            console.log("station updated");
+            console.log('INFO -- Station updated');
             $scope.loadUsers();
             $scope.setSelectedUser({});
 
-            $scope.addAlert('success', 'Info', 'Successfully updated');
-            $timeout($scope.resetAlert, 1500);
+            $scope.addAlert('success', 'INFO', 'Successfully updated');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
 
             $scope.helper.formMode = 'Add';
             },
             function(errorResponse) {
-            console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-            $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-            $timeout($scope.resetAlert, 2000);
+            console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+            $scope.addAlert('danger', errorResponse.data.code, 'Error occured while updating the selected user');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
         }
@@ -138,7 +138,6 @@ angular.module('adminUser', [])
 
     $scope.showTypeInfo = function() {
         $scope.addAlert('warning', 'Type Info', '1 (Admin) - 2 (Station) - 3 (Guide)');
-        //$timeout($scope.resetAlert, 3000);
     }
 
     $scope.removeTypeInfo = function() {
@@ -157,21 +156,19 @@ angular.module('adminUser', [])
             return retValue;
         });
 
-        console.log($scope.exportUsers);
-
         userFactory.addMultipleUsers($scope.exportUsers).then
         (
             function(successResponse) {
-                console.log('multiple users added');
-                $scope.addAlert('success', 'Info', 'Successfully added');
-                $timeout($scope.resetAlert, 2000);
+                console.log('INFO -- Multiple users added');
+                $scope.addAlert('success', 'INFO', 'Successfully added');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
 
                 $scope.loadUsers();
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while adding multiple users');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -195,22 +192,22 @@ angular.module('adminUser', [])
             userFactory.exportMultipleUsers($scope.selectedUsers).then
             (
                 function(successResponse) {
-                    console.log('users exported');
-                    $scope.addAlert('success', 'Info', 'Successfully exported');
-                    $timeout($scope.resetAlert, 2000);
+                    console.log('INFO -- Users exported');
+                    $scope.addAlert('success', 'INFO', 'Successfully exported');
+                    $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
 
                     $scope.downloadExports(successResponse.data);
                 },
                 function(errorResponse) {
-                    console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                    $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                    $timeout($scope.resetAlert, 2000);
+                    console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                    $scope.addAlert('danger', errorResponse.data.code, 'Error occured while exporting multiple users');
+                    $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
                 }
             );
         }
         else {
-            $scope.addAlert('danger', 'Warning!', 'Please first select some users');
-            $timeout($scope.resetAlert, 2000);
+            $scope.addAlert('danger', 'WARNING!', 'Please first select some users');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
     }
 
@@ -223,22 +220,22 @@ angular.module('adminUser', [])
             userFactory.deleteMultipleUsers($scope.selectedUsers).then
             (
                 function(successResponse) {
-                    console.log('users deleted');
-                    $scope.addAlert('success', 'Info', 'Successfully deleted');
-                    $timeout($scope.resetAlert, 2000);
+                    console.log('INFO -- Users deleted');
+                    $scope.addAlert('success', 'INFO', 'Successfully deleted');
+                    $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
 
                     $scope.loadUsers();
                 },
                 function(errorResponse) {
-                    console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                    $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                    $timeout($scope.resetAlert, 2000);
+                    console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                    $scope.addAlert('danger', errorResponse.data.code, 'Error occured while deleting multiple users');
+                    $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
                 }
             );
         }
         else {
-            $scope.addAlert('danger', 'Warning!', 'Please first select some users');
-            $timeout($scope.resetAlert, 2000);
+            $scope.addAlert('danger', 'WARNING!', 'Please first select some users');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
     }
 
@@ -252,8 +249,6 @@ angular.module('adminUser', [])
         $scope.users.forEach(function(x) {
             x.Checked = newCheckedValue;
         });
-
-        console.log($scope.users);
     }
 
     $scope.downloadExports = function(encodedData) {

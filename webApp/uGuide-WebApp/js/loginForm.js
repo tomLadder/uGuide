@@ -32,7 +32,6 @@ angular.module('loginForm', [])
     authFactory.authenticationProcess($scope.user.username, $scope.user.password).then
     (
       function(successResponse) {
-        console.log(successResponse.data.user.type);
         if(successResponse.data.user.type == 2) {
           $location.path('/stationEdit');
         } else if(successResponse.data.user.type == 1) {

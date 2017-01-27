@@ -13,7 +13,7 @@ app.directive('backImg', function() {
     };
 });
 
-app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, tdotFactory, canvasLibFactory) {
+app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, tdotFactory, canvasLibFactory, ViewConstant) {
     $scope.tdots = [];
     $scope.currentTdot = {};
     $scope.newTdot = {};
@@ -51,12 +51,12 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         (
             function(successResponse) {
                 $scope.nextTdots = successResponse.data;
-                console.log("Next Tdots loaded");
+                console.log('INFO -- Next Tdots loaded');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the next TdoTs');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -72,12 +72,12 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         (
             function(successResponse) {
                 $scope.tdots = successResponse.data;
-                console.log("Tdots loaded");
+                console.log('INFO -- Tdots loaded');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the TdoTs');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -87,11 +87,12 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         (
             function(successResponse) {
                 $scope.loadTdots();
+                console.log('INFO -- Successfully set the current TdoT');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while setting the current TdoT');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -108,33 +109,33 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
                         parseMapFromServer(successResponse.data);
                     },
                     function(errorResponse) {
-                        console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+                        console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
                         $scope.addAlert('danger', errorResponse.data.code, "Failed to get map");
-                        $timeout($scope.resetAlert, 2000);
+                        $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
                     }              
                 );
 
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the current TdoT');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
 
     $scope.addTdot = function() {
-        console.log($scope.newTdot.Year);
         tdotFactory.addTdot($scope.newTdot.Year).then
         (
             function(successResponse) {
+                console.log('INFO -- Successfully added a new TdoT');
                 $scope.loadTdots();
                 $scope.loadNextTdots();
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while adding a new TdoT');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -154,12 +155,12 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         tdotFactory.lockTdot().then
         (
             function(successResponse) {
-                console.log('TdoT is locked');
+                console.log('INFO -- Current TdoT is locked');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while locking the current TdoT');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -168,12 +169,12 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         tdotFactory.unlockTdot().then
         (
             function(successResponse) {
-                console.log('TdoT is unlocked');
+                console.log('INFO -- Current TdoT is unlocked');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while unlocking the current TdoT');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -193,12 +194,13 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         tdotFactory.saveMap($scope.currentTdot._id, mapdata).then
         (
             function(successResponse) {
-                $scope.addAlert('success', successResponse.status, "Map saved");
-                $timeout($scope.resetAlert, 2000);               
+                console.log('INFO -- Map successfully saved');
+                $scope.addAlert('success', successResponse.status, 'Map successfully saved');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);               
             },
             function(errorResponse) {
-                $scope.addAlert('danger', errorResponse.data.code, "Could not save map");
-                $timeout($scope.resetAlert, 2000);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while saving the map');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -221,8 +223,8 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
         context.clearRect(0, 0, 600, 400);
         redraw();
 
-        $scope.addAlert('success', "Info", "Point removed");
-        $timeout($scope.resetAlert, 2500);
+        $scope.addAlert('success', 'INFO', 'Point removed');
+        $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
     }
 
 
@@ -264,7 +266,7 @@ app.controller('adminTdotCtrl', function ($rootScope, $scope, $timeout, Upload, 
             return data.tag == $scope.tag;
         }) == true) {
             $scope.addAlert('danger', "Error", "Tag already defined");
-            $timeout($scope.resetAlert, 2500);
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         } else {
             var p = {
                 tag: $scope.tag,

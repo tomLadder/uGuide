@@ -1,7 +1,7 @@
 (function () {
 angular.module('stationEdit', [])
 
-.controller('stationEditCtrl', function ($rootScope, $scope, $location, $timeout, stationFactory, tdotFactory) {
+.controller('stationEditCtrl', function ($rootScope, $scope, $location, $timeout, stationFactory, tdotFactory, ViewConstant) {
   $scope.helper = {};
   $scope.selectedStation = {};
   $scope.selectedPosition;
@@ -49,12 +49,12 @@ angular.module('stationEdit', [])
     (
         function(successResponse) {
             $scope.mapTags = successResponse.data;
-            console.log("Positions loaded");
+            console.log('INFO -- Positions loaded');
         },
         function(errorResponse) {
-            console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-            $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-            $timeout($scope.resetAlert, 2000);
+            console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+            $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the map-positions');
+            $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
     );
   }
@@ -64,31 +64,30 @@ angular.module('stationEdit', [])
     (
       function(successResponse) {
           $scope.stations = successResponse.data;
-          console.log("stations loaded");
+          console.log('INFO -- Stations loaded');
       },
       function(errorResponse) {
-        console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-        $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-        $timeout($scope.resetAlert, 2000);
+        console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+        $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the stations');
+        $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
       }
     );
   }
 
   $scope.deleteStation = function() {
-    console.log("Station zu löschen: " + $scope.selectedStation.Name);
-
     $scope.jQueryInjection();
 
     stationFactory.deleteStation($scope.selectedStation._id).then
     (
       function(successResponse) {
-        console.log("successfully deleted");
+        console.log('INFO -- Successfully deleted');
+        $scope.addAlert('warning', 'INFO', 'Successfully deleted a station');
         $scope.loadStations();
       },
       function(errorResponse) {
-        console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+        console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
         $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-        $timeout($scope.resetAlert, 2000);
+        $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
       }
     );
 
@@ -101,12 +100,6 @@ angular.module('stationEdit', [])
   }
 
   $scope.setSelectedStation = function(s) {
-    // var tempTag = "";
-    // $scope.mapTags.forEach(function(x) {
-    //   if(x._id == s._id)
-    //     tempTag = x.Tag;
-    // });
-
     $scope.selectedPosition = String(s.Position.Tag);
 
     $scope.selectedStation = {
@@ -140,17 +133,17 @@ angular.module('stationEdit', [])
       stationFactory.addStation($scope.selectedStation.Name, $scope.selectedStation.Grade, $scope.selectedStation.Subject, $scope.selectedStation.Description, $scope.selectedStation.Position).then
       (
         function(successResponse) {
-          console.log("successfully added");
+          console.log('INFO -- Successfully added');
           $scope.loadStations();
           $scope.setSelectedStation({});
 
-          $scope.addAlert('success', 'Info', 'Successfully added');
-          $timeout($scope.resetAlert, 1500);
+          $scope.addAlert('success', 'INFO', 'Successfully added');
+          $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         },
         function(errorResponse) {
-          console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-          $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-          $timeout($scope.resetAlert, 2000);
+          console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+          $scope.addAlert('danger', errorResponse.data.code, 'Error occured while adding a new station');
+          $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
       );
     }
@@ -158,19 +151,19 @@ angular.module('stationEdit', [])
       stationFactory.updateStation($scope.selectedStation._id, $scope.selectedStation.Name, $scope.selectedStation.Grade, $scope.selectedStation.Subject, $scope.selectedStation.Description, $scope.selectedStation.Position).then
       (
         function(successResponse) {
-          console.log("station updated");
+          console.log('INFO -- Station updated');
           $scope.loadStations();
           $scope.setSelectedStation({});
 
-          $scope.addAlert('success', 'Info', 'Successfully updated');
-          $timeout($scope.resetAlert, 1500);
+          $scope.addAlert('success', 'INFO', 'Successfully updated');
+          $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
 
           $scope.helper.formMode = 'Add';
         },
         function(errorResponse) {
-          console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-          $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-          $timeout($scope.resetAlert, 2000);
+          console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+          $scope.addAlert('danger', errorResponse.data.code, 'Error occured while updating the selected station');
+          $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
         }
       );
     }

@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminMap', [])
 
-.controller('adminMapCtrl', function ($rootScope, $scope, $timeout, stationFactory) {
+.controller('adminMapCtrl', function ($rootScope, $scope, $timeout, stationFactory, ViewConstant) {
     $scope.stations = [];
 
     $scope.alert = {};
@@ -25,12 +25,12 @@ angular.module('adminMap', [])
         (
             function(successResponse) {
                 $scope.stations = successResponse.data;
-                console.log("Stations loaded");
+                console.log('INFO -- Stations loaded');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the stations');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }

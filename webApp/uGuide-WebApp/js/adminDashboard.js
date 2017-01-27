@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminDashboard', [])
 
-.controller('adminDashboardCtrl', function ($rootScope, $scope, $timeout, NgMap, tdotFactory) {
+.controller('adminDashboardCtrl', function ($rootScope, $scope, $timeout, NgMap, tdotFactory, ViewConstant) {
     $scope.alert = {};
 
     $scope.tdots = [];
@@ -46,12 +46,12 @@ angular.module('adminDashboard', [])
         (
             function(successResponse) {
                 $scope.tdots = successResponse.data;
-                console.log("Tdots loaded");
+                console.log("INFO -- Tdots loaded");
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the TdoTs');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
@@ -61,22 +61,20 @@ angular.module('adminDashboard', [])
         (
             function(successResponse) {
                 $scope.tdotStats = successResponse.data;
-                console.log("Tdots stats loaded");
+                console.log("INFO -- Tdots stats loaded");
 
                 $scope.initDashboardElements();
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the statistics');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
 
     $scope.initDashboardElements = function() {
         $scope.labelsGender = ['Male', 'Total', 'Female'];
-
-        // $scope.seriesGender = ['Male', 'Female'];
 
         $scope.dataGender = [
             [$scope.tdotStats.BasicStats.Male, $scope.tdotStats.BasicStats.Total, $scope.tdotStats.BasicStats.Female]
@@ -103,15 +101,15 @@ angular.module('adminDashboard', [])
         tdotFactory.downloadStatistics($scope.selectedTdot.Year).then
         (
             function(successResponse) {
-                console.log("Tdots stats exported");
+                console.log("INFO -- Tdots stats exported");
 
                 var blob = new Blob([successResponse.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
                 saveAs(blob, 'uGuide_' + String($scope.selectedTdot.Year) + '_statisticExport.xls');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while generating the export file');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
 

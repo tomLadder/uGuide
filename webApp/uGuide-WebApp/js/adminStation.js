@@ -1,7 +1,7 @@
 (function () {
 angular.module('adminStation', [])
 
-.controller('adminStationCtrl', function ($rootScope, $scope, $timeout, stationFactory) {
+.controller('adminStationCtrl', function ($rootScope, $scope, $timeout, stationFactory, ViewConstant) {
     $scope.stations = [];
 
     $scope.alert = {};
@@ -13,12 +13,12 @@ angular.module('adminStation', [])
         (
             function(successResponse) {
                 $scope.stations = successResponse.data;
-                console.log("Stations loaded");
+                console.log('INFO -- Stations loaded');
             },
             function(errorResponse) {
-                console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
-                $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
-                $timeout($scope.resetAlert, 2000);
+                console.log('ERROR -- ' + errorResponse.status + ' ' + errorResponse.data.message);
+                $scope.addAlert('danger', errorResponse.data.code, 'Error occured while loading the stations and the QR-Codes');
+                $timeout($scope.resetAlert, ViewConstant.timeoutDuration);
             }
         );
     }
