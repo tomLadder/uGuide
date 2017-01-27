@@ -139,6 +139,18 @@ stationApp.factory('tdotFactory', function($http, $window, $q, ApiConstant) {
 		});
 	}
 
+	factory.getPositionTags = function() {
+		return $http({
+			method: 'GET',
+			url: ApiConstant.url + '/tdot/positions',
+			headers:
+			{
+				'Content-Type': 'application/json',
+				'x-access-token': $window.localStorage.getItem("token")
+			},
+		});
+	}
+
     return factory;
 });
 })();

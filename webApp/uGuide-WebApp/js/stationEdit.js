@@ -1,10 +1,13 @@
 (function () {
 angular.module('stationEdit', [])
 
-.controller('stationEditCtrl', function ($rootScope, $scope, $location, $timeout, stationFactory) {
+.controller('stationEditCtrl', function ($rootScope, $scope, $location, $timeout, stationFactory, tdotFactory) {
   $scope.helper = {};
   $scope.selectedStation = {};
+  $scope.selectedPosition;
   $scope.stations = [];
+
+  $scope.mapTags = [];
 
   $scope.alert = {};
 
@@ -26,6 +29,8 @@ angular.module('stationEdit', [])
     $scope.helper.formMode = 'Add';
 
     $scope.loadStations();
+
+    $scope.loadPositions();
   }
 
   $scope.jQueryInjection = function() {
@@ -35,8 +40,33 @@ angular.module('stationEdit', [])
   }
 
   $scope.clearForm = function() {
-    $scope.setSelectedStation({});
-    $scope.helper.formMode = 'Add';
+    // $scope.setSelectedStation({});
+    // $scope.helper.formMode = 'Add';
+
+    alert($scope.selectedPosition);
+
+    var tempPositionId = 0;
+    $scope.mapTags.forEach(function(x) {
+      if(x.Tag == $scope.selectedPosition)
+        tempPositionId = x._id;
+    });
+
+    alert(tempPositionId);
+  }
+
+  $scope.loadPositions = function() {
+    tdotFactory.getPositionTags().then
+    (
+        function(successResponse) {
+            $scope.mapTags = successResponse.data;
+            console.log("Positions loaded");
+        },
+        function(errorResponse) {
+            console.log('Error - ' + errorResponse.status + ' ' + errorResponse.data.message);
+            $scope.addAlert('danger', errorResponse.data.code, errorResponse.data.error);
+            $timeout($scope.resetAlert, 2000);
+        }
+    );
   }
 
   $scope.loadStations = function() {
@@ -81,6 +111,14 @@ angular.module('stationEdit', [])
   }
 
   $scope.setSelectedStation = function(s) {
+    // var tempTag = "";
+    // $scope.mapTags.forEach(function(x) {
+    //   if(x._id == s._id)
+    //     tempTag = x.Tag;
+    // });
+
+    $scope.selectedPosition = String(s.Position.Tag);
+
     $scope.selectedStation = {
       _id : s._id, 
       Name : s.Name, 
@@ -91,7 +129,23 @@ angular.module('stationEdit', [])
     };
   }
 
+  $scope.setPositionId = function() {
+    var position = {};
+    $scope.mapTags.forEach(function(x) {
+      if(x.Tag == $scope.selectedPosition) {
+        position._id = x._id;
+        position.X = x.X;
+        position.Y = x.Y;
+        position.Tag = x.Tag;
+      }
+    });
+
+    $scope.selectedStation.Position = position;
+  }
+
   $scope.stopEditing = function() {
+    $scope.setPositionId();
+
     if($scope.helper.formMode == 'Add') {
       stationFactory.addStation($scope.selectedStation.Name, $scope.selectedStation.Grade, $scope.selectedStation.Subject, $scope.selectedStation.Description, $scope.selectedStation.Position).then
       (
