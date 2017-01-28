@@ -124,7 +124,9 @@
 
   <!-- Plan container BEGIN -->
   <div class="mapContainerStation">
-    <img src="graphics/lageplan.png" alt="Lageplan TdoT"></img>
+    <canvas id="canvas" back-img="{{base64Image}}"
+        ng-click="canvasClicked($event)" ng-mousemove="onMove($event)">
+    </canvas>
   </div>
   <!-- Plan container END-->
 

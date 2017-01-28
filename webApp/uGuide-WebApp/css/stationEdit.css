@@ -115,7 +115,7 @@ body:before {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   text-align: center;
-  margin-left: 100px;
+  /*margin-left: 100px;*/
   width: 40%;
 
   overflow: auto;
@@ -256,7 +256,7 @@ table{
     float: left;
     max-width: 600px;
     background-color: #FFF;
-    margin-left: 50px;
+    margin-left: 20px;
 
     width: auto;
 
@@ -305,7 +305,7 @@ tr:nth-child(odd) {background: #FFF}
 .mapContainerStation {
     position: relative;
     float: left;
-    margin-left: 50px;
+    margin-left: 20px;
     margin-top: 20px;
     padding: 30px;
     border-top-left-radius: 3px;
@@ -314,16 +314,9 @@ tr:nth-child(odd) {background: #FFF}
     border-bottom-right-radius: 3px;
     background-color: #FFF;
 
-    max-width: 600px;
-
     width: auto;
 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.mapContainerStation img {
-    max-height: 400px;
-    max-width: 500px;
 }
 
 /* Map container END */
