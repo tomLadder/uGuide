@@ -14,6 +14,11 @@ exports.PERMISSION_TDOT_POSSIBLE_GET            = 'perm_tdot_possible_get';
 exports.PERMISSION_TDOT_LOCK_POST               = 'perm_tdot_lock_post';
 exports.PERMISSION_TDOT_UNLOCK_POST             = 'perm_tdot_unlock_post';
 
+exports.PERMISSION_TDOT_MAP_ID_GET              = 'perm_tdot_map_id_get';
+exports.PERMISSION_TDOT_MAP_ID_PUT              = 'perm_tdot_map_id_put';
+
+exports.PERMISSION_TDOT_POSITIONS_GET           = 'perm_tdot_positions_get';
+
 /*       PERMISSIONS_User           */
 exports.PERMISSION_USER_GET                     = 'perm_user_id_get';
 exports.PERMISSION_USER_POST                    = 'perm_user_id_post';

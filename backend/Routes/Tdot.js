@@ -12,6 +12,61 @@ var guard = require('../Guard.js')({
 
 module.exports = router;
 
+/* Map */
+router.route('/tdot/positions')
+.get(guard.check(Permission.PERMISSION_TDOT_POSITIONS_GET), function(req, res, next) {
+  Tdot.findOne({IsCurrent: true}, "Points",  function(err, tdot) {
+    if(err)
+      return next(err);
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
+    }
+
+    res.send(tdot.Points);
+  });
+});
+
+router.route('/tdot/map/:_id')
+.put(guard.check(Permission.PERMISSION_TDOT_MAP_ID_PUT), function(req, res, next) {
+  Tdot.findById(req.params._id, function(err, tdot) {
+    if(err)
+      return next(err);
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found', ErrorType.ERROR_TDOT_NOT_FOUND));
+    }
+
+    tdot.Map = req.body.Map;
+    tdot.Points = req.body.Points;
+
+    console.log(tdot);
+
+    Tdot.update({_id: tdot._id}, tdot, function(err) {
+      if(err)
+        return next(err);
+
+      res.send();
+    });
+  });
+});
+
+router.route('/tdot/map/:_id')
+.get(guard.check(Permission.PERMISSION_TDOT_MAP_ID_GET), function(req, res, next) {
+  Tdot.findById(req.params._id, "Map Points", function(err, tdot) {
+    if(err)
+      return next(err);
+
+    if(!tdot) {
+        return next(errorManager.generate404NotFound('Tdot with _id ' + req.params._id + ' not found', ErrorType.ERROR_TDOT_NOT_FOUND));
+    }
+
+    res.send(tdot);
+  });  
+});
+
+/* Map - End */
+
 router.route('/tdot/lock')
 .post(guard.check(Permission.PERMISSION_TDOT_LOCK_POST), function(req, res, next) {
   var updates = { $set: { IsLocked: true } };
@@ -38,7 +93,7 @@ router.route('/tdot/unlock')
 
 router.route('/tdot/current')
 .get(guard.check([Permission.PERMISSION_TDOT_CURRENT_GET]), function(req, res, next) {
-  Tdot.findOne({IsCurrent: true}, function(err, tdot) {
+  Tdot.findOne({IsCurrent: true}, "Year IsCurrent IsLocked",  function(err, tdot) {
     if(err)
       return next(err);
 
@@ -91,7 +146,7 @@ router.route('/tdot/current/:_id')
 
 router.route('/tdot/:_id')
 .get(guard.check(Permission.PERMISSION_TDOT_ID_GET), function(req, res, next) {
-  Tdot.findById(req.params._id, function(err, tdot) {
+  Tdot.findById(req.params._id, "Year IsCurrent IsLocked", function(err, tdot) {
     if(err)
       return next(err);
 
@@ -123,7 +178,7 @@ router.route('/tdot/:_id')
 
 router.route('/tdot')
 .get(guard.check(Permission.PERMISSION_TDOT_GET), function(req, res, next) {
-  Tdot.find(req.query, function(err, tdots) {
+  Tdot.find(req.query, "Year IsCurrent IsLocked", function(err, tdots) {
       if (err) {
         return res.send(err);
       }

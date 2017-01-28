@@ -14,9 +14,11 @@ var Misc                    = require('./Routes/Misc');
 var Answer                  = require('./Routes/PredefinedAnswer');
 var Statistic               = require('./Routes/Statistic');
 var OfflineSupport          = require('./Routes/OfflineSupport');
+var LiveMap                 = require('./Routes/LiveMap');
 var TestDataInitializer     = require('./Misc/TestDataInitializer');
 var UserType                = require('./Models/UserType');
-var PermissionHelper        = require('./Misc/PermissionHelper');      
+var PermissionHelper        = require('./Misc/PermissionHelper');
+var LiveSocket              = require('./Misc/LiveSocket'); 
 var app = express();
 
 /* MongoDB */
@@ -30,20 +32,18 @@ mongoose.connect(connectionString)
   (
     () => {
       console.log('# Sucessfully connected to MongoDB');
-      //TestDataInitializer.GenerateTestData();
+      TestDataInitializer.GenerateTestData();
     }
   )
   .catch((err) => console.error(err));
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
 app.use(cors());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 /*     Routes     */
 app.use('/api', Misc);
+app.use('/api', LiveMap);
 app.use('/api', Challenge.router);
 app.use('/api', Auth);
 

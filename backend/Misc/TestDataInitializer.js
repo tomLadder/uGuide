@@ -95,63 +95,59 @@ function GenerateStations() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Station.remove(function(err,removed) {
-        var objs = 
-        [
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Name: 'Programmierwerkstatt', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'Beschreibung der Programmierwerkstatt', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
-            },
-            {  
-                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Name: 'Diplomarbeiten', 
-                Grade:5, 
-                Subject:'Other',
-                Description:'Beschreibung der Diplomarbeiten', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'142' 
-            }  ,  
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Name: 'Wirtschaftsstand', 
-                Grade:3, 
-                Subject:'BWN',
-                Description:'Beschreibung des Wirtschaftsstandes', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Position:'142' 
-            },
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000004'), 
-                Name: 'BSD - Projekte', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'Projekte werden von den Erstellern vorgestellt.', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'112' 
-            },
-            {  
-                _id: mongoose.Types.ObjectId('000000000000000000000005'), 
-                Name: 'Info-Stand', 
-                Grade:5, 
-                Subject:'SYP',
-                Description:'Allgemeine Informationen über die Abteilung. (Jobaussichten, Gehalt etc.)', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'100' 
-            }   
-        ];
+        // var objs = 
+        // [
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Name: 'Programmierwerkstatt', 
+        //         Grade:1, 
+        //         Subject:'POS',
+        //         Description:'Beschreibung der Programmierwerkstatt', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     },
+        //     {  
+        //         _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+        //         Name: 'Diplomarbeiten', 
+        //         Grade:5, 
+        //         Subject:'Other',
+        //         Description:'Beschreibung der Diplomarbeiten', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     }  ,  
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Name: 'Wirtschaftsstand', 
+        //         Grade:3, 
+        //         Subject:'BWN',
+        //         Description:'Beschreibung des Wirtschaftsstandes', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //     },
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000004'), 
+        //         Name: 'BSD - Projekte', 
+        //         Grade:1, 
+        //         Subject:'POS',
+        //         Description:'Projekte werden von den Erstellern vorgestellt.', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     },
+        //     {  
+        //         _id: mongoose.Types.ObjectId('000000000000000000000005'), 
+        //         Name: 'Info-Stand', 
+        //         Grade:5, 
+        //         Subject:'SYP',
+        //         Description:'Allgemeine Informationen über die Abteilung. (Jobaussichten, Gehalt etc.)', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Position:'100' 
+        //     }   
+        // ];
 
-        Station.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // Station.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 

@@ -9,7 +9,8 @@ var StationSchema = new mongoose.Schema(
   Description:      { type: String, required: true },
   User:             { type: Schema.ObjectId, required: false },
   Tdot:             { type: Schema.ObjectId, required: false },
-  Position:         { type: String, required: true }
+  Position:         { id: String, Tag:String, X:Number, Y:Number }
+                    
 });
 
 module.exports = mongoose.model('Station', StationSchema);

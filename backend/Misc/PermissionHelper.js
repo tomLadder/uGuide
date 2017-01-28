@@ -17,6 +17,9 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_TDOT_POSSIBLE_GET,
             Permission.PERMISSION_TDOT_LOCK_POST,
             Permission.PERMISSION_TDOT_UNLOCK_POST,
+            Permission.PERMISSION_TDOT_MAP_ID_GET,
+            Permission.PERMISSION_TDOT_MAP_ID_PUT,
+            Permission.PERMISSION_TDOT_POSITIONS_GET,
 
             /* User */
             Permission.PERMISSION_USER_GET,
@@ -87,7 +90,8 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_STATION_ID_DELETE,
             Permission.PERMISSION_STATION_GET,
             Permission.PERMISSION_STATION_POST,
-            Permission.PERMISSION_STATION_CURRENT_QR_GET
+            Permission.PERMISSION_STATION_CURRENT_QR_GET,
+            Permission.PERMISSION_TDOT_POSITIONS_GET,
         ];
     }
 

@@ -6,6 +6,7 @@ var Station         = require('../Models/Station');
 var Tdot            = require('../Models/Tdot');
 var User            = require('../Models/User');
 var Permission      = require('../Misc/Permission');
+var LiveSocket         = require('../Misc/LiveSocket');
 var express         = require('express');
 var router          = express.Router();
 var errorManager    = require('../ErrorManager/ErrorManager');
@@ -21,7 +22,6 @@ module.exports = router;
 router.route('/notification')
 .post(guard.check(Permission.PERMISSION_NOTIFICATION_POST), function(req, res, next) {
   if(req.body.Station == TimeConstants.START || req.body.Station == TimeConstants.END) {
-    console.log('Start or End - Notification');
     Notification.remove({Guide: req.body.Guide}, function(err) {
       if(err) {
         return next(errorManager.getAppropriateError(err));
@@ -73,11 +73,14 @@ router.route('/notification')
                 var notification = new Notification({Guide: user._id, Tdot: tdot._id, Station: station._id, Time: new Date()});
 
                 notification.save(function(err) {
+                  
+
                   if(err) {
                     return next(errorManager.getAppropriateError(err));
                   }
 
-                  console.log('notification saved');
+                  LiveSocket.sendNotification({ Guide: user._id, Position: station.Position.id });
+                  console.log('New Notification');
                   res.send('saved');
                 });         
               }
