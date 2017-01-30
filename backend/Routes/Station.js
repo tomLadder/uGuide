@@ -2,7 +2,7 @@ var Station             = require('../Models/Station');
 var Tdot                = require('../Models/Tdot');
 var Permission          = require('../Misc/Permission');
 var UserType            = require('../Models/UserType');
-var TimeConstant        = require('../Models/TimeConstant');
+var Constants           = require('../Misc/Constants');
 var Notification        = require('../Models/Notification');
 var express             = require('express');
 var qr                  = require('qr-image');
@@ -30,7 +30,7 @@ router.route('/station/busy')
         return next(errorManager.generate404NotFound('current Tdot not set', ErrorType.ERROR_CURRENT_TDOT_NOT_SET));
     }
 
-    var cutoff = moment(new Date()).subtract(20, 'minutes').toDate();
+    var cutoff = moment(new Date()).subtract(Constants.TIMEOUT_LIMIT, 'minutes').toDate();
 
     Notification.aggregate( [
         {

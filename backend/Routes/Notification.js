@@ -1,7 +1,7 @@
 var Notification    = require('../Models/Notification');
 var Visitor         = require('../Models/Visitor');
 var UserType        = require('../Models/UserType');
-var TimeConstants   = require('../Models/TimeConstant');
+var Constants       = require('../Misc/Constants');
 var Station         = require('../Models/Station');
 var Tdot            = require('../Models/Tdot');
 var User            = require('../Models/User');
@@ -21,15 +21,15 @@ module.exports = router;
 
 router.route('/notification')
 .post(guard.check(Permission.PERMISSION_NOTIFICATION_POST), function(req, res, next) {
-  if(req.body.Station == TimeConstants.START || req.body.Station == TimeConstants.END) {
+  if(req.body.Station == Constants.START || req.body.Station == Constants.END) {
     console.log('new notific');
 
-    if(req.body.Station == TimeConstants.START) {
+    if(req.body.Station == Constants.START) {
       console.log('Send guideentered-paket: ' + req.body.Guide);
       LiveSocket.sendGuideEntered(req.body.Guide);
     }
 
-    if(req.body.Station == TimeConstants.END) {
+    if(req.body.Station == Constants.END) {
       LiveSocket.sendGuideLeft(req.body.Guide);
     }
 
