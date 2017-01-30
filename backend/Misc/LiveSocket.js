@@ -3,6 +3,7 @@ var http            = require('http').Server(express);
 var io              = require('socket.io')(http);
 var Tdot            = require('../Models/Tdot');
 var Notification    = require('../Models/Notification');
+var Constants       = require('../Misc/Constants');
 var moment          = require('moment');
 
 http.listen(3000, function(){
@@ -16,7 +17,7 @@ io.on('connection', function(socket){
         getCurrentGuides(tdot, function(guides) {
             console.log(guides);
 
-            socket.emit('initPaket', { Tdot: tdot, Guides: guides });
+            socket.emit('initPaket', { Tdot: tdot, Guides: guides, TimeOutLimit: Constants.TIMEOUT_LIMIT });
         });
     });
 });
