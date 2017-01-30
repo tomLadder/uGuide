@@ -170,7 +170,7 @@
                     game.time.events.remove(this.timer);
                 }
 
-                this.timer = game.time.events.add(Phaser.Timer.MINUTES * 10, this.destroyGuide, this);
+                this.timer = game.time.events.add(Phaser.Timer.MINUTE * 10, this.destroyGuide, this);
 
                 var idx = findMapPositionByIDIndex(positionID);
 
