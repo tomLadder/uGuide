@@ -22,11 +22,23 @@ module.exports = router;
 router.route('/notification')
 .post(guard.check(Permission.PERMISSION_NOTIFICATION_POST), function(req, res, next) {
   if(req.body.Station == TimeConstants.START || req.body.Station == TimeConstants.END) {
+    console.log('new notific');
+
+    if(req.body.Station == TimeConstants.START) {
+      console.log('Send guideentered-paket: ' + req.body.Guide);
+      LiveSocket.sendGuideEntered(req.body.Guide);
+    }
+
+    if(req.body.Station == TimeConstants.END) {
+      LiveSocket.sendGuideLeft(req.body.Guide);
+    }
+
     Notification.remove({Guide: req.body.Guide}, function(err) {
       if(err) {
         return next(errorManager.getAppropriateError(err));
       }
 
+      console.log('notifications removed');
       res.send();
     });
   } else {
@@ -79,7 +91,7 @@ router.route('/notification')
                     return next(errorManager.getAppropriateError(err));
                   }
 
-                  LiveSocket.sendNotification({ Guide: user._id, Position: station.Position.id });
+                  LiveSocket.sendNotification({ Guide: { id: user._id, name: user.Username }, Position: station.Position.id });
                   console.log('New Notification');
                   res.send('saved');
                 });         

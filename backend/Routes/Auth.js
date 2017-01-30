@@ -30,7 +30,6 @@ router.post('/auth', function(req, res, next) {
     if(!user || sha256(user.Password + Challenge.challenges[req.body.username].challenge) != req.body.password) {
       return next(errorManager.generate401Unauthorized('Authentication failed. User not found.', ErrorType.ERROR_AUTH_FAILED_USER_NOT_FOUND));
     } else {
-      //Tdot lock - hacky method - please change
       Tdot.findOne({IsCurrent: true, IsLocked: true}, function(err, tdot) {
         if(tdot != undefined && user.Type == UserType.STATION) {
           return next(errorManager.generate401Unauthorized('System is in LOCK-MODE', ErrorType.ERROR_SYSTEM_LOCK_MODE));
@@ -51,16 +50,14 @@ router.post('/auth', function(req, res, next) {
 });
 
 router.use(function(req, res, next) {
-  if(req.headers['backdoor'] == 'admin') {
-    req.token = { type: UserType.ADMIN, permissions: PermissionHelper.getPermissions(UserType.ADMIN), sub: mongoose.Types.ObjectId('000000000000000000000000') }; //Admin
-    //else if(req.headers['backdoorType'] == 'guide')
-      //req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; //Guide
-    //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000001') }; //Station
-    //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000003') }; //Station2
-    next();
-  } else if(req.headers['backdoor'] == 'guide') {
-    req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; 
-    next();
+  if(req.headers['backdoor'] != undefined) {
+    User.findOne({Username: req.headers['backdoor']}, function(err, user) {
+      req.token = {};
+      req.token.type = user.Type;
+      req.token.permissions = PermissionHelper.getPermissions(user.Type);
+
+      next();
+    });
   } else {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if(token) {

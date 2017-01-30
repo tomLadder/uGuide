@@ -91,7 +91,11 @@ exports.getPermissions = function(userType) {
             Permission.PERMISSION_STATION_GET,
             Permission.PERMISSION_STATION_POST,
             Permission.PERMISSION_STATION_CURRENT_QR_GET,
+
+            /* Tdot */
             Permission.PERMISSION_TDOT_POSITIONS_GET,
+            Permission.PERMISSION_TDOT_MAP_ID_GET,
+            Permission.PERMISSION_TDOT_CURRENT_GET
         ];
     }
 
