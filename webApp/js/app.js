@@ -2,8 +2,9 @@
   var app = angular.module('initiator', ['ngRoute', 'angularCSS', 'angular-encryption', 'authentication', 'admin', 'loginForm', 'stationEdit', 'station', 'stationNavBar', 'stationQr', 'adminNavigation', 'tdot', 'user', 'adminMap', 'adminStation', 'adminUser', 'adminTdot', 'adminDashboard', 'chart.js', 'ngMap']);
 
   app.constant('ApiConstant', {
-      'url': 'http://192.168.234.101:8000/api'
-    //   'url': 'http://192.168.197.5:8000/api'
+      'url': 'http://localhost:8000/api'
+      //'url': 'http://192.168.234.101:8000/api'
+      //'url': 'http://192.168.197.5:8000/api'
   });
 
   app.constant('ViewConstant', {

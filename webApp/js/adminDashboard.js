@@ -35,7 +35,6 @@ angular.module('adminDashboard', [])
     }
 
     $scope.jQueryInjection = function() {
-        //JQuery injection möööö
         $('modalId').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
@@ -74,6 +73,10 @@ angular.module('adminDashboard', [])
     }
 
     $scope.initDashboardElements = function() {
+        $scope.tdotStats.FeedbackStats.PositiveFeedbacks.map(function(feedback) {
+            console.log(feedback);
+        });
+
         $scope.labelsGender = ['Male', 'Total', 'Female'];
 
         $scope.dataGender = [
