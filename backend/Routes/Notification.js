@@ -82,7 +82,7 @@ router.route('/notification')
               if(notification.length > 0 && (notification[0].Station == station.id)) {
                 res.send('already visiting');
               } else {
-                var notification = new Notification({Guide: user._id, Tdot: tdot._id, Station: station._id, Time: new Date()});
+                var notification = new Notification({Guide: user._id, Name: user.Username, Tdot: tdot._id, Station: station._id, Position: station.Position.id, Time: new Date()});
 
                 notification.save(function(err) {
                   

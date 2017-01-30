@@ -6,6 +6,7 @@ module.exports = router;
 
 router.route('/livemap/info')
 .get(function(req, res, next) {
+  
   Tdot.findOne({IsCurrent: true}, "Map Points",  function(err, tdot) {
     if(err)
       return next(err);
