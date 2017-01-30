@@ -11,7 +11,7 @@ var UserType            = require('../Models/UserType');
 
 exports.GenerateTestData = function() {
     GenerateTdots();
-    //GenerateUsers();
+    GenerateUsers();
     GenerateStations();
     GenerateVisitors();
     GeneratePredefinedAnswer();
@@ -25,25 +25,25 @@ function GenerateTdots() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Tdot.remove(function(err,removed) {
-        var objs = 
-        [
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Year: 2015, 
-                IsCurrent: false,
-                IsLocked: false
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Year: 2016, 
-                IsCurrent: true,
-                IsLocked: false
-            }
-        ];
+        // var objs = 
+        // [
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //         Year: 2015, 
+        //         IsCurrent: false,
+        //         IsLocked: false
+        //     },
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Year: 2016, 
+        //         IsCurrent: true,
+        //         IsLocked: false
+        //     }
+        // ];
 
-        Tdot.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // Tdot.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 
@@ -61,25 +61,26 @@ function GenerateUsers() {
                 Username: 'admin', 
                 Type: UserType.ADMIN, 
                 Password: 'admin' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Username: 'station', 
-                Type: UserType.STATION, 
-                Password: 'station' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Username: 'guide', 
-                Type: UserType.GUIDE, 
-                Password: 'guide' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Username: 'station2', 
-                Type: UserType.STATION, 
-                Password: 'station2' 
             }
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+            //     Username: 'station', 
+            //     Type: UserType.STATION, 
+            //     Password: 'station' 
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+            //     Username: 'guide', 
+            //     Type: UserType.GUIDE, 
+            //     Password: 'guide' 
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+            //     Username: 'station2', 
+            //     Type: UserType.STATION, 
+            //     Password: 'station2' 
+            // }
         ];
 
         User.collection.insert(objs, function(err, docs) {
@@ -183,29 +184,29 @@ function GeneratePredefinedAnswer() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     PredefinedAnswer.remove(function(err,removed) {
-        var objs = 
-        [
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Answer: 'Programmierwerkstatt hat mir sehr gut gefallen'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Answer: 'Schüler waren demotiviert.'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Answer: 'Zu wenige Mädlz'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Answer: 'Interessante Projekte!'
-            }
-        ];
+        // var objs = 
+        // [
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //         Answer: 'Programmierwerkstatt hat mir sehr gut gefallen'
+        //     },
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Answer: 'Schüler waren demotiviert.'
+        //     },
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+        //         Answer: 'Zu wenige Mädlz'
+        //     },
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Answer: 'Interessante Projekte!'
+        //     }
+        // ];
 
-        PredefinedAnswer.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // PredefinedAnswer.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 

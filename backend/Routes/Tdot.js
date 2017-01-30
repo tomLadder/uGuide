@@ -42,7 +42,7 @@ router.route('/tdot/map/:_id')
 
     console.log(tdot);
 
-    Tdot.update({_id: tdot._id}, tdot, function(err) {
+    tdot.save(function(err, tdot) {
       if(err)
         return next(err);
 
