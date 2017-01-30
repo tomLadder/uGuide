@@ -6,7 +6,8 @@
     var initPaket = undefined;
 
     /* Socket.IO */
-    var socket = io('http://192.168.234.101:3000');
+    //var socket = io('http://192.168.234.101:3000');
+    var socket = io('http://localhost:3000');
 
     socket.on('disconnect', function(data) {
         console.error('Connection loss:'+data);
@@ -70,7 +71,7 @@
 
         preload: function() {
             console.log('phaser::preload');
-            this.game.load.image('background', initPaket.Map);
+            this.game.load.image('background', initPaket.Tdot.Map);
             this.game.load.spritesheet('kid_sprite', 'assets\\sprites\\kid.png', 64, 50);
         },
 
@@ -82,9 +83,15 @@
             this.background.width = 800;
             this.background.height = 600;
 
-            initPaket.Points.map(function(point) {
+            initPaket.Tdot.Points.map(function(point) {
                 var mapPosition = new MapPosition(game, point.X, point.Y, point._id);
                 mapPositions.push(mapPosition);
+            });
+
+            initPaket.Guides.map(function(g) {
+                var guide = new Guide(game, {id: g._id, name: g.Name});
+                guides.push(guide);
+                guide.walkTo(g.Position);
             });
         },
 
@@ -174,7 +181,10 @@
 
                 var idx = findMapPositionByIDIndex(positionID);
 
-                if(idx != undefined) {
+                if(idx != -1) {
+                    if(mapPositions[idx].CurrentGuides == undefined)
+                        mapPositions[idx].CurrentGuides = 0;
+
                     if(this.walkToPositionIndex != undefined && this.walkToPositionIndex != -1) {
                         mapPositions[this.walkToPositionIndex].CurrentGuides = mapPositions[this.walkToPositionIndex].CurrentGuides - 1;
                     }
