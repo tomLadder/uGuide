@@ -138,13 +138,15 @@ function generateFeedbackStats(xlsx, feedbackStats) {
     
     for(var i=0;i<feedbackStats.PositiveFeedbacks.length;i++) {
         sheet.data[i+9] = [];
-        sheet.data[i+9][0] = feedbackStats.PositiveFeedbacks[i].OptionalAnswer;
+        sheet.data[i+9][0] = feedbackStats.PositiveFeedbacks[i];
     }
 
     sheet.data[8][1] = 'NegativeFeedbacks';
     for(var i=0;i<feedbackStats.NegativeFeedbacks.length;i++) {
-        sheet.data[i+9] = [];
-        sheet.data[i+9][1] = feedbackStats.NegativeFeedbacks[i].OptionalAnswer;
+        if(sheet.data[i+9] == undefined)
+            sheet.data[i+9] = [];
+
+        sheet.data[i+9][1] = feedbackStats.NegativeFeedbacks[i];
     }
 }
 

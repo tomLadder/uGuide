@@ -18,7 +18,6 @@ io.on('connection', function(socket){
 
             socket.emit('initPaket', { Tdot: tdot, Guides: guides });
         });
-        socket.emit('initPaket', tdot);
     });
 });
 
