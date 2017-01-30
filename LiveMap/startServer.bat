@@ -1,0 +1,1 @@
+node "C:\Users\Thomas\AppData\Roaming\npm\node_modules\http-server\bin\http-server" "C:\Users\Thomas\Source\Repos\uGuide_Livemap\LiveMap"
