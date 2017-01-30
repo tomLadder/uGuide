@@ -1,3 +1,25 @@
+.helpBtn {
+  position:fixed;
+  right:10px;
+  top:5px;
+  background-color: #1c7d44;
+  padding: 5px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  text-align: center;
+}
+
+.helpBtn:hover {
+  background-color: #2c3e50;
+}
+
+.helpBtn a {
+  color: #FFF;
+  text-decoration: none;
+}
+
 /* Form */
 .form {
   position: relative;

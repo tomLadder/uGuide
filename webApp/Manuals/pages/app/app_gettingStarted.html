@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>uGuide Manuals 2.1</title>
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../../css/uGuideManual_pageStyle.css">
+    </head>
+
+    <body>
+        <!--Einleitung (icon, bissl Text)-->
+        <div class="container">
+            <div class="info">
+                <div class="thumbnail"><img src="../../graphicals/uGuide_LOGO_pic.png"/></div>
+                <h1>uGuide Manuals</h1>
+            </div>
+        </div>
+
+        <div class="button logoutBtn">
+            <a href="../../index.html">Back to Start&nbsp;<i class="fa fa-sign-out"></i></a>
+        </div>
+
+        <div class="button prevBtn">
+            <a href="../website/qrCodeView.html"><i class="fa fa-arrow-left"></i>&nbsp;Previous Chapter</a>
+        </div>
+
+        <div class="button nextBtn">
+            <a href="../app/app_stationInfo.html">Next Chapter&nbsp;<i class="fa fa-arrow-right"></i></a>
+        </div>
+
+        <div class="copyright">
+            <span><i class="fa fa-copyright"></i>&nbsp;LuDre</span>
+        </div>
+
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row" id="main" >
+                <div class="col-sm-12 col-md-12 rootContainer" id="content">
+                    <!-- Container content -->
+                    <div>
+                        <h1 class="page-header">2.1 Getting started</h1>
+                        <div>
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Login</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>Beim Login der Hauptapplikation meldet sich der Guide mit seinen zugeteilten Credentials an. <strong>(entsprechen nicht den Schulzugangsdaten)</strong><br/><br/>
+                                            Zusätzlich wird in der 3.Zeile die Server IP + Port eingegeben. --> XXX.XXX.XXX.XXX:8000
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <img class="picture" src="../../graphicals/app/app_login.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Führung starten</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>Bevor eine neue Führung gestartet werden kann muss die <stron>PLZ</strong> und das <strong>Geschlecht</strong> des Besuchers eingetragen werden.<br/><br/>PLZ einfach in das dafür vorgesehene Eingabefeld einfüllen. (Für den Fall, dass jemand keine Angabe machen will bitten wir um die Eingabe von <strong>0000</strong>, damit die ungültigen PLZ gesammelt vorliegen)<br/><br/>
+                                            Geschlecht wird mithilfe eines Klicks auf eines der beiden Symbole erfasst. (Links: männlich -- Rechts: weiblich)<br/><br/>
+                                            Mit erfolgreicher Eingabe der Daten und einem Klick auf <strong>"Führung starten"</strong> kann es losgehen.
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <img class="picture" src="../../graphicals/app/app_start.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Start / Ende scannen</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>Die Führung startet immer beim Torbogen der Informatik Abteilung. Dort befindet sich auch der START und END Synchronisations QR-Code.<br/><br/>
+                                            Nachdem eine Führung gestartet wurde verlangt das System nach dem <strong>START</strong> QR-Code. Ohne dem <strong>START-Scan</strong> wird kein anderer Scan (Station) angezeigt.<br/><br/>
+                                            Mit erfolgreichem <strong>START</strong> Scan bekommt man eine Info (siehe Abbildung) und kann als nächstes schon einen richtigen Stations QR-Code scannen.<br/><br/><br/>
+                                            Um eine Führung zu beenden (egal ob alle Stationen besucht wurden oder nicht) muss der <strong>END</strong> QR-Code am Torbogen gescannt werden um dem System die erforderlichen Daten bzgl. der Führung zu übermitteln. Mit scannen des <strong>END</strong> Punktes erscheint wieder die Start-Ansicht.
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <img class="picture" src="../../graphicals/app/app_startScan.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Container content-->
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+    </body>
+
+</html>

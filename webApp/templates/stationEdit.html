@@ -86,7 +86,7 @@
     </div>
 
     <textarea placeholder="Beschreibe in kurzen Worten deine Station..." tabindex="5" ng-model="selectedStation.Description" required></textarea>
-    <button class="greenbutton" ng-disabled="!editForm.$valid" ng-click="stopEditing()">{{helper.formMode}}</button><br>
+    <button class="greenbutton" ng-disabled="!editForm.$valid" ng-click="stopEditing()" ng-mouseover="showInputInfo()" ng-mouseleave="removeInputInfo()">{{helper.formMode}}</button><br>
     <button class="orangebutton" ng-click="clearForm()">Clear</button>
   </form>
   <!-- Form END-->

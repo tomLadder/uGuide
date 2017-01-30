@@ -58,6 +58,14 @@ app.controller('stationEditCtrl', function ($rootScope, $scope, $location, $time
     $scope.helper.formMode = 'Add';
   }
 
+  $scope.showInputInfo = function() {
+    $scope.addAlert('warning', 'Input Info', 'Stell sicher, dass alle Input-Felder gefüllt sind');
+  }
+
+  $scope.removeInputInfo = function() {
+    $scope.resetAlert();
+  }
+
   $scope.loadPositions = function() {
     tdotFactory.getPositionTags().then
     (
