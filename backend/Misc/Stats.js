@@ -5,6 +5,7 @@ var Visitor             = require('../Models/Visitor');
 var Fb                  = require('../Models/Feedback');
 var FeedbackType        = require('../Models/FeedbackType');
 var PredefinedAnswer    = require('../Models/PredefinedAnswer');
+var Feedback            = require('../Models/Feedback');
 var moment              = require('moment');
 
 exports.getBasicStats = function(tdotid, resultCallback) {
@@ -183,13 +184,27 @@ function getPredefinedFeedbacks(tdotid, resultCallback) {
                 Quantity: { $sum: 1 }
             }
         }
-    ], function(err, visitors) {
-        if(err || visitors == undefined) {
-            resultCallback([]);
-            return;
-        }
+    ], function(err, answers) {
+        PredefinedAnswer.find({}, function(err, predefanswers) {
+            if(err) {
+                resultCallback([]);
+            }
 
-        resultCallback(visitors);
+            //Sorry for this ugly piece of code :(
+            //But $lookup is only supported on mongodb >= 3.2
+            answers = answers.map(function(answer) {
+                var preansw = predefanswers.find(function(predefanswer) {
+                    return new String(answer._id).valueOf() == new String(predefanswer._id).valueOf();
+                });
+                if(preansw != undefined) {
+                    answer._id = preansw.Answer;
+                }
+
+                return answer;
+            });
+
+            resultCallback(answers);
+        });
     });
 }
 

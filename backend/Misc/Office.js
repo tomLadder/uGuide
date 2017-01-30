@@ -148,6 +148,16 @@ function generateFeedbackStats(xlsx, feedbackStats) {
 
         sheet.data[i+9][1] = feedbackStats.NegativeFeedbacks[i];
     }
+
+    sheet.data[8][2] = 'PredefinedFeedbacks';
+
+    for(var i=0;i<feedbackStats.PredefinedFeedbacks.length;i++) {
+        if(sheet.data[i+9] == undefined)
+            sheet.data[i+9] = [];
+
+        sheet.data[i+9][2] = feedbackStats.PredefinedFeedbacks[i]._id;
+        sheet.data[i+9][3] = feedbackStats.PredefinedFeedbacks[i].Quantity;
+    }
 }
 
 function generateVisitorStats(xlsx, visitorStats) {

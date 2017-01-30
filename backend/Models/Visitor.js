@@ -7,7 +7,7 @@ var VisitorSchema = new mongoose.Schema(
   Gender:           { type: Number, required: true },
   Feedback:         {
                       FeedbackType:         { type: Number, required: true },
-                      PredefinedAnswers:    [{ type: Schema.ObjectId, required: false }],
+                      PredefinedAnswers:    [{ type: Schema.ObjectId, required: false, ref: 'Feedback' }],
                       OptionalAnswer:       { type: String, required: false }
                     },
   Guide:            { type: Schema.ObjectId, required: true, ref: 'User' },
