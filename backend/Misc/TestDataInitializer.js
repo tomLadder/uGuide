@@ -10,12 +10,12 @@ var GenderType          = require('../Models/GenderType');
 var UserType            = require('../Models/UserType');
 
 exports.GenerateTestData = function() {
-    GenerateTdots();
-    GenerateUsers();
-    GenerateStations();
-    GenerateVisitors();
+    //GenerateTdots();
+    //GenerateUsers();
+    //GenerateStations();
+    //GenerateVisitors();
     GeneratePredefinedAnswer();
-    GenerateNotifications();
+    //GenerateNotifications();
 }
 
 function GenerateTdots() {
@@ -25,25 +25,25 @@ function GenerateTdots() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Tdot.remove(function(err,removed) {
-        // var objs = 
-        // [
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-        //         Year: 2015, 
-        //         IsCurrent: false,
-        //         IsLocked: false
-        //     },
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-        //         Year: 2016, 
-        //         IsCurrent: true,
-        //         IsLocked: false
-        //     }
-        // ];
+        var objs = 
+        [
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+            //     Year: 2015, 
+            //     IsCurrent: false,
+            //     IsLocked: false
+            // },
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+                Year: 2016, 
+                IsCurrent: true,
+                IsLocked: false
+            }
+        ];
 
-        // Tdot.collection.insert(objs, function(err, docs) {
-        //     console.log('# Inserted ' + name);
-        // });
+        Tdot.collection.insert(objs, function(err, docs) {
+            console.log('# Inserted ' + name);
+        });
     });
 }
 
@@ -184,29 +184,33 @@ function GeneratePredefinedAnswer() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     PredefinedAnswer.remove(function(err,removed) {
-        // var objs = 
-        // [
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-        //         Answer: 'Programmierwerkstatt hat mir sehr gut gefallen'
-        //     },
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-        //         Answer: 'Schüler waren demotiviert.'
-        //     },
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-        //         Answer: 'Zu wenige Mädlz'
-        //     },
-        //     { 
-        //         _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-        //         Answer: 'Interessante Projekte!'
-        //     }
-        // ];
+        var objs = 
+        [
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+                Answer: 'Führung zu kurz'
+            },
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+                Answer: 'Führung zu lang'
+            },
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+                Answer: 'Führungsdauer genau richtig'
+            },
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+                Answer: 'Führung verständlich'
+            },
+            { 
+                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+                Answer: 'Führung unverständlich'
+            }
+        ];
 
-        // PredefinedAnswer.collection.insert(objs, function(err, docs) {
-        //     console.log('# Inserted ' + name);
-        // });
+        PredefinedAnswer.collection.insert(objs, function(err, docs) {
+            console.log('# Inserted ' + name);
+        });
     });
 }
 

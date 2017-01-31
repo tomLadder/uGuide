@@ -17,7 +17,7 @@ io.on('connection', function(socket){
         getCurrentGuides(tdot, function(guides) {
             console.log(guides);
 
-            socket.emit('initPaket', { Tdot: tdot, Guides: guides, TimeOutLimit: Constants.TIMEOUT_LIMIT });
+            socket.emit('initPaket', { Tdot: tdot, Guides: guides, TimeOutLimit: Constants.TIMEOUT_LIMIT, MaxPerStation: Constants.MAX_PER_STATION });
         });
     });
 });
@@ -60,5 +60,5 @@ exports.sendGuideEntered = function(guideid) {
 }
 
 exports.sendGuideLeft = function(guideid) {
-    ios.sockets.emit('guideLeft', { Guide: guideid });
+    io.sockets.emit('guideLeft', { Guide: guideid });
 };

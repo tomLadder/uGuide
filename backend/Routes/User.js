@@ -51,7 +51,7 @@ router.route('/user/multiple')
 
   console.log(req.Type);
   for(var i=0;i<req.Users.length;i++) {
-    var user = new User({Username: req.Users[i].User, Type: req.Type, Password: randomstring.generate(5) });
+    var user = new User({Username: req.Users[i].User, Type: req.Type, Password: randomstring.generate({ length: 5, charset: 'alphanumeric', capitalization: 'lowercase' }) });
     users.push(user);
   }
 

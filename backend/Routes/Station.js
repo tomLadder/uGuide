@@ -16,8 +16,6 @@ var guard = require('../Guard.js')({
   permissionsProperty: 'permissions'
 });
 
-var limit = 1;
-
 module.exports = router;
 
 router.route('/station/busy')
@@ -57,7 +55,7 @@ router.route('/station/busy')
         },
         {
           $match: {
-            count: { $gte: limit }
+            count: { $gte: Constants.MAX_PER_STATION }
           }
         }, 
         {
