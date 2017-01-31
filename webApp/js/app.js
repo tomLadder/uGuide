@@ -4,8 +4,8 @@
   app.constant('ApiConstant', {
       //'url': 'http://localhost:8000/api'
       //'url': 'http://192.168.234.101:8000/api'
-      //'url': 'http://192.168.197.5:8000/api'
-      'url': 'http://178.112.208.193:8000/api'
+      'url': 'http://192.168.197.5:8000/api'
+      //'url': 'http://178.112.208.193:8000/api'
   });
 
   app.constant('ViewConstant', {

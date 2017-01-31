@@ -77,6 +77,16 @@ angular.module('adminDashboard', [])
             console.log(feedback);
         });
 
+        $scope.optionsGender = {
+            scales: {
+                yAxes:[{
+                    ticks:{
+                        beginAtZero:true
+                    }
+                }]
+            }
+        };
+
         $scope.labelsGender = ['Male', 'Total', 'Female'];
 
         $scope.dataGender = [
