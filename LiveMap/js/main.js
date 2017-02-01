@@ -6,8 +6,9 @@
     var initPaket = undefined;
 
     /* Socket.IO */
+    var socket = io('http://84.200.7.248:3000');
     //var socket = io('http://192.168.234.101:3000');
-    var socket = io('http://localhost:3000');
+    //var socket = io('http://localhost:3000');
 
     socket.on('disconnect', function(data) {
         console.error('Connection loss:'+data);
@@ -48,6 +49,12 @@
 
     socket.on('guideLeft', function(data) {
         console.log('guide left: ' + data.Guide)
+
+        var idx = getGuideIndex({ guideID: data.Guide });
+
+        if(idx != -1) {
+            guides[idx].destroyGuide();
+        }
     });
 
     function initGame(data) {
@@ -63,6 +70,7 @@
         }
 
         initPaket = data;
+        console.log(initPaket.TimeOutLimit);
 
         game.state.start('MapState');
     }
@@ -123,9 +131,17 @@
         mapPosition.guideCountText.anchor.set(0.5);
 
         mapPosition.update = function() {
-            this.guideCountText.setText(this.CurrentGuides);
+            var count = 0;
+            guides.map(function(guide) {
+                console.log(mapPositions[guide.walkToPositionIndex].id + " _ " + this.id);
+                if(mapPositions[guide.walkToPositionIndex].id == mapPosition.id) {
+                    count ++;
+                }
+            });
 
-            if(this.CurrentGuides >= 2) {
+            this.guideCountText.setText(count);
+
+            if(count >= initPaket.MaxPerStation) {
                 this.clear();
                 mapPosition.beginFill(0xF4511E, 1);
                 mapPosition.drawRoundedRect(x - 25, y - 25, 50, 50, 10);
@@ -140,8 +156,6 @@
     }
 
     var Guide = function(game, data) {
-
-
             var labelWidth = 100;
             var labelHeight = 30;
             var labelCorner = 10;
@@ -173,24 +187,15 @@
 
             guide.walkTo = function(positionID) {
                 if(this.timer != undefined) {
-                    console.log('stopping timer');
                     game.time.events.remove(this.timer);
                 }
 
-                this.timer = game.time.events.add(Phaser.Timer.MINUTE * 10, this.destroyGuide, this);
+                this.timer = game.time.events.add(Phaser.Timer.MINUTE * initPaket.TimeOutLimit, this.destroyGuide, this);
 
                 var idx = findMapPositionByIDIndex(positionID);
 
                 if(idx != -1) {
-                    if(mapPositions[idx].CurrentGuides == undefined)
-                        mapPositions[idx].CurrentGuides = 0;
-
-                    if(this.walkToPositionIndex != undefined && this.walkToPositionIndex != -1) {
-                        mapPositions[this.walkToPositionIndex].CurrentGuides = mapPositions[this.walkToPositionIndex].CurrentGuides - 1;
-                    }
-
                     this.walkToPositionIndex = idx;
-                    mapPositions[idx].CurrentGuides = mapPositions[idx].CurrentGuides + 1;
                     this.isWalking = true;
 
                     if(mapPositions[idx].X > this.x) {

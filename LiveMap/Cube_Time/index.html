@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="canonical" href="http://homecube.at">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="./cube.css" type="text/css" />
+	
+	<script src="./Plugins/jquery.js" type="text/javascript"></script>
+	<script src="./Plugins/jqueryui.js" type="text/javascript"></script>
+	<script src="./Plugins/Mousewheel/jquery.mousewheel.js" type="text/javascript"></script>
+	<script src="./cube.js" type="text/javascript"></script>
+	<script src="./main.js" type="text/javascript"></script>
+  
+	
+	<title>Homecube - TdoT Edition</title>
+	
+	<meta name="Title" content="Homecube - TdoT Edition" />
+	<meta name="Author" content="Rico Ocepek" />
+	<meta name="Publisher" content="Rico Ocepek" />
+	<meta name="Revisit" content="After 2 days" />
+	<meta name="Keywords" content="home, start page, cube, squares, bookmark, favourite sites, css3, jquery" />
+	<meta name="Description" content="Get your own homecube and manage all of your favourite sites in on place in a new, beautiful and easy way. Have fun!" />
+	<meta name="Abstract" content="Get your own homecube and manage all of your favourite sites in on place in a new, beautiful and easy way. Have fun!" />
+	<meta name="audience" content="Alle" />
+	<meta name="Robots" content="INDEX,NOFOLLOW" />
+	<meta name="Language" content="Englisch" />
+	<meta property="og:title"  content="Homecube - manage your favourite sites" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://homecube.at" />
+	<meta property="og:image" content="http://homecube.at/logo.png" />
+	<meta property="og:site_name" content="Homecube" />
+</head>
+<body onload="init();">
+	<div id="main">
+    <div id="uhr">
+        <div id="clock">
+            <div class="clockrow" id="binary">
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+            </div>   
+            <div class="clockrow" id="hex">
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+            </div>
+            <div class="clockrow" id="dec">
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+                :
+                <span>-</span>
+                <span>-</span>
+            </div>
+        </div>
+      </div>
+      <div id="wuerfel" >
+      
+        <div id="cube">
+            <div id="site0" class="site">
+                <div class="block" id="0" style="width:430px; font-size:80px;"><img style="width:100%;" src="./logo.png" /></div>
+                <div class="block" id="1" style="visibility:hidden;"></div>
+                <div class="block" id="2" style="visibility:hidden;"></div>
+                <div class="block" id="3" style="visibility:hidden;"></div>
+                <div class="block" id="4" style="color:#B0DA1E;">H</div>
+                <div class="block" id="5">64</div>
+                <div class="block" id="6">32</div>
+                <div class="block" id="7">16</div>
+                <div class="block" id="8" style="color:#B0DA1E;">M</div>
+                <div class="block" id="9">64</div>
+                <div class="block" id="10">32</div>
+                <div class="block" id="11">16</div>
+                <div class="block" id="12" style="color:#B0DA1E;">S</div>
+                <div class="block" id="13">64</div>
+                <div class="block" id="14">32</div>
+                <div class="block" id="15">16</div>
+            </div>
+            <div id="site1" class="site">
+                <div class="block" id="16" style="width:430px; font-size:80px;"><img style="width:100%;" src="./logo.png" /></div>
+                <div class="block" id="17" style="visibility:hidden;"></div>
+                <div class="block" id="18" style="visibility:hidden;"></div>
+                <div class="block" id="19" style="visibility:hidden;"></div>
+                <div class="block" id="20">8</div>
+                <div class="block" id="21">4</div>
+                <div class="block" id="22">2</div>
+                <div class="block" id="23">1</div>
+                <div class="block" id="24">8</div>
+                <div class="block" id="25">4</div>
+                <div class="block" id="26">2</div>
+                <div class="block" id="27">1</div>
+                <div class="block" id="28">8</div>
+                <div class="block" id="29">4</div>
+                <div class="block" id="30">2</div>
+                <div class="block" id="31">1</div>
+            </div>
+            <div id="site2" class="site">
+                <div class="block" id="32" style="width:430px; font-size:80px;"><img style="width:100%;" src="./logo.png" /></div>
+                <div class="block" id="33" style="visibility:hidden;"></div>
+                <div class="block" id="34" style="visibility:hidden;"></div>
+                <div class="block" id="35" style="visibility:hidden;"></div>
+                <div class="block" id="36" style="color:#0B55A2;">H</div>
+                <div class="block" id="37">64</div>
+                <div class="block" id="38">32</div>
+                <div class="block" id="39">16</div>
+                <div class="block" id="40" style="color:#0B55A2;">M</div>
+                <div class="block" id="41">64</div>
+                <div class="block" id="42">32</div>
+                <div class="block" id="43">16</div>
+                <div class="block" id="44" style="color:#0B55A2;">S</div>
+                <div class="block" id="45">64</div>
+                <div class="block" id="46">32</div>
+                <div class="block" id="47">16</div>
+            </div>
+            <div id="site3" class="site">
+                <div class="block" id="48" style="width:430px; font-size:80px;"><img style="width:100%;" src="./logo.png" /></div>
+                <div class="block" id="49" style="visibility:hidden;"></div>
+                <div class="block" id="50" style="visibility:hidden;"></div>
+                <div class="block" id="51" style="visibility:hidden;"></div>
+                <div class="block" id="52">8</div>
+                <div class="block" id="53">4</div>
+                <div class="block" id="54">2</div>
+                <div class="block" id="55">1</div>
+                <div class="block" id="56">8</div>
+                <div class="block" id="57">4</div>
+                <div class="block" id="58">2</div>
+                <div class="block" id="59">1</div>
+                <div class="block" id="60">8</div>
+                <div class="block" id="61">4</div>
+                <div class="block" id="62">2</div>
+                <div class="block" id="63">1</div>
+            </div>
+            <div id="site4" class="site">
+                <div class="block" id="64"></div>
+                <div class="block" id="65"></div>
+                <div class="block" id="66"></div>
+                <div class="block" id="67"></div>
+                <div class="block" id="68"></div>
+                <div class="block" id="69"></div>
+                <div class="block" id="70"></div>
+                <div class="block" id="71"></div>
+                <div class="block" id="72"></div>
+                <div class="block" id="73"></div>
+                <div class="block" id="74"></div>
+                <div class="block" id="75"></div>
+                <div class="block" id="76"></div>
+                <div class="block" id="77"></div>
+                <div class="block" id="78"></div>
+                <div class="block" id="79"></div>
+            </div>
+            <div id="site5" class="site">
+                <div class="block" id="80"></div>
+                <div class="block" id="81"></div>
+                <div class="block" id="82"></div>
+                <div class="block" id="83"></div>
+                <div class="block" id="84"></div>
+                <div class="block" id="85"></div>
+                <div class="block" id="86"></div>
+                <div class="block" id="87"></div>
+                <div class="block" id="88"></div>
+                <div class="block" id="89"></div>
+                <div class="block" id="90"></div>
+                <div class="block" id="91"></div>
+                <div class="block" id="92"></div>
+                <div class="block" id="93"></div>
+                <div class="block" id="94"></div>
+                <div class="block" id="95"></div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>
+
