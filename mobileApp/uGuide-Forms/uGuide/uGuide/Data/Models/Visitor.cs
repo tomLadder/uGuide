@@ -1,18 +1,24 @@
-﻿namespace uGuide.Data.Models
+﻿using Newtonsoft.Json;
+
+namespace uGuide.Data.Models
 {
+    using uGuide.Data.Models.Enumerations;
+
     public class Visitor
-    {
-        public int ZipCode { get; set; }
-        public Gender Gender { get; set; }
-
-
-        public Visitor(int plz, Gender gender)
+    {   
+        [JsonConstructor]
+        public Visitor()
         {
-            this.ZipCode = plz;
+        }
+
+        public Visitor(int zipCode, Gender gender)
+        {
+            this.ZipCode = zipCode;
             this.Gender = gender;
         }
 
-    }
+        public int ZipCode { get; set; }
 
-   
+        public Gender Gender { get; set; }
+    }
 }

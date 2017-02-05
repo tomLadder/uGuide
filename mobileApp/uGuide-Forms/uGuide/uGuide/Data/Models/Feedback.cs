@@ -6,22 +6,29 @@ using System.Threading.Tasks;
 
 namespace uGuide.Data.Models
 {
+    using Newtonsoft.Json;
+
+    using uGuide.Data.Models.Enumerations;
+
     public class Feedback
     {
-        public FeedbackType FeedbackType { get; set; }
-        public string[] PredefinedAnswers { get; set; }
-        public string OptionalAnswer { get; set; }
-
+        [JsonConstructor]
         public Feedback(FeedbackType feedbackType, string[] predefinedAnswers, string optionalAnswer)
         {
-            FeedbackType = feedbackType;
-            PredefinedAnswers = predefinedAnswers;
-            OptionalAnswer = optionalAnswer;
+            this.FeedbackType = feedbackType;
+            this.PredefinedAnswers = predefinedAnswers;
+            this.OptionalAnswer = optionalAnswer;
         }
 
         public Feedback(FeedbackType feedbackType)
         {
-            FeedbackType = feedbackType;
+            this.FeedbackType = feedbackType;
         }
+
+        public FeedbackType FeedbackType { get; set; }
+
+        public string[] PredefinedAnswers { get; set; }
+
+        public string OptionalAnswer { get; set; }
     }
 }

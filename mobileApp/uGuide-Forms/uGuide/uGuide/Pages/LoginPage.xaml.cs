@@ -9,6 +9,11 @@ using ZXing.Net.Mobile.Forms;
 
 namespace uGuide.Pages
 {
+    using System.Collections.Generic;
+
+    using uGuide.Data.Models.Exceptions;
+    using uGuide.Data.Models.Wrappers;
+
     public partial class LoginPage : ContentPage
     {
         public LoginPage()
@@ -17,19 +22,14 @@ namespace uGuide.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             this.btnExit.IsEnabled = false;
             this.btnExit.IsVisible = false;
-            this.txtPassword.Text = "guide";
-            this.txtUsername.Text = "guide";
+            this.txtUsername.Text = string.Empty; //"sammer"; 
+            this.txtPassword.Text = string.Empty; //"hello";  
+            this.txtHostUrl.Text = "192.168.234.101:8000"; //"84.200.7.248:8000";
         }
 
-
-        private void BtnExit_OnClicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
-            //TODO: If requested add Application Exit feature with Dependency Service
-            //Call Dependency Service Close Application 
-            //->
-            //var closer = DependencyService.Get<ICloseApplication>();
-            //if (closer != null)
-            //    closer.closeApplication();
+            return true;
         }
 
         private async void BtnLogin_OnClicked(object sender, EventArgs e)
@@ -37,17 +37,31 @@ namespace uGuide.Pages
             try
             {
                 this.btnLogin.IsEnabled = false;
-                if (String.IsNullOrEmpty(txtPassword.Text) || String.IsNullOrEmpty(txtUsername.Text))
+
+                if (string.IsNullOrEmpty(txtUsername.Text))
                 {
-                    await DisplayAlert("Fehler", "Bitte geben Sie einen Benutzernamen und ein Passwort ein!", "OK");
+                    await DisplayAlert("Fehler", "Bitte geben Sie einen Benutzernamen ein!", "OK");
+                }
+                else if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    await DisplayAlert("Fehler", "Bitte geben Sie ein Passwort ein!", "OK");
+                }
+                else if (string.IsNullOrEmpty(txtHostUrl.Text))
+                {
+                    await DisplayAlert("Fehler", "Bitte geben Sie eine IP + Port ein!", "OK");
                 }
                 else
-                { 
+                {
                     User user = new User(txtUsername.Text, txtPassword.Text);
+                    uGuideService.Instance.ConnectToServer(txtHostUrl.Text);
+
                     if (await uGuideService.Instance.Login(user))
                     {
-                        bool hasTour = (await uGuideService.Instance.IsUserConductingTour()).Tour;
-                        if (hasTour)
+                        Database.Instance.PreLoadedStations = await uGuideService.Instance.GetAllStations();
+                        await uGuideService.Instance.GetPredefinedAnswers();
+                        int TourId = Database.Instance.CurrentUser.TourId;
+
+                        if (TourId != null && TourId > 0)
                         {
                             bool continueTour = await DisplayAlert("Bitte wählen Sie:", "Sie führen bereits eine Tour, wollen Sie diese fortsetzten?", "Ja", "Nein");
                             if (!continueTour)
@@ -57,6 +71,7 @@ namespace uGuide.Pages
                             }
                             else
                             {
+                                await uGuideService.Instance.ContinueTour();
                                 Database.Instance.UGuideMainPage.Children.Add(new StationHistory());
                                 await Navigation.PushAsync(new ScanPage());
                             }
@@ -73,20 +88,21 @@ namespace uGuide.Pages
                     }
                 }
                 this.btnLogin.IsEnabled = true;
-                this.txtPassword.Text = "";
-                this.txtUsername.Text = "";
+                this.txtPassword.Text = string.Empty;
+                this.txtUsername.Text = string.Empty;
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Fehler", "Anmelden war nicht erfolgreich! \nGrund: " + ex.Message, "OK");
+                if (ex is BackendServiceException)
+                {
+                    await DisplayAlert("Fehler", "Anmelden war nicht erfolgreich! \nGrund: " + ex.ToString(), "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Fehler", "Anmelden war nicht erfolgreich!", "OK");
+                }
                 this.btnLogin.IsEnabled = true;
             }
         }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
-
     }
 }

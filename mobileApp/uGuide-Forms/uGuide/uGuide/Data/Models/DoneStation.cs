@@ -2,18 +2,20 @@
 {
     public class DoneStation
     {
-        private string Name { get; set; }
-        private string Time { get; set; }
 
         public DoneStation(string name, string time)
         {
-            Name = name;
-            Time = time;
+            this.Name = name;
+            this.Time = time;
         }
+
+        public string Name { get; set; }
+
+        public string Time { get; set; }
 
         public override string ToString()
         {
-            return $"{nameof(Name)}: {Name}, {nameof(Time)}: {Time}";
+            return Name + "  " + Time;
         }
     }
 }

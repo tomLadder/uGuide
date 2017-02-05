@@ -18,14 +18,14 @@
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <Label x:Name="lblFührung"  BackgroundColor ="#388E3C" TextColor="White" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Text="Neue Führung" HorizontalTextAlignment="Center"/>
+    <Label x:Name="lblFührung"  BackgroundColor ="#388E3C" TextColor="White" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Text="Neue Führung" HorizontalTextAlignment="Center" Margin="0,5,0,0"/>
     <Label x:Name="lblPLZ" BackgroundColor ="#4CAF50"  TextColor="White" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" Text="Postleitzahl:"  HorizontalTextAlignment="Center" FontSize="Large"/>
     <Entry x:Name="txtPLZ" Placeholder="Postleitzahl" PlaceholderColor="#757575" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" Margin="50,10,50,10" FontSize="Medium" Keyboard="Numeric"/>
     <Label x:Name="lblGender" BackgroundColor ="#4CAF50" TextColor="White"  Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" Text="Geschlecht:"  HorizontalTextAlignment="Center" FontSize="Large"/>
-    <Button x:Name="btnMale" Clicked="MaleButtonClicked" Grid.Row="4" Grid.Column="0" Image="male.png" Margin="25,10,25,10" BackgroundColor="#00BCD4"/>
-    <Button x:Name="btnFemale" Clicked="FemaleButtonClicked" Grid.Row="4" Grid.Column="1" Image="female.png" Margin="25,10,25,10" BackgroundColor="#00BCD4"/>
-    <Button x:Name="btnStartTour" Clicked="StartTourButtonClicked" Text="Führung starten" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,0,25,0" FontSize="Large" BackgroundColor="#00BCD4"/>
-    <Button x:Name="btnLogout" Clicked="LogoutButtonClicked" Text="Abmelden" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,0,25,0" FontSize="Large" BackgroundColor="#00BCD4"/>
+    <Button x:Name="btnMale" BorderWidth="100" BorderColor="Black" Clicked="MaleButtonClicked" Grid.Row="4" Grid.Column="0" Image="male.png" Margin="25,10,25,10" BackgroundColor="Transparent"/>
+    <Button x:Name="btnFemale" BorderWidth="100" Clicked="FemaleButtonClicked" Grid.Row="4" Grid.Column="1" Image="female.png" Margin="25,10,25,10" BackgroundColor="Transparent"/>
+    <Button x:Name="btnStartTour" Clicked="StartTourButtonClicked" Text="Führung starten" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,0,25,0" FontSize="Large" BackgroundColor="#616161" TextColor="White"/>
+    <Button x:Name="btnLogout" Clicked="LogoutButtonClicked" Text="Abmelden" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="25,0,25,0" FontSize="Large" BackgroundColor="#616161" TextColor="White"/>
   </Grid>
   </ScrollView>
 </ContentPage>

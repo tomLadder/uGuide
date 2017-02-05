@@ -17,10 +17,13 @@ namespace uGuide.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+
+            //Bad practice but who cares =) lg lons
             this.lblSubject.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
             this.lblDescription.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
             this.lblName.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
             this.lblGrade.FontSize = Device.GetNamedSize((NamedSize.Large), typeof(Label)) + 5;
+
             FillDetails(stationID);
         }
 
@@ -28,7 +31,16 @@ namespace uGuide.Pages
         {
             try
             {
-                Station station = await uGuideService.Instance.GetStation(stationID);
+                Station station = null;
+                station = uGuideService.Instance.GetPreloadedStation(stationID);
+                if (station != null)
+                {
+                    txtName.Text = station.Name;
+                    txtGrade.Text = station.Grade.ToString();
+                    txtSubject.Text = station.Subject;
+                    txtDescription.Text = station.Description;
+                }
+                station = await uGuideService.Instance.GetStation(stationID);
                 txtName.Text = station.Name;
                 txtGrade.Text = station.Grade.ToString();
                 txtSubject.Text = station.Subject;
@@ -36,7 +48,7 @@ namespace uGuide.Pages
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Fehler", "Stationsabfrage war nicht erfolgreich! \nGrund: " + ex.Message, "OK");
+                await DisplayAlert("Fehler", "Stationsabfrage war nicht erfolgreich! \nGrund: " + ex.ToString(), "OK");
                 Navigation.InsertPageBefore(new ScanPage(), this);
                 await Navigation.PopAsync();
             }
@@ -72,7 +84,7 @@ namespace uGuide.Pages
             {
                 this.btnBack.IsEnabled = true;
                 this.btnStopTour.IsEnabled = true;
-                await DisplayAlert("Fehler:", "Führung konnte nicht beendet werden! \nGrund: " + ex.Message, "OK");
+                await DisplayAlert("Fehler:", "Führung konnte nicht beendet werden! \nGrund: " + ex.ToString(), "OK");
             }
         }
 

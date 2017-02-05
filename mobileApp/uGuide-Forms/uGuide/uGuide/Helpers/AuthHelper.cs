@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Principal;
 using PCLCrypto;
 
-namespace uGuide.Data
+namespace uGuide.Helpers
 {
     class AuthHelper
     {

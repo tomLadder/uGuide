@@ -1,4 +1,4 @@
-﻿namespace uGuide.Data.Models
+﻿namespace uGuide.Data.Models.Enumerations
 {
     public enum FeedbackType
     {

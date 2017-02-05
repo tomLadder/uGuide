@@ -1,0 +1,49 @@
+Features:
+DONE:
+neuer webservice für offline packages
+Bei jeder eigenen exception einfach login/scan nicht erfolgreich statt task cancel usw
+Enum return bei exception thomi
+visitorId beim startScan mitgeliefert wenn startScan siehe skype spec
+
+TODO:
+Exception handling outside machen
+IN PROGRESS:
+ToDo farbig mit backend call ob ausgelastet
+
+TEST:
+local speicher -> sql lite
+synchroniserungs punkt
+
+BUGS:
+
+NO REPRODUCE:
+Feedback Freitext crash raus clicken -> testen/reproduce -> not re
+
+FIXED:
+Führung fortsezten nein oder wo anders nein bei einem dialog
+falsches frauenzeichen
+Buttons andere farbe wegen gedrückt nicht gedrückt
+
+TODO:
+abstürze im offline modus
+
+CONFIRMED:
+
+Problem mit task canceled
+
+
+
+NOTES: 
+
+Offlinefähigkeit
+einfachste lösung: 
+bei allen fällen am ender einer führung synchroniserung
+Problem: keine Echtzeitlösung, Sprint verletzt
+
+beste Lösung:
+Führung läuft offline, bei bestimmten punkten synchronisieren
+
+api/notifcations
+body { userId, stationId }
+
+

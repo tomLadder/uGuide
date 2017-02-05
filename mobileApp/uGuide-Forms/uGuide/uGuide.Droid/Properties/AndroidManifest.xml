@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="uGuide.uGuide" android:installLocation="auto" android:versionCode="1" android:versionName="Jellybean">
-	<uses-sdk android:minSdkVersion="19" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="uGuide.uGuide" android:installLocation="auto" android:versionName="Release 6" android:versionCode="6">
+	<uses-sdk android:minSdkVersion="15" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.INSTALL_PACKAGES" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<application android:icon="@drawable/icon" android:label="uGuide"></application>
+	<application android:icon="@drawable/logo" android:label="uGuide"></application>
 </manifest>

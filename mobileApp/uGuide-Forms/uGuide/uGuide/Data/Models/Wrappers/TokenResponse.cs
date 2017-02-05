@@ -5,18 +5,23 @@ using System.Text;
 
 namespace uGuide.Data.Models.Wrappers
 {
-    class TokenResponse
+    using Newtonsoft.Json;
+
+    public class TokenResponse
     {
         public class User
         {
-            public string _id;
-            public string username;
-            public string type;
+            [JsonProperty("_id")]
+            public string Id { get; set; }
+
+            public string Username { get; set; }
+
+            public string Type { get; set; }
         } 
 
-        public string token;
+        public string Token { get; set; }
 
-        public User user;
+        public User user { get; set; }
         
     }
 }

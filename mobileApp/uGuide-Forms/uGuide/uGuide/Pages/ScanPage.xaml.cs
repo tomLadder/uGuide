@@ -25,10 +25,10 @@ namespace uGuide.Pages
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
             zxing.OnScanResult += (res) =>
-                Device.BeginInvokeOnMainThread(async () => {
+                Device.BeginInvokeOnMainThread(async () => 
+                {
                     try
                     {
-
                         // Stop analysis until we navigate away so we don't keep reading barcodes
                         zxing.IsAnalyzing = false;
                         string result = res.ToString();
@@ -46,18 +46,23 @@ namespace uGuide.Pages
                                 Navigation.InsertPageBefore(new FeedbackPage(), this);
                                 await Navigation.PopAsync();
                             }
+                            else if (result == Station.SyncPoint)
+                            {
+                                await uGuideService.Instance.SynchronizeData();
+                                await DisplayAlert("Erfolg", "Daten wurden synchronisiert!", "OK");
+                                zxing.IsAnalyzing = true;
+                            }
                             else
                             {
                                 await uGuideService.Instance.NotifyServer(result);
                                 Navigation.InsertPageBefore(new StationDetailsPage(result), this);
                                 await Navigation.PopAsync();
-
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        await DisplayAlert("Fehler", ex.Message, "OK");
+                        await DisplayAlert("Fehler", ex.ToString(), "OK");
                         zxing.IsAnalyzing = true;
                     }
                 });
@@ -68,7 +73,9 @@ namespace uGuide.Pages
                 BottomText = "Scanning will happen automatically",
                 ShowFlashButton = zxing.HasTorch,
             };
-            overlay.FlashButtonClicked += (sender, e) => {
+
+            overlay.FlashButtonClicked += (sender, e) => 
+            {
                 zxing.IsTorchOn = !zxing.IsTorchOn;
             };
             var grid = new Grid
@@ -78,6 +85,7 @@ namespace uGuide.Pages
             };
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
+
             // The root page of your application
             Content = grid;
         }

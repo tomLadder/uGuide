@@ -16,13 +16,14 @@
         <Image Grid.Row="1" Source="logo.png" HorizontalOptions="Center"/>
         <Label Grid.Row="2" TextColor="White" Text="uGuide" FontSize="23" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
         <Label Grid.Row="3" TextColor="White" Text="Anmeldung" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"/>
-        <Label Grid.Row="4" Margin="0, 0, 10, 0" TextColor="White" Text="Version 1.3" FontAttributes="Italic" FontSize="16" HorizontalTextAlignment="End" VerticalTextAlignment="Start"/>
+        <Label Grid.Row="4" Margin="0, 0, 10, 0" TextColor="White" Text="Version 6.0" FontAttributes="Italic" FontSize="16" HorizontalTextAlignment="End" VerticalTextAlignment="Start"/>
       </Grid>
       <StackLayout Spacing="5">
         <Entry x:Name="txtUsername" Margin="10" Placeholder="Benutzername" PlaceholderColor="#757575" FontSize="Large"/>
         <Entry x:Name="txtPassword" Margin="10" Placeholder="Passwort" PlaceholderColor="#757575" IsPassword="true" FontSize="Large"/>
-        <Button x:Name="btnLogin" Text="Anmelden" Clicked="BtnLogin_OnClicked" FontSize="Large" BackgroundColor="#00BCD4"/>
-        <Button x:Name="btnExit" Text="Beenden"  Clicked="BtnExit_OnClicked" FontSize="Large"/>
+        <Entry x:Name="txtHostUrl" Margin="10" Placeholder="IP und Port" PlaceholderColor="#757575" FontSize="Large"/>
+        <Button x:Name="btnLogin" Text="Anmelden" Clicked="BtnLogin_OnClicked" FontSize="Large" BackgroundColor="#616161" TextColor="White"/>
+        <Button x:Name="btnExit" Text="Beenden" IsVisible="False" FontSize="Large"/>
       </StackLayout>
     </StackLayout>
   </ScrollView>

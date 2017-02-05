@@ -6,7 +6,7 @@
   <ScrollView>
     <StackLayout Spacing="5">
       <StackLayout>
-        <StackLayout Orientation="Horizontal" BackgroundColor="#388E3C">
+        <StackLayout Orientation="Horizontal" BackgroundColor="#388E3C" Margin="0,5,0,0">
           <Image Source="icon_station_name.png" Margin="5" VerticalOptions="Center"></Image>
           <Label x:Name="lblName" Text="Stationsname" VerticalOptions="Center" VerticalTextAlignment="Center" FontSize="Medium" TextColor="White" FontAttributes="Bold"></Label>
         </StackLayout>
@@ -33,9 +33,9 @@
         </StackLayout>
         <Label x:Name="txtDescription" Text="Ein Schulprojekt aus dem Gegenstand SYP. App wird von Guide am TdoT verwendet um der Abteilung eine bessere Übersicht über den Status der Guide zu bekommen. BLA BAL bla bla bla bla " FontSize="Large" HorizontalTextAlignment="Center"></Label>
       </StackLayout>
-      <StackLayout Orientation="Horizontal" >
-        <Button x:Name="btnBack" HorizontalOptions="CenterAndExpand" Image ="icon_scannen.png" Clicked="BtnBack_OnClicked" BackgroundColor="#00BCD4"></Button>
-        <Button x:Name="btnStopTour" HorizontalOptions="CenterAndExpand" Image="icon_fuehrung_abbrechen.png" Clicked="BtnStopTour_OnClicked" BackgroundColor="#FF0000"></Button>
+      <StackLayout Orientation="Vertical" >
+        <Button x:Name="btnBack" HorizontalOptions="CenterAndExpand" Image ="icon_scannen.png" Clicked="BtnBack_OnClicked" BackgroundColor="#616161" TextColor="White"></Button>
+        <Button x:Name="btnStopTour" HorizontalOptions="FillAndExpand" Text="Führung beenden" FontSize="Large" Clicked="BtnStopTour_OnClicked" BackgroundColor="#FF0000"></Button>
       </StackLayout>
     </StackLayout>
   </ScrollView>

@@ -1,17 +1,31 @@
 ﻿namespace uGuide.Data.Models
 {
+    using Android.Graphics;
+
     public class ToDoStation
     {
-        private string Name { get; set; }
-
-        public ToDoStation(string name)
+        public ToDoStation(string id, string name)
         {
-            Name = name;
+            this.Id = id;
+            this.Name = name;
         }
+
+        public ToDoStation(string id, string name, bool occupationStatus)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.OccupationStatus = occupationStatus;
+        }
+
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public bool OccupationStatus { get; set; }
 
         public override string ToString()
         {
-            return $"{nameof(Name)}: {Name}";
+            return Name;
         }
     }
 }

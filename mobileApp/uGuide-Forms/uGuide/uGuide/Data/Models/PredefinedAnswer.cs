@@ -3,15 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace uGuide.Data.Models
 {
+    using Newtonsoft.Json;
+
     public class PredefinedAnswer
     {
-        public string _Id { get; set; }
-        public string Answer { get; set; }
-
-
-        public PredefinedAnswer(string _id, string answer)
+        public PredefinedAnswer(string id, string answer)
         {
-            this._Id = _id;
+            this.Id = id;
             this.Answer = answer;
         }
 
@@ -19,5 +17,9 @@ namespace uGuide.Data.Models
         {
         }
 
+        [JsonProperty("_id")]
+        public string Id { get; set; }
+
+        public string Answer { get; set; }
     }
 }

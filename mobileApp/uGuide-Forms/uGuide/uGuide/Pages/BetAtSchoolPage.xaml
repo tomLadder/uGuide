@@ -5,6 +5,7 @@
     Title="BetAtSchool">
     <ContentPage.Content>
       <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+        <Button Text ="Neu laden" FontSize="Large" x:Name="btnRefresh" Clicked="BtnRefresh_OnClicked"></Button>
         <WebView x:Name="Browser" WidthRequest="1000" HeightRequest="1000" />
       </StackLayout>
     </ContentPage.Content>

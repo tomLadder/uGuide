@@ -12,6 +12,11 @@ using ZXing.Mobile;
 
 namespace uGuide.Pages
 {
+    using System.Runtime.CompilerServices;
+
+    using uGuide.Data;
+    using uGuide.Data.Models;
+
     public partial class MainPage : TabbedPage
     {
         public MainPage()
@@ -20,10 +25,10 @@ namespace uGuide.Pages
             this.Children.Add(new uGuideMainPage());
             this.Children.Add(new BetAtSchoolPage());
         }
+
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
-
     }
 }

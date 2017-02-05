@@ -5,9 +5,16 @@ using System.Text;
 
 namespace uGuide.Data.Models.Wrappers
 {
-    class ChallengeResponse
+    public class ChallengeResponse
     {
-        public string Challenge;
-        public bool Valid;
+        public ChallengeResponse(string challenge, bool valid)
+        {
+            this.Challenge = challenge;
+            this.Valid = valid;
+        }
+
+        public string Challenge { get; set; }
+
+        public bool Valid { get; set; }
     }
 }
