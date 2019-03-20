@@ -1,0 +1,47 @@
+Strart/End - Punkt fixe id: 
+Kein Get Station nur Notification
+Wenn Endpunkt dann zum Feedback
+
+
+
+FeedBack:
+
+Keine Fragen sondern mehrere vorgefertige Antworten kommen vom Webservice
+Optionaler Freitext
+Rating
+
+Object
+
+{
+	Enum Rating:
+	Postitive = 1
+	Negative = 2
+	string[] vorgefertigteAntworten
+	string freiText
+}
+
+Zeiterfassung:
+
+Webservice gibt History back:
+
+History Object:
+
+List<Station>
+Enum Status
+1 Besucht
+2 Todo
+string StationName
+
+Button Farbe geben Background Color
+
+Alle Views vorbereiten -> Feedback geben
+
+
+TODO::
+Überall OnBackButtonPressed überschreiben!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dev Button zu Abbrechen ändern und rot machen -> Call Webservice CancelTour 
+MultipleSelect Listview impl
+Am Anfang nach Login WebService call ob User schon eine Führung macht, wenn ja dann Fragen ob User fortsetzen will, 
+wenn ja zu der Führung zurückkehren, wenn nein zu Neue Führung gehen und CAncelTour callen
+
+

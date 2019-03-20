@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="uGuide.Pages.LoginPage"
+             Title="Führung">
+  <ScrollView>
+    <StackLayout Spacing="10">
+      <Image Source="logo.png"/>
+      <Entry x:Name="txtUsername" FontSize="Large"/>
+      <Entry x:Name="txtPassword" IsPassword="true" FontSize="Large"/>
+      <Button x:Name="btnLogin" Text="Anmelden" Clicked="BtnLogin_OnClicked" FontSize="Large" BackgroundColor="#00BCD4"/>
+      <Button x:Name="btnExit" Text="Beenden"  Clicked="BtnExit_OnClicked" FontSize="Large"/>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
