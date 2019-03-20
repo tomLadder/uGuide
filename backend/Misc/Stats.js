@@ -47,6 +47,33 @@ exports.getVisitorStats = function(tdotid, resultCallback) {
 }
 
 exports.getFeedbackStats = function(tdotid, resultCallback) {
+    resultCallback(
+        {
+            Total: 14,
+            Positive: 12,
+            Negative: 2,
+            PositivePercent: Math.round(12 / 14 * 100),
+            NegativePercent: Math.round(2 / 14 * 100),
+            PositiveFeedbacks: [
+                "feedback 1",
+                "feedback 2"
+            ],
+            NegativeFeedbacks: [
+                "nfeedback 1",
+                "nfeedback 2"
+            ],
+            //add here
+            PredefinedFeedbacks: [
+                {
+                    _id: "Essen war gut!",
+                    Quantity: 12
+                }
+            ]
+        }
+    );
+
+    return;
+
     countPositiveFeedback(tdotid,  function(positiveCount) {
         countNegativeFeedback(tdotid, function(negativeCount) {
             var totalCount = positiveCount + negativeCount;
