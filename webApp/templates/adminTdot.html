@@ -1,0 +1,179 @@
+<div id="wrapper" ng-controller="adminNavCtrl">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li><a href="#" ng-click="logout()">Logout&nbsp;<i class="fa fa-sign-out"></i></a></li>            
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li class="active">
+                    <a href="#tdotManagement"><i class="fa fa-fw fa-pencil-square-o"></i>  TdoT Management</a>
+                </li>
+                <li>
+                    <a href="#userManagement"><i class="fa fa-fw fa-user-o"></i> User Management</a>
+                </li>
+                <li>
+                    <a href="#stationView"><i class="fa fa-fw fa fa-list"></i> Stationsübersicht</a>
+                </li>
+                <li>
+                    <a href="#tdotMap"><i class="fa fa-fw fa fa-map"></i> Lageplan</a>
+                </li>
+                <li>
+                    <a href="#dashboard"><i class="fa fa-fw fa fa-line-chart"></i> Dashboard</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper" ng-controller="adminTdotCtrl" data-ng-init="init()">
+        <!-- Alert Line BEGIN -->
+        <div class="alert fade in alert-fixed" ng-show="alert.show" ng-class="'alert-' + (alert.type || 'warning')">
+            <a href="" ng-click="resetAlert()" class="close" aria-label="close">&times;</a>
+            <strong>{{alert.title}}</strong> {{alert.message}}
+        </div>
+        <!-- Alert Line END -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row" id="main" >
+                <div class="col-sm-12 col-md-12 rootContainer" id="content">
+                    <!-- Container content -->
+                    <div>
+                        <h1 class="page-header">TdoT Management</h1>
+                        <div class="btn-group btn-group-justified stationBar" role="group">
+                            <div class="btn-group" role="group" ng-repeat="t in tdots">
+                                <button type="button" class="btn btn-default stationButton btn-xs" ng-disabled="t.IsCurrent" ng-click="setCurrentTdot(t)">{{t.Year}}</button>
+                            </div>
+                        </div>
+                        <div class="container contentContainer">
+                            <div class="form-group spinner">
+                                <label>Jahr</label>
+                                <select class="form-control" ng-model="newTdot.Year" required>
+                                    <option ng-repeat="item in nextTdots">{{item}}</option>
+                                </select>
+                            </div>
+                            <button class="greenbutton" ng-click="addTdot()">Add</button>
+                            <div class="checkbox checkbox-danger form-control checkboxContainer" ng-mouseover="showLockInfo()" ng-mouseleave="removeLockInfo()">
+                                <label><input type="checkbox" ng-model="currentTdot.IsLocked" ng-click="toggleLockTdot()">Current TdoT is locked</label>
+                            </div>
+                        </div>
+
+                        <div class="containerEditor contentContainer">
+                            <div class="form-group spinner">
+                                <label>Map-Editor</label></br>
+
+                                <div id="inputDivTag">
+                                    <input type="text" class="form-control" ng-model="tag" placeholder="Tag" ng-minlength="1" ng-maxlength="10">
+                                    <button class="greenbutton" type="button" ng-click="addPoint()">Add new Tag</button>
+                                    <!--<div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="button" ng-click="addPoint()">Add</button>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="tag" placeholder="Tag" ng-minlength="1" ng-maxlength="10">
+                                    </div>-->
+                                </div>
+
+                                <canvas id="canvas" back-img="{{base64Image}}"
+                                    ng-click="canvasClicked($event)" ng-mousemove="onMove($event)">
+                                </canvas>
+
+                                <div class="tableSectionPosition">
+                                    <table>
+                                        <tr>
+                                            <th>Tag</th>
+                                            <th>X-Coord</th>
+                                            <th>Y-Coord</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        <tr ng-repeat="point in data">
+                                            <td>{{point.tag}}</td>
+                                            <td>{{point.x}}</td>
+                                            <td>{{point.y}}</td>
+                                            <td>
+                                                <button type="button" class="tableBtn btn btn-default" aria-label="Left Align" ng-click="removePoint(point)">
+                                                    <span class="fa fa-trash-o" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!--<ul>
+                                        <li ng-repeat="point in data">
+                                            [{{point.x}}, {{point.y}}, {{point.tag}}] <button class="btn btn-danger" type="button" ng-click="removePoint(point)">Remove</button>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </div>
+
+                            <button class="greenbutton" type="button" ng-click="saveMap()">Save</button>
+
+                            <button class="greenbutton" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+                                        accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                                    Select a Map</button>
+
+                            <label class="custom-file">
+                                <!--<button class="greenbutton" type="button" ng-click="saveMap()">Save</button></br></br>-->
+
+                                <!--<button class="greenbutton" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+                                        accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                                    Select a Map</button>-->
+                                <br><br>
+                                Selected Map (filename):
+                                <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                                </div>  
+                                <span class="custom-file-control"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
+
+<!--<div class="container contentContainer">
+                            <div class="input-group spinner">
+                                <input type="text" class="form-control" value="2017" min="2016" max="2050" ng-model="newTdot.Year">
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                $(function(){
+                                    $('.spinner .btn:first-of-type').on('click', function() {
+                                    var btn = $(this);
+                                    var input = btn.closest('.spinner').find('input');
+                                    if (input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max'))) {    
+                                        input.val(parseInt(input.val(), 10) + 1);
+                                    } else {
+                                        btn.next("disabled", true);
+                                    }
+                                    });
+                                    $('.spinner .btn:last-of-type').on('click', function() {
+                                    var btn = $(this);
+                                    var input = btn.closest('.spinner').find('input');
+                                    if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))) {    
+                                        input.val(parseInt(input.val(), 10) - 1);
+                                    } else {
+                                        btn.prev("disabled", true);
+                                    }
+                                    });
+                                })
+                            </script>
+                            <button class="greenbutton" ng-click="addTdot()">Add</button>
+                        </div>-->

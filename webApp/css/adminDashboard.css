@@ -1,0 +1,171 @@
+body {
+    background-color: #D2E5DA;
+}
+
+.rootContainer {
+    padding: 20px;
+}
+
+.greenbutton {
+  outline: 0;
+  background: #1c7d44;
+  width: 10%;
+  border: 0;
+  padding: 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+
+  float: right;
+}
+
+/* Button Panel Style BEGIN */
+.stationBar {
+  width: 100%;
+  margin: 20px;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*bei mehreren Elementen display: block;*/
+}
+
+.stationButton {
+  outline: 0;
+  background: #FFFFFF;
+  border: 3px solid black;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+/* Button Panel Style END */
+
+/* Panel Style BEGIN */
+
+.panelShadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.panel-heading {
+  color: #FFF;
+  background-color: #1c7d44;
+}
+
+.panel {
+  border-color: #1c7d44;
+  margin: 20px;
+}
+
+/* Panel Style END */
+
+/* Chart Style BEGIN */
+
+.chartBackground {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.chartContainer {
+    color: #FFF;
+    text-align: center;
+
+    background-color: #1c7d44;
+    border-radius: 10px;
+    padding: 30px;
+
+    margin: 20px;
+}
+
+.chart-small {
+    height: 20px;
+    width: 30px;
+}
+
+.chart-medium {
+    height: 40px;
+    width: 60px;
+}
+
+.chart-large {
+    height: 80px;
+    width: 120px;
+}
+
+/* Chart Style END */
+
+.card {
+    color: #FFF;
+    background-color: #1c7d44;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    padding: 10px;
+    margin: 20px;
+
+    align-items: center;
+}
+
+.card-large {
+    font-size: 50px;
+}
+
+.card-medium {
+    font-size: 30px;
+}
+
+.card-small {
+    font-size: 10px;
+}
+
+.dashboardTable {
+    background: #1c7d44;
+    color: #FFF;
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+.table-fixed thead {
+  width: 97%;
+}
+
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+.mapCustomMarker {
+    color: #FFF;
+    background-color: #1e8d84;
+    padding: 2px;
+
+    border-radius: 5px;
+
+    text-align: center;
+    font-weight: bold;
+}

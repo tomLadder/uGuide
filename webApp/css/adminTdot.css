@@ -1,0 +1,157 @@
+body {
+    background-color: #D2E5DA;
+}
+
+.rootContainer {
+    padding: 20px;
+}
+
+.stationBar {
+  width: 100%;
+  margin: 20px;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*bei mehreren Elementen display: block;*/
+}
+
+.stationButton {
+  outline: 0;
+  background: #FFFFFF;
+  border: 3px solid black;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.contentContainer {
+    padding: 30px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #FFF;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.containerEditor {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top:15px;
+}
+.containerEditor:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.greenbutton {
+  outline: 0;
+  background: #1c7d44;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.spinner {
+  text-align: center
+}
+
+.checkboxContainer {
+  text-align: center; 
+}
+
+#canvas {
+  border: 1px gray solid;  
+  background-position: center;
+  background-size: 100% 100%; 
+  margin: 0 auto;
+}
+
+#inputDivTag {
+  margin: 10px;
+}
+
+.thumb {
+    width: 24px;
+    height: 24px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+form .progress {
+    line-height: 15px;
+}
+
+.progress {
+    display: inline-block;
+    width: 100px;
+    border: 3px groove #CCC;
+}
+
+.progress div {
+    font-size: smaller;
+    background: orange;
+    width: 0;
+}
+
+/* Table style BEGIN */
+table{
+    margin: auto;
+    border: 2px solid black;
+}
+.tableSectionPosition{
+    position: relative;
+    /*z-index: 1;*/
+    padding: 30px;
+    text-align: center;
+
+    width: 100%;
+}
+th {
+    background-color: #1c7d44!important;
+    color: white!important;
+}
+th, td, td > input {
+    text-align: center!important;
+    padding: 8px!important;
+}
+tr:nth-child(even) {background: #c0f2d5}
+tr:nth-child(odd) {background: #FFF}
+
+.tableBtn{
+    background-color: transparent!important;
+    border: none!important;
+}
+
+/* Table style END */

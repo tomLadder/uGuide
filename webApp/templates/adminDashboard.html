@@ -1,0 +1,233 @@
+<div id="wrapper" ng-controller="adminNavCtrl">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li><a href="#" ng-click="logout()">Logout&nbsp;<i class="fa fa-sign-out"></i></a></li>            
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li>
+                    <a href="#tdotManagement"><i class="fa fa-fw fa-pencil-square-o"></i>  TdoT Management</a>
+                </li>
+                <li>
+                    <a href="#userManagement"><i class="fa fa-fw fa-user-o"></i> User Management</a>
+                </li>
+                <li>
+                    <a href="#stationView"><i class="fa fa-fw fa fa-list"></i> Stationsübersicht</a>
+                </li>
+                <li>
+                    <a href="#tdotMap"><i class="fa fa-fw fa fa-map"></i> Lageplan</a>
+                </li>
+                <li class="active">
+                    <a href="#dashboard"><i class="fa fa-fw fa fa-line-chart"></i> Dashboard</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper" ng-controller="adminDashboardCtrl" data-ng-init="init()">
+        <!-- Alert Line BEGIN -->
+        <div class="alert fade in alert-fixed" ng-show="alert.show" ng-class="'alert-' + (alert.type || 'warning')">
+            <a href="" ng-click="resetAlert()" class="close" aria-label="close">&times;</a>
+            <strong>{{alert.title}}</strong> {{alert.message}}
+        </div>
+        <!-- Alert Line END -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row" id="main" >
+                <div class="col-sm-12 col-md-12 rootContainer" id="content">
+                    <div class="contentContainer">
+                        <h1 class="page-header">Dashboard - {{selectedTdot.Year}} <button class="greenbutton" ng-hide="!selectedTdot" ng-click="downloadStatisticExport()">Export</button></h1>
+                        <div class="btn-group btn-group-justified stationBar" role="group">
+                            <div class="btn-group" role="group" ng-repeat="t in tdots">
+                                <button type="button" class="btn btn-default stationButton btn-xs" ng-click="setSelectedTdot(t)">{{t.Year}}</button>
+                            </div>
+                        </div>
+
+                        <div ng-hide="!selectedTdot">
+                            <!-- Dashboard Content BEGIN -->
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Visitor Count</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-mars"></i>{{tdotStats.BasicStats.Male}} ({{tdotStats.BasicStats.MalePercent}}%)</p>
+                                            </div>
+                                            <div class="card card-large">
+                                                <p>Total {{tdotStats.BasicStats.Total}}</p>
+                                            </div>
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-venus"></i>{{tdotStats.BasicStats.Female}} ({{tdotStats.BasicStats.FemalePercent}}%)</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="chartContainer">
+                                                <h3>Gender - Overview</h3>
+                                                <div class="chartBackground">
+                                                    <canvas id="bar" class="chart chart-bar" chart-data="dataGender" chart-labels="labelsGender" chart-series="seriesGender" chart-options="optionsGender"</canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dashboard Content END -->
+
+                            <!-- Dashboard Content BEGIN -->
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Visitor Locations</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-8">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="chartContainer">
+                                                <h3>Zip Counts</h3>
+                                                <div class="chartBackground">
+                                                    <canvas id="doughnut" class="chart chart-doughnut"
+                                                    chart-data="dataLocation" chart-labels="labelsLocation">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-map-signs"></i>{{tdotStats.VisitorStats.length}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="chartContainer">
+                                                <h3>Zip Map</h3>
+                                                <div class="chartBackground">
+                                                    <ng-map center="9500 Villach" zoom="6">
+                                                        <!--<marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}"></marker>-->
+                                                        <custom-marker ng-repeat="item in tdotStats.VisitorStats" position="{{item._id + ' Austria'}}">
+                                                            <div class="mapCustomMarker">
+                                                                {{item._id}} - {{item.count}}x
+                                                            </div>
+                                                        </marker>
+                                                    </ng-map>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dashboard Content END -->
+
+                            <!-- Dashboard Content BEGIN -->
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Tour Stats</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p>{{tdotStats.BasicStats.AvgTourDuration}} AvgDuration</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p>{{tdotStats.BasicStats.FinishedTours}} Finished</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dashboard Content END -->
+
+                            <!-- Dashboard Content BEGIN -->
+                            <div class="panel panelShadow">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Feedback</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="chartContainer">
+                                                <h3>Predefined feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.PredefinedFeedbacks">
+                                                            <td class="col-xs-10">{{item._id}}</td>
+                                                            <td class="col-xs-2">{{item.Quantity}}x</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-thumbs-o-up"></i>{{tdotStats.FeedbackStats.Positive}}({{tdotStats.FeedbackStats.PositivePercent}}%)</p>
+                                            </div>
+                                            <div class="chartContainer">
+                                                <h3>Positive feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.PositiveFeedbacks track by $index">
+                                                            <td class="col-xs-12">{{item}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card card-medium">
+                                                <p><i class="fa fa-fw fa-thumbs-o-down"></i>{{tdotStats.FeedbackStats.Negative}}({{tdotStats.FeedbackStats.NegativePercent}}%)</p>
+                                            </div>
+                                            <div class="chartContainer">
+                                                <h3>Negative feedback</h3>
+                                                <table class="table table-fixed dashboardTable">
+                                                    <tbody>
+                                                        <tr ng-repeat="item in tdotStats.FeedbackStats.NegativeFeedbacks track by $index">
+                                                            <td class="col-xs-12">{{item}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dashboard Content END -->
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div><!-- /#wrapper -->
