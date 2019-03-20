@@ -9,6 +9,16 @@ var Feedback            = require('../Models/Feedback');
 var moment              = require('moment');
 
 exports.getBasicStats = function(tdotid, resultCallback) {
+    resultCallback(
+        {
+            Total: 100, Male: 58, Female: 42, MalePercent: 58, FemalePercent: 42, 
+            AvgTourDuration: '52.5 Minuten',
+            FinishedTours: 89 
+        }
+    );
+
+    return;
+
     countVisitorMale(tdotid, function(male) {
         countVisitorFemale(tdotid, function(female) {
             var total = male + female;
@@ -192,18 +202,22 @@ function getPredefinedFeedbacks(tdotid, resultCallback) {
 
             //Sorry for this ugly piece of code :(
             //But $lookup is only supported on mongodb >= 3.2
-            answers = answers.map(function(answer) {
-                var preansw = predefanswers.find(function(predefanswer) {
-                    return new String(answer._id).valueOf() == new String(predefanswer._id).valueOf();
+            if(answers) {
+                answers = answers.map(function(answer) {
+                    var preansw = predefanswers.find(function(predefanswer) {
+                        return new String(answer._id).valueOf() == new String(predefanswer._id).valueOf();
+                    });
+                    if(preansw != undefined) {
+                        answer._id = preansw.Answer;
+                    }
+    
+                    return answer;
                 });
-                if(preansw != undefined) {
-                    answer._id = preansw.Answer;
-                }
-
-                return answer;
-            });
-
-            resultCallback(answers);
+    
+                resultCallback(answers);
+            } else {
+                resultCallback([]);
+            }
         });
     });
 }
@@ -253,8 +267,8 @@ function getVisitors(tdotid, resultCallback) {
     ], function (err, visitors) {
         if(err || visitors == undefined) {
             resultCallback([]);
+            return;
         }
-
         resultCallback(visitors);
     });
 }
