@@ -1,7 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var crypto = require('crypto');
-var errorManager = require('../ErrorManager/ErrorManager');
+var express             = require('express');
+var router              = express.Router();
+var crypto              = require('crypto');
+var errorManager        = require('../ErrorManager/ErrorManager');
+var ErrorType           = require('../ErrorManager/ErrorTypes');
 
 var challenges = {};
 
@@ -15,6 +16,6 @@ router.post('/challenge', function(req, res, next) {
     challenges[req.body.username] = {challenge: crypto.randomBytes(32).toString('hex'), valid: true};
     res.send(challenges[req.body.username]);
   } else {
-    return next(errorManager.generate403Forbidden('No username provided.'));
+    return next(errorManager.generate403Forbidden('No username provided.', ErrorType.ERROR_NO_USERNAME_PROVIDED));
   }
 });

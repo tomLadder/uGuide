@@ -9,15 +9,20 @@
   "author": "Thomas Leiter",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.1.4",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
+    "jsonschema": "^1.1.1",
     "moment": "^2.17.1",
     "mongoose": "^4.6.5",
     "njwt": "^0.3.1",
+    "officegen": "^0.4.0",
     "qr-image": "^3.1.0",
+    "randomstring": "^1.1.5",
     "sha256": "^0.2.0",
+    "socket.io": "^1.7.2",
     "xtend": "^4.0.1"
   }
 }

@@ -10,12 +10,12 @@ var GenderType          = require('../Models/GenderType');
 var UserType            = require('../Models/UserType');
 
 exports.GenerateTestData = function() {
-    GenerateTdots();
-    GenerateUsers();
-    GenerateStations();
-    GenerateVisitors();
+    //GenerateTdots();
+    //GenerateUsers();
+    //GenerateStations();
+    //GenerateVisitors();
     GeneratePredefinedAnswer();
-    GenerateNotifications();
+    //GenerateNotifications();
 }
 
 function GenerateTdots() {
@@ -27,15 +27,17 @@ function GenerateTdots() {
     Tdot.remove(function(err,removed) {
         var objs = 
         [
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Year: 2015, 
-                IsCurrent: false 
-            },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+            //     Year: 2015, 
+            //     IsCurrent: false,
+            //     IsLocked: false
+            // },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000001'), 
                 Year: 2016, 
-                IsCurrent: true 
+                IsCurrent: true,
+                IsLocked: false
             }
         ];
 
@@ -59,25 +61,26 @@ function GenerateUsers() {
                 Username: 'admin', 
                 Type: UserType.ADMIN, 
                 Password: 'admin' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Username: 'station', 
-                Type: UserType.STATION, 
-                Password: 'station' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Username: 'guide', 
-                Type: UserType.GUIDE, 
-                Password: 'guide' 
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Username: 'station2', 
-                Type: UserType.STATION, 
-                Password: 'station2' 
             }
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+            //     Username: 'station', 
+            //     Type: UserType.STATION, 
+            //     Password: 'station' 
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+            //     Username: 'guide', 
+            //     Type: UserType.GUIDE, 
+            //     Password: 'guide' 
+            // },
+            // { 
+            //     _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+            //     Username: 'station2', 
+            //     Type: UserType.STATION, 
+            //     Password: 'station2' 
+            // }
         ];
 
         User.collection.insert(objs, function(err, docs) {
@@ -93,73 +96,59 @@ function GenerateStations() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Station.remove(function(err,removed) {
-        var objs = 
-        [
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Name: 'U1_Station_2015', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Position:'142' 
-            },
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Name: 'U1_Station_2016_1', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
-            },
-            {  
-                _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Name: 'U1_Station_2016_2', 
-                Grade:5, 
-                Subject:'SYP',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
-            }  ,  
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Name: 'U2_Station_2015', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Position:'142' 
-            },
-            {   
-                _id: mongoose.Types.ObjectId('000000000000000000000004'), 
-                Name: 'U2_Station_2016_1', 
-                Grade:1, 
-                Subject:'POS',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
-            },
-            {  
-                _id: mongoose.Types.ObjectId('000000000000000000000005'), 
-                Name: 'U2_Station_2016_2', 
-                Grade:5, 
-                Subject:'SYP',
-                Description:'blablabla', 
-                User: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Position:'141' 
-            }   
-        ];
+        // var objs = 
+        // [
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Name: 'Programmierwerkstatt', 
+        //         Grade:1, 
+        //         Subject:'POS',
+        //         Description:'Beschreibung der Programmierwerkstatt', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     },
+        //     {  
+        //         _id: mongoose.Types.ObjectId('000000000000000000000002'), 
+        //         Name: 'Diplomarbeiten', 
+        //         Grade:5, 
+        //         Subject:'Other',
+        //         Description:'Beschreibung der Diplomarbeiten', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     }  ,  
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Name: 'Wirtschaftsstand', 
+        //         Grade:3, 
+        //         Subject:'BWN',
+        //         Description:'Beschreibung des Wirtschaftsstandes', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //     },
+        //     {   
+        //         _id: mongoose.Types.ObjectId('000000000000000000000004'), 
+        //         Name: 'BSD - Projekte', 
+        //         Grade:1, 
+        //         Subject:'POS',
+        //         Description:'Projekte werden von den Erstellern vorgestellt.', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //     },
+        //     {  
+        //         _id: mongoose.Types.ObjectId('000000000000000000000005'), 
+        //         Name: 'Info-Stand', 
+        //         Grade:5, 
+        //         Subject:'SYP',
+        //         Description:'Allgemeine Informationen über die Abteilung. (Jobaussichten, Gehalt etc.)', 
+        //         User: mongoose.Types.ObjectId('000000000000000000000003'), 
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001'), 
+        //         Position:'100' 
+        //     }   
+        // ];
 
-        Station.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // Station.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 
@@ -170,21 +159,21 @@ function GenerateVisitors() {
     console.log('# Generate ' + name);
     console.log('# Drop ' + name);
     Visitor.remove(function(err,removed) {
-        var objs = 
-        [
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                ZipCode: 9920,
-                Gender: GenderType.MALE,
-                Guide: mongoose.Types.ObjectId('000000000000000000000002'),
-                IsFinished: false,
-                Tdot: mongoose.Types.ObjectId('000000000000000000000001')
-            }
-        ];
+        // var objs = 
+        // [
+        //     { 
+        //         _id: mongoose.Types.ObjectId('000000000000000000000000'), 
+        //         ZipCode: 9920,
+        //         Gender: GenderType.MALE,
+        //         Guide: mongoose.Types.ObjectId('000000000000000000000002'),
+        //         IsFinished: false,
+        //         Tdot: mongoose.Types.ObjectId('000000000000000000000001')
+        //     }
+        // ];
 
-        Visitor.collection.insert(objs, function(err, docs) {
-            console.log('# Inserted ' + name);
-        });
+        // Visitor.collection.insert(objs, function(err, docs) {
+        //     console.log('# Inserted ' + name);
+        // });
     });
 }
 
@@ -199,31 +188,23 @@ function GeneratePredefinedAnswer() {
         [
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000000'), 
-                Answer: 'Alles ok :)'
+                Answer: 'Führung zu kurz'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000001'), 
-                Answer: 'Warum gibt es diesen Tdot?'
+                Answer: 'Führung zu lang'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000002'), 
-                Answer: 'Freue mich schon auf die Kohle'
+                Answer: 'Führungsdauer genau richtig'
             },
             { 
                 _id: mongoose.Types.ObjectId('000000000000000000000003'), 
-                Answer: 'Programmieren ist geil'
+                Answer: 'Führung verständlich'
             },
             { 
-                _id: mongoose.Types.ObjectId('000000000000000000000004'), 
-                Answer: 'Gutes Essen!'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000005'), 
-                Answer: 'Programmierwerkstatt war top!'
-            },
-            { 
-                _id: mongoose.Types.ObjectId('000000000000000000000006'), 
-                Answer: 'Thomas Leiter ist top!'
+                _id: mongoose.Types.ObjectId('000000000000000000000003'), 
+                Answer: 'Führung unverständlich'
             }
         ];
 

@@ -12,9 +12,13 @@ var Station                 = require('./Routes/Station');
 var Notification            = require('./Routes/Notification');
 var Misc                    = require('./Routes/Misc');
 var Answer                  = require('./Routes/PredefinedAnswer');
+var Statistic               = require('./Routes/Statistic');
+var OfflineSupport          = require('./Routes/OfflineSupport');
+var LiveMap                 = require('./Routes/LiveMap');
 var TestDataInitializer     = require('./Misc/TestDataInitializer');
 var UserType                = require('./Models/UserType');
-var PermissionHelper        = require('./Misc/PermissionHelper');      
+var PermissionHelper        = require('./Misc/PermissionHelper');
+var LiveSocket              = require('./Misc/LiveSocket'); 
 var app = express();
 
 /* MongoDB */
@@ -28,29 +32,20 @@ mongoose.connect(connectionString)
   (
     () => {
       console.log('# Sucessfully connected to MongoDB');
-      TestDataInitializer.GenerateTestData();
+      //TestDataInitializer.GenerateTestData();
     }
   )
   .catch((err) => console.error(err));
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
 app.use(cors());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 /*     Routes     */
 app.use('/api', Misc);
-//app.use('/api', Challenge.router);
-//app.use('/api', Auth);
-app.use(function(req, res, next) {
-  //req.token = { type: UserType.ADMIN, permissions: PermissionHelper.getPermissions(UserType.ADMIN), sub: mongoose.Types.ObjectId('000000000000000000000000') }; //Admin
-  req.token = { type: UserType.GUIDE, permissions: PermissionHelper.getPermissions(UserType.GUIDE), sub: mongoose.Types.ObjectId('000000000000000000000002') }; //Guide
-  //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000001') }; //Station
-  //req.token = { type: UserType.STATION, permissions: PermissionHelper.getPermissions(UserType.STATION), sub: mongoose.Types.ObjectId('000000000000000000000003') }; //Station2
-  next();
-});
+app.use('/api', LiveMap);
+app.use('/api', Challenge.router);
+app.use('/api', Auth);
 
 app.use('/api', Tdot);
 app.use('/api', User);
@@ -58,6 +53,8 @@ app.use('/api', Visitor);
 app.use('/api', Station);
 app.use('/api', Notification);
 app.use('/api', Answer);
+app.use('/api', Statistic);
+app.use('/api', OfflineSupport);
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
